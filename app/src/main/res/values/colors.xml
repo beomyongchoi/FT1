@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#22C578</color>
-    <color name="colorPrimaryDark">#22C578</color>
+    <color name="colorPrimary">#0AC775</color>
+    <color name="colorPrimaryDark">#0AC775</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="backGround">@color/defaultGray100</color>
-    <color name="defaultContents">#797979</color>
+    <color name="defaultContents">#666666</color>
 
     <color name="defaultWhite">#ffffff</color>
     <color name="defaultBlack">#000000</color>
@@ -16,7 +16,7 @@
     <color name="defaultGray600">#757575</color>
     <color name="defaultGray400">#BDBDBD</color>
     <color name="defaultGray200">#EEEEEE</color>
-    <color name="defaultGray100">#F0F0F0</color>
+    <color name="defaultGray100">#F5F5F5</color>
 
     <color name="defaultPink">#FF4081</color>
 
