@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@color/defaultWhite"
-        android:id="@+id/textview_title"
+        android:id="@+id/appbarTitle"
         android:textSize="@dimen/sp18" />
 
 </LinearLayout>

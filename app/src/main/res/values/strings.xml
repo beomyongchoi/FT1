@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">핀톡</string>
     <string name="main_title">환영합니다</string>
+
+    <!--투자계산기-->
     <string name="calculator_title">미니 재무 플랜</string>
+    <string name="saving_title">저축</string>
+    <string name="investment_title">투자</string>
+    <string name="debt_title">대출상환</string>
 </resources>

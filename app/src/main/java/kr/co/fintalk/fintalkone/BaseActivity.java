@@ -12,7 +12,7 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 /**
  * Created by beomyong on 6/21/16.
  */
-public class BasicActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +20,7 @@ public class BasicActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
 
-        TextView titleTextView = (TextView) findViewById(R.id.textview_title);
+        TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/GodoM.otf"));
     }
 

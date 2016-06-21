@@ -3,9 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/dummyTextView" />
+    <ListView
+        android:id="@+id/calculatorList"
+        android:background="@color/defaultWhite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:headerDividersEnabled="true"
+        android:divider="@color/defaultDivider"
+        android:dividerHeight="@dimen/dp1"/>
+
 </LinearLayout>

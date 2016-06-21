@@ -7,14 +7,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends BasicActivity {
+import kr.co.fintalk.fintalkone.calculator.CalculatorActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView titleTextView = (TextView) findViewById(R.id.textview_title);
+        TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.main_title);
 
         ListView listview = (ListView)findViewById(R.id.cardScheduleListView);
