@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/dp4"
+    android:paddingBottom="@dimen/dp4">
+
+    <TextView
+        android:layout_width="@dimen/dp0"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardNameTextView"
+        android:textColor="@color/defaultContents"
+        android:gravity="center_vertical"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="@dimen/dp0"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardDateTextView"
+        android:textColor="@color/defaultContents"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="@dimen/dp0"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/backGround">
+
+        <TextView
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:paddingLeft="@dimen/dp6"
+            android:textColor="@color/defaultWhite"
+            android:id="@+id/cardSpentTextView"
+            android:textSize="@dimen/sp12"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_weight="3" />
+
+    </LinearLayout>
+
+</LinearLayout>

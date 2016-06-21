@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#22C578</color>
+    <color name="colorPrimaryDark">#22C578</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="backGround">@color/defaultGray100</color>
+    <color name="defaultContents">#797979</color>
+
+    <color name="defaultWhite">#ffffff</color>
+    <color name="defaultBlack">#000000</color>
+    <color name="defaultCover">#88000000</color>
+    <color name="defaultTransparent">#00000000</color>
+
+    <color name="defaultGray800">#424242</color>
+    <color name="defaultGray600">#757575</color>
+    <color name="defaultGray400">#BDBDBD</color>
+    <color name="defaultGray200">#EEEEEE</color>
+    <color name="defaultGray100">#F0F0F0</color>
+
+    <color name="defaultPink">#FF4081</color>
+
+    <color name="defaultRed">#ff0000</color>
+    <color name="defaultLightRed">#E0335D</color>
+
+    <color name="defaultBlue">#264cce</color>
+    <color name="defaultDarkBlue">#091928</color>
+    <color name="defaultLightBlue">#7ECEFD</color>
+
+    <color name="defaultYellow">#F4BA05</color>
+    <color name="defaultLightYellow">#F5EED2</color>
+
+    <color name="defaultLightGreen">#CCD970</color>
+
+    <color name="defaultDarkBrown">#2B241E</color>
+
+</resources>
