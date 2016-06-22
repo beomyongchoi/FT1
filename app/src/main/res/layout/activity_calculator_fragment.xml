@@ -4,22 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Fragment No.1"
-        android:onClick="selectFrag"/>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:onClick='selectFrag'
-        android:text="Fragment No.2"/>
 
     <fragment
-        android:id="@+id/fragment_place"
+        android:id="@+id/calculatorFragments"
         android:name="kr.co.fintalk.fintalkone.calculator.saving.SavingFirstFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

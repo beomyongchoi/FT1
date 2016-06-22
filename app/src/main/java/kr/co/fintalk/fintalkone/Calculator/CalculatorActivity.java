@@ -7,15 +7,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.fintalk.fintalkone.BaseActivity;
 import kr.co.fintalk.fintalkone.R;
+import kr.co.fintalk.fintalkone.common.BaseActivity;
 
 /**
  * Created by beomyong on 6/20/16.
@@ -75,6 +74,7 @@ public class CalculatorActivity extends BaseActivity {
             new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(CalculatorActivity.this, CalculatorFragmentActivity.class);
+                    intent.putExtra("position",position);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 }

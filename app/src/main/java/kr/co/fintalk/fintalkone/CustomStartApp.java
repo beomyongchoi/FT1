@@ -14,6 +14,6 @@ public class CustomStartApp extends Application {
 
         Typekit.getInstance()
                 .addNormal(Typekit.createFromAsset(this, "fonts/NotoSansKR-Medium-Hestia.otf"))
-                .addBold(Typekit.createFromAsset(this, "fonts/NotoSansKR-Medium-Hestia.otf"));
+                .addBold(Typekit.createFromAsset(this, "fonts/NotoSansKR-Bold-Hestia.otf"));
     }
 }

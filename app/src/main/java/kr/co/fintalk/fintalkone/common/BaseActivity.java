@@ -1,4 +1,4 @@
-package kr.co.fintalk.fintalkone;
+package kr.co.fintalk.fintalkone.common;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.tsengvn.typekit.TypekitContextWrapper;
+
+import kr.co.fintalk.fintalkone.R;
 
 /**
  * Created by beomyong on 6/21/16.

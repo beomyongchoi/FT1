@@ -7,4 +7,16 @@
     <string name="saving_title">저축</string>
     <string name="investment_title">투자</string>
     <string name="debt_title">대출상환</string>
+    <!--저축-->
+    <string name="saving_monthly_amount">단기 목돈모으기(적금:월적금액)</string>
+    <string name="saving_total_amount">단기 목돈모으기(적금:만기금액)</string>
+    <string name="saving_deposit">단기 목돈굴리기(예금)</string>
+    <!--투자-->
+    <string name="investment_monthly_amount">중장기 목돈모으기(월적립액)</string>
+    <string name="investment_total_amount">중장기 목돈모으기(목표금액)</string>
+    <string name="investment_deposit">중장기 목돈투자</string>
+    <!--대출상환-->
+    <string name="debt_maturity">만기일시상환</string>
+    <string name="debt_divide_balance">원금균등상환</string>
+    <string name="debt_divide_monthly">원리금균등상환</string>
 </resources>

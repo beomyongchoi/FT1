@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import kr.co.fintalk.fintalkone.calculator.CalculatorActivity;
+import kr.co.fintalk.fintalkone.common.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
