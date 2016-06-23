@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:onClick="appbarButtonOnClick"
         android:id="@+id/appbarButton"
         android:layout_width="@dimen/dp28"
         android:layout_height="match_parent"

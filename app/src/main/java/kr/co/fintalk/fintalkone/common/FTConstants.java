@@ -1,7 +1,7 @@
 package kr.co.fintalk.fintalkone.common;
 
 /**
- * Created by beomyong on 6/22/16.
+ * Created by BeomyongChoi on 6/22/16.
  */
 public class FTConstants {
     /**

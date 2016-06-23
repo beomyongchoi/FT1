@@ -1,10 +1,9 @@
-package kr.co.fintalk.fintalkone.ui;
+package kr.co.fintalk.fintalkone.common.model;
 
 /**
- * Created by beomyong on 6/20/16.
+ * Created by BeomyongChoi on 6/20/16.
  */
-public class CardScheduleListViewItem {
-
+public class CardDataSet {
     private String cardName;
     private String cardDate;
     private String cardSpent;

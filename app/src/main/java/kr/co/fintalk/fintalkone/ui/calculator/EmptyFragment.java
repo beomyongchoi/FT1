@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import kr.co.fintalk.fintalkone.R;
 
 /**
- * Created by beomyong on 6/22/16.
+ * Created by BeomyongChoi on 6/22/16.
  */
 public class EmptyFragment extends Fragment {
     @Override

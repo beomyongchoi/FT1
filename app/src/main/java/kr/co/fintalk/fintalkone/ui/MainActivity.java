@@ -6,12 +6,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import kr.co.fintalk.fintalkone.R;
+import kr.co.fintalk.fintalkone.common.model.CardDataSet;
 import kr.co.fintalk.fintalkone.ui.calculator.CalculatorActivity;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 
+/**
+ * Created by BeomyongChoi on 6/20/16.
+ */
 public class MainActivity extends BaseFragmentActivity {
 
     @Override
@@ -25,31 +30,44 @@ public class MainActivity extends BaseFragmentActivity {
         ImageView appbarButtonImageView = (ImageView) findViewById(R.id.appbarButton);
         appbarButtonImageView.setImageDrawable(getDrawable(R.drawable.ic_menu_white_24dp));
 
-        ListView listview = (ListView)findViewById(R.id.cardScheduleListView);
-        final View header = getLayoutInflater().inflate(R.layout.card_schedule_list_header, null, false);
-
-        CardScheduleListViewAdapter adapter = new CardScheduleListViewAdapter();
-
-        listview.addHeaderView(header) ;
-        listview.setAdapter(adapter);
-
-        adapter.addItem("신한카드", "매달 26일", "3,000,000원");
-        adapter.addItem("국민카드", "매달 26일", "3,000,000원");
-        adapter.addItem("국민카드", "매달 26일", "3,000,000원");
-        adapter.addItem("국민카드", "매달 26일", "3,000,000원");
-        adapter.addItem("국민카드", "매달 26일", "3,000,000원");
-        adapter.addItem("국민카드", "매달 26일", "3,000,000원");
-        adapter.addItem("국민카드", "매달 26일", "3,000,000원");
-        adapter.addItem("국민카드", "매달 26일", "3,000,000원");
+        updateListView();
     }
 
     public void militaryServiceOnClick(View view) {
-        Toast.makeText(MainActivity.this, "군인공제회액티비티호출 되겠죠 나중에", Toast.LENGTH_SHORT).show();
+        showToast("군인공제회 나와라!",2);
     }
 
     public void calculatorOnClick(View view) {
         Intent intent = new Intent(this, CalculatorActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+    }
+
+    /**
+     * 리스트 뷰 갱신.
+     * - ListView Inflate.
+     * - Adapter Set.
+     */
+    private void updateListView() {
+        CardDataSet dataSet;
+        ArrayList<CardDataSet> dataList = new ArrayList<>();
+        String[] cardNames = getResources().getStringArray(R.array.cardNames);
+        String[] cardDates = getResources().getStringArray(R.array.cardDates);
+        String[] cardSpents = getResources().getStringArray(R.array.cardSpents);
+        for (int i = 0; i < cardNames.length; i++) {
+            dataSet = new CardDataSet();
+            dataSet.setCardName(cardNames[i]);
+            dataSet.setCardDate(cardDates[i]);
+            dataSet.setCardSpent(cardSpents[i]);
+            dataList.add(dataSet);
+        }
+        CardListViewAdapter adapter = new CardListViewAdapter(
+                this,
+                R.layout.listview_row_card,
+                dataList);
+        ListView listView = (ListView) findViewById(R.id.cardScheduleListView);
+        final View header = getLayoutInflater().inflate(R.layout.listview_header_card, null, false);
+        listView.addHeaderView(header) ;
+        listView.setAdapter(adapter);
     }
 }

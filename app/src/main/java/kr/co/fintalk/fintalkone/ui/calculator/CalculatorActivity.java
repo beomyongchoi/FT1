@@ -17,19 +17,11 @@ import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 
 /**
- * Created by beomyong on 6/20/16.
+ * Created by BeomyongChoi on 6/20/16.
  */
 
 public class CalculatorActivity extends BaseFragmentActivity {
     public final static String ITEM_TITLE = "title";
-    public final static String ITEM_ID = "0";
-
-    public Map<String,?> createItem(String title, String id) {
-        Map<String,String> item = new HashMap<String,String>();
-        item.put(ITEM_TITLE, title);
-        item.put(ITEM_ID, id);
-        return item;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,30 +31,43 @@ public class CalculatorActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.calculator_title);
 
-        List<Map<String,?>> saving = new LinkedList<Map<String,?>>();
-        saving.add(createItem("단기 목돈모으기(적금:월적금액)", "0"));
-        saving.add(createItem("단기 목돈모으기(적금:만기금액)", "1"));
-        saving.add(createItem("단기 목돈굴리기(예금)", "2"));
+        setListView();
+    }
 
-        List<Map<String,?>> investment = new LinkedList<Map<String,?>>();
-        investment.add(createItem("중장기 목돈모으기(월적립액)", "3"));
-        investment.add(createItem("중장기 목돈모으기(목표금액)", "4"));
-        investment.add(createItem("중장기 목돈투자", "5"));
+    public Map<String,?> createItem(String title) {
+        Map<String,String> item = new HashMap<>();
+        item.put(ITEM_TITLE, title);
+        return item;
+    }
 
-        List<Map<String,?>> debt = new LinkedList<Map<String,?>>();
-        debt.add(createItem("만기일시상환", "7"));
-        debt.add(createItem("원금균등상환", "8"));
-        debt.add(createItem("원리금균등상환", "9"));
+    public void setListView() {
+        List<Map<String,?>> saving = new LinkedList<>();
+        saving.add(createItem("단기 목돈모으기(적금:월적금액)"));
+        saving.add(createItem("단기 목돈모으기(적금:만기금액)"));
+        saving.add(createItem("단기 목돈굴리기(예금)"));
+
+        List<Map<String,?>> investment = new LinkedList<>();
+        investment.add(createItem("중장기 목돈모으기(월적립액)"));
+        investment.add(createItem("중장기 목돈모으기(목표금액)"));
+        investment.add(createItem("중장기 목돈투자"));
+
+        List<Map<String,?>> debt = new LinkedList<>();
+        debt.add(createItem("만기일시상환"));
+        debt.add(createItem("원금균등상환"));
+        debt.add(createItem("원리금균등상환"));
 
         // create our list and custom adapter
         CalculatorListViewAdapter adapter = new CalculatorListViewAdapter(this);
 
+        String[] from = { ITEM_TITLE };
+        int[] to = new int[] {R.id.calculatorListSectionTitle};
+
         adapter.addSection("저축", new SimpleAdapter(this, saving,
-                R.layout.calculator_list_item, new String[]{ ITEM_TITLE }, new int[] { R.id.calculatorListSectionTitle }));
+                R.layout.calculator_list_item, from, to));
         adapter.addSection("투자", new SimpleAdapter(this, investment,
-                R.layout.calculator_list_item, new String[]{ ITEM_TITLE }, new int[] { R.id.calculatorListSectionTitle }));
+                R.layout.calculator_list_item, from, to));
         adapter.addSection("대출상환", new SimpleAdapter(this, debt,
-                R.layout.calculator_list_item, new String[]{ ITEM_TITLE }, new int[] { R.id.calculatorListSectionTitle }));
+                R.layout.calculator_list_item, from, to));
 
         ListView list = new ListView(this);
         list.setAdapter(adapter);

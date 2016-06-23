@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--카드-->
+    <string-array name="cardNames">
+        <item>국민카드</item>
+        <item>신한카드</item>
+        <item>하나카드</item>
+        <item>부산카드</item>
+        <item>현대카드</item>
+        <item>씨티카드</item>
+        <item>농협카드</item>
+        <item>우리카드</item>
+    </string-array>
+
+    <string-array name="cardDates">
+        <item>26일</item>
+        <item>26일</item>
+        <item>26일</item>
+        <item>26일</item>
+        <item>26일</item>
+        <item>26일</item>
+        <item>26일</item>
+        <item>26일</item>
+    </string-array>
+
+    <string-array name="cardSpents">
+        <item>30,000,000원</item>
+        <item>2,353,642원</item>
+        <item>6,342,657원</item>
+        <item>1,242,222원</item>
+        <item>88,454,323원</item>
+        <item>24,242,242원</item>
+        <item>69,662,100원</item>
+        <item>5,000원</item>
+    </string-array>
+</resources>

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import kr.co.fintalk.fintalkone.R;
 
 /**
- * Created by beomyong on 6/21/16.
+ * Created by BeomyongChoi on 6/21/16.
  */
 public class SavingSecondFragment extends Fragment {
     @Override

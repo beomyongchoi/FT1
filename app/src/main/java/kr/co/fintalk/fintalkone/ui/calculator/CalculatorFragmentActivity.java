@@ -24,7 +24,7 @@ import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingThirdFragment;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 
 /**
- * Created by beomyong on 6/21/16.
+ * Created by BeomyongChoi on 6/21/16.
  */
 public class CalculatorFragmentActivity extends BaseFragmentActivity {
     int position = 0;
@@ -41,21 +41,22 @@ public class CalculatorFragmentActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         selectedFragment(titleTextView);
 
-        monthlyPaymentTextField = (EditText) findViewById(R.id.firstSavingMonthlyPaymentTextField);
-        monthlyPaymentTextField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().equals(stringAmount)) { // StackOverflow를 막기위해,
-                    stringAmount = makeStringComma(s.toString().replace(",", ""));
-                    monthlyPaymentTextField.setText(stringAmount);
-                    Editable e = monthlyPaymentTextField.getText();
-                    Selection.setSelection(e, stringAmount.length());
-                }
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,int after) { }
-            @Override
-            public void afterTextChanged(Editable s) { }});
+//
+//        monthlyPaymentTextField = (EditText) findViewById(R.id.firstSavingMonthlyPaymentTextField);
+//        monthlyPaymentTextField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (!s.toString().equals(stringAmount)) { // StackOverflow를 막기위해,
+//                    stringAmount = makeStringComma(s.toString().replace(",", ""));
+//                    monthlyPaymentTextField.setText(stringAmount);
+//                    Editable e = monthlyPaymentTextField.getText();
+//                    Selection.setSelection(e, stringAmount.length());
+//                }
+//            }
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count,int after) { }
+//            @Override
+//            public void afterTextChanged(Editable s) { }});
     }
 
     protected String makeStringComma(String str) {

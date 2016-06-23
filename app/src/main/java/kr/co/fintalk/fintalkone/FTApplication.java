@@ -5,7 +5,7 @@ import android.app.Application;
 import com.tsengvn.typekit.Typekit;
 
 /**
- * Created by beomyong on 6/21/16.
+ * Created by BeomyongChoi on 6/21/16.
  */
 public class FTApplication extends Application {
     @Override

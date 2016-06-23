@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import kr.co.fintalk.fintalkone.ui.MainActivity;
 import kr.co.fintalk.fintalkone.R;
 
 /**
- * Created by beomyong on 6/21/16.
+ * Created by BeomyongChoi on 6/21/16.
  */
 public class BaseFragmentActivity extends OBFragmentActivity {
 
@@ -484,5 +485,12 @@ public class BaseFragmentActivity extends OBFragmentActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    public void appbarButtonOnClick(View view) {
+        if (!MainActivity.class.isInstance(this)) {
+            BaseFragmentActivity.this.finish();
+        }
+        else showToast("네비게이션 드로어",3);
     }
 }
