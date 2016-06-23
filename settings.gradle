@@ -1,1 +1,3 @@
 include ':app'
+include ':oooobangLibrary'
+project(':oooobangLibrary').projectDir=new File('/Users/by/AndroidStudioProjects/oooobanglibrary/app')

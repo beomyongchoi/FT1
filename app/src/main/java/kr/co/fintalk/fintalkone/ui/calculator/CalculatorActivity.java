@@ -1,4 +1,4 @@
-package kr.co.fintalk.fintalkone.calculator;
+package kr.co.fintalk.fintalkone.ui.calculator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
-import kr.co.fintalk.fintalkone.common.BaseActivity;
+import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 
 /**
  * Created by beomyong on 6/20/16.
  */
 
-public class CalculatorActivity extends BaseActivity {
+public class CalculatorActivity extends BaseFragmentActivity {
     public final static String ITEM_TITLE = "title";
     public final static String ITEM_ID = "0";
 

@@ -16,7 +16,7 @@
         android:layout_weight="15"/>
 
     <ImageView
-        android:id="@+id/imageButtonNext"
+        android:id="@+id/nextButton"
         android:layout_width="@dimen/dp0"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"

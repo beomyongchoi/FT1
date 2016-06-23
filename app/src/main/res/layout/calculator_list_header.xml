@@ -6,4 +6,4 @@
     android:paddingBottom="@dimen/dp4"
     android:paddingLeft="@dimen/dp16"
     android:background="#f2f2f2"
-    android:textColor="@color/colorPrimary" />
+    android:textColor="@color/colorPrimary500" />

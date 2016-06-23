@@ -1,4 +1,4 @@
-package kr.co.fintalk.fintalkone;
+package kr.co.fintalk.fintalkone.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import kr.co.fintalk.fintalkone.R;
 
 /**
  * Created by beomyong on 6/20/16.

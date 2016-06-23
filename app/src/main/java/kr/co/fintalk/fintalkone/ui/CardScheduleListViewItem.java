@@ -1,4 +1,4 @@
-package kr.co.fintalk.fintalkone;
+package kr.co.fintalk.fintalkone.ui;
 
 /**
  * Created by beomyong on 6/20/16.

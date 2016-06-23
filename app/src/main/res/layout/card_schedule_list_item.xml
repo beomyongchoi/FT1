@@ -36,7 +36,7 @@
             android:textColor="@color/defaultWhite"
             android:id="@+id/cardSpentTextView"
             android:textSize="@dimen/sp12"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary500"/>
 
         <TextView
             android:layout_width="@dimen/dp0"

@@ -24,4 +24,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.tsengvn:Typekit:1.0.0'
     compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    debugCompile project(path: ':oooobangLibrary', configuration: 'oooobangLibraryDebug')
+    releaseCompile project(path: ':oooobangLibrary', configuration: 'oooobangLibraryRelease')
 }

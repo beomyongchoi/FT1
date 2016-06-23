@@ -19,4 +19,17 @@
     <string name="debt_maturity">만기일시상환</string>
     <string name="debt_divide_balance">원금균등상환</string>
     <string name="debt_divide_monthly">원리금균등상환</string>
+    <!--공통항목-->
+    <string name="monthly_payment">월 적금액</string>
+    <string name="goal_amount">목표금액</string>
+    <string name="goal_period">목표기간</string>
+    <string name="interest_rate">이자율</string>
+    <string name="interest_type">이자계산방법</string>
+    <string name="original_principal">대출원금</string>
+    <string name="debt_period">대출기간</string>
+    <string name="calculate">계산하기</string>
+    <string name="won">&#160;원</string>
+    <string name="months">&#160;개월</string>
+    <string name="percent">&#160;%</string>
+
 </resources>

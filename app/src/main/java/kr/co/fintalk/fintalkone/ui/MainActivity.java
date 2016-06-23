@@ -1,16 +1,18 @@
-package kr.co.fintalk.fintalkone;
+package kr.co.fintalk.fintalkone.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import kr.co.fintalk.fintalkone.calculator.CalculatorActivity;
-import kr.co.fintalk.fintalkone.common.BaseActivity;
+import kr.co.fintalk.fintalkone.R;
+import kr.co.fintalk.fintalkone.ui.calculator.CalculatorActivity;
+import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,9 @@ public class MainActivity extends BaseActivity {
 
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.main_title);
+
+        ImageView appbarButtonImageView = (ImageView) findViewById(R.id.appbarButton);
+        appbarButtonImageView.setImageDrawable(getDrawable(R.drawable.ic_menu_white_24dp));
 
         ListView listview = (ListView)findViewById(R.id.cardScheduleListView);
         final View header = getLayoutInflater().inflate(R.layout.card_schedule_list_header, null, false);
