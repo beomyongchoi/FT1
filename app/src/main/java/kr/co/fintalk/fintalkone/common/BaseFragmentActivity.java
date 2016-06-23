@@ -489,7 +489,7 @@ public class BaseFragmentActivity extends OBFragmentActivity {
 
     public void appbarButtonOnClick(View view) {
         if (!MainActivity.class.isInstance(this)) {
-            BaseFragmentActivity.this.finish();
+            finish();
         }
         else showToast("네비게이션 드로어",3);
     }

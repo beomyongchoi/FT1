@@ -15,6 +15,7 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingFirstActivity;
 
 /**
  * Created by BeomyongChoi on 6/20/16.
@@ -63,11 +64,11 @@ public class CalculatorActivity extends BaseFragmentActivity {
         int[] to = new int[] {R.id.calculatorListSectionTitle};
 
         adapter.addSection("저축", new SimpleAdapter(this, saving,
-                R.layout.calculator_list_item, from, to));
+                R.layout.listview_row_calculator, from, to));
         adapter.addSection("투자", new SimpleAdapter(this, investment,
-                R.layout.calculator_list_item, from, to));
+                R.layout.listview_row_calculator, from, to));
         adapter.addSection("대출상환", new SimpleAdapter(this, debt,
-                R.layout.calculator_list_item, from, to));
+                R.layout.listview_row_calculator, from, to));
 
         ListView list = new ListView(this);
         list.setAdapter(adapter);
@@ -78,7 +79,7 @@ public class CalculatorActivity extends BaseFragmentActivity {
     AdapterView.OnItemClickListener mItemClickListener =
             new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(CalculatorActivity.this, CalculatorFragmentActivity.class);
+                    Intent intent = new Intent(CalculatorActivity.this, SavingFirstActivity.class);
                     intent.putExtra("position",position);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);

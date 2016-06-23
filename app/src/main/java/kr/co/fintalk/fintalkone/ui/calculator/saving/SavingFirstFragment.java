@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import kr.co.fintalk.fintalkone.R;
+import kr.co.fintalk.fintalkone.common.CurrencyTextWatcher;
 
 /**
  * Created by BeomyongChoi on 6/21/16.

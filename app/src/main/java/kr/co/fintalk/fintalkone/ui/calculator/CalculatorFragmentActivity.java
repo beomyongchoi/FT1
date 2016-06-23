@@ -8,28 +8,25 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Selection;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import kr.co.fintalk.fintalkone.R;
+import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.CurrencyTextWatcher;
 import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingFirstFragment;
 import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingSecondFragment;
 import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingThirdFragment;
-import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 
 /**
  * Created by BeomyongChoi on 6/21/16.
  */
 public class CalculatorFragmentActivity extends BaseFragmentActivity {
     int position = 0;
-    EditText monthlyPaymentTextField;
-    String stringAmount = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,33 +37,7 @@ public class CalculatorFragmentActivity extends BaseFragmentActivity {
 
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         selectedFragment(titleTextView);
-
-//
-//        monthlyPaymentTextField = (EditText) findViewById(R.id.firstSavingMonthlyPaymentTextField);
-//        monthlyPaymentTextField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (!s.toString().equals(stringAmount)) { // StackOverflow를 막기위해,
-//                    stringAmount = makeStringComma(s.toString().replace(",", ""));
-//                    monthlyPaymentTextField.setText(stringAmount);
-//                    Editable e = monthlyPaymentTextField.getText();
-//                    Selection.setSelection(e, stringAmount.length());
-//                }
-//            }
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count,int after) { }
-//            @Override
-//            public void afterTextChanged(Editable s) { }});
     }
-
-    protected String makeStringComma(String str) {
-        if (str.length() == 0)
-            return "";
-        long value = Long.parseLong(str);
-        DecimalFormat format = new DecimalFormat("###,###");
-        return format.format(value);
-    }
-
 
     public void selectedFragment(TextView titleTextView){
         Fragment fragment = null;
@@ -122,6 +93,17 @@ public class CalculatorFragmentActivity extends BaseFragmentActivity {
             }
         });
         dialog.show();
+    }
+
+    public static String addComma(Editable editable) {
+        try {
+            NumberFormat numberFormat = new DecimalFormat("#,###");
+            return numberFormat.format(editable);
+        } catch (NumberFormatException ex) {
+            return String.valueOf(editable);
+        } catch (Exception ex) {
+            return String.valueOf(editable);
+        }
     }
 
 }
