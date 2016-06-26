@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.model.CardDataSet;
+import kr.co.fintalk.fintalkone.ui.CardListViewAdapter;
 import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingFirstActivity;
 
 /**
@@ -24,6 +27,18 @@ import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingFirstActivity;
 public class CalculatorActivity extends BaseFragmentActivity {
     public final static String ITEM_TITLE = "title";
 
+    private CalculatorListViewAdapter mAdapter;
+    private List<Map<String,?>> saving, investment, debt;
+
+    private String[] from = { ITEM_TITLE };
+    private int[] to = new int[] {R.id.calculatorListSectionTitle};
+
+    public Map<String,?> createItem(String title) {
+        Map<String,String> item = new HashMap<>();
+        item.put(ITEM_TITLE, title);
+        return item;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,47 +47,37 @@ public class CalculatorActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.calculator_title);
 
-        setListView();
+        updateListView();
     }
 
-    public Map<String,?> createItem(String title) {
-        Map<String,String> item = new HashMap<>();
-        item.put(ITEM_TITLE, title);
-        return item;
-    }
-
-    public void setListView() {
-        List<Map<String,?>> saving = new LinkedList<>();
+    private void updateListView() {
+        saving = new LinkedList<>();
         saving.add(createItem("단기 목돈모으기(적금:월적금액)"));
         saving.add(createItem("단기 목돈모으기(적금:만기금액)"));
         saving.add(createItem("단기 목돈굴리기(예금)"));
 
-        List<Map<String,?>> investment = new LinkedList<>();
+        investment = new LinkedList<>();
         investment.add(createItem("중장기 목돈모으기(월적립액)"));
         investment.add(createItem("중장기 목돈모으기(목표금액)"));
         investment.add(createItem("중장기 목돈투자"));
 
-        List<Map<String,?>> debt = new LinkedList<>();
+        debt = new LinkedList<>();
         debt.add(createItem("만기일시상환"));
         debt.add(createItem("원금균등상환"));
         debt.add(createItem("원리금균등상환"));
 
         // create our list and custom adapter
-        CalculatorListViewAdapter adapter = new CalculatorListViewAdapter(this);
+        mAdapter = new CalculatorListViewAdapter(this);
 
-        String[] from = { ITEM_TITLE };
-        int[] to = new int[] {R.id.calculatorListSectionTitle};
-
-        adapter.addSection("저축", new SimpleAdapter(this, saving,
+        mAdapter.addSection("저축", new SimpleAdapter(this, saving,
                 R.layout.listview_row_calculator, from, to));
-        adapter.addSection("투자", new SimpleAdapter(this, investment,
+        mAdapter.addSection("투자", new SimpleAdapter(this, investment,
                 R.layout.listview_row_calculator, from, to));
-        adapter.addSection("대출상환", new SimpleAdapter(this, debt,
+        mAdapter.addSection("대출상환", new SimpleAdapter(this, debt,
                 R.layout.listview_row_calculator, from, to));
 
-        ListView list = new ListView(this);
-        list.setAdapter(adapter);
-        this.setContentView(list);
+        ListView list = (ListView) findViewById(R.id.calculatorListView);
+        list.setAdapter(mAdapter);
         list.setOnItemClickListener(mItemClickListener);
     }
 

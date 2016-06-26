@@ -25,11 +25,15 @@
     <string name="goal_period">목표기간</string>
     <string name="interest_rate">이자율</string>
     <string name="interest_type">이자계산방법</string>
-    <string name="original_principal">대출원금</string>
+    <string name="debt_principal">대출원금</string>
     <string name="debt_period">대출기간</string>
     <string name="calculate">계산하기</string>
-    <string name="won">&#160;원</string>
-    <string name="months">&#160;개월</string>
-    <string name="percent">&#160;%</string>
+    <string name="won">원</string>
+    <string name="months">개월</string>
+    <string name="percent">%</string>
+    <string name="resultCalculate">계산결과</string>
+    <string name="principal">원금</string>
+
+    <string name="defaultInterestType">단리</string>
 
 </resources>

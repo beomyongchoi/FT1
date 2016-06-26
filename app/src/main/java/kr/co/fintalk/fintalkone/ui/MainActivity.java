@@ -1,6 +1,7 @@
 package kr.co.fintalk.fintalkone.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,7 +29,15 @@ public class MainActivity extends BaseFragmentActivity {
         titleTextView.setText(R.string.main_title);
 
         ImageView appbarButtonImageView = (ImageView) findViewById(R.id.appbarButton);
-        appbarButtonImageView.setImageDrawable(getDrawable(R.drawable.ic_menu_white_24dp));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            //단말기 OS버전이 롤리팝 아래일 때
+            appbarButtonImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_white_24dp));
+        }
+        else{
+            //롤리팝 이상
+            appbarButtonImageView.setImageDrawable(getDrawable(R.drawable.ic_menu_white_24dp));
+        }
+
 
         updateListView();
     }
@@ -65,9 +74,9 @@ public class MainActivity extends BaseFragmentActivity {
                 this,
                 R.layout.listview_row_card,
                 dataList);
-        ListView listView = (ListView) findViewById(R.id.cardScheduleListView);
+        ListView cardScheduleListView = (ListView) findViewById(R.id.cardScheduleListView);
         final View header = getLayoutInflater().inflate(R.layout.listview_header_card, null, false);
-        listView.addHeaderView(header) ;
-        listView.setAdapter(adapter);
+        cardScheduleListView.addHeaderView(header) ;
+        cardScheduleListView.setAdapter(adapter);
     }
 }
