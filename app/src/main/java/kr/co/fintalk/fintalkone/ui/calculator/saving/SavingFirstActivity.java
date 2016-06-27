@@ -166,15 +166,21 @@ public class SavingFirstActivity extends BaseFragmentActivity {
 //    }
 
     public double calculatorInterest(double payment, double period, double rate, int type) {
-        rate /= 100;
+        rate /= 1200;
+        double principal = payment * period;
+        double rateWithPrincipal = 1 + rate;
+        double rateYearly = Math.pow(rateWithPrincipal,(period + 1.0) / 12);
+        double tempRatio = Math.pow(rateWithPrincipal, period) - 1;
+        double monthlyPrincipalInterestRate = Math.pow(rateWithPrincipal, 1.0 / 12);
 
         switch (type) {
             case 0: // 단리
-                return payment*period*(period+1)/2*rate/12;
+                return principal * (period + 1) / 2 * rate;
             case 1: // 월복리
-                return payment*(1+rate/12)*(Math.pow(1+rate/12,period)-1)/(rate/12) - payment*period;
+                return payment * rateWithPrincipal * tempRatio / rate - principal;
             case 2: // 연복리
-                return payment*((Math.pow((1+rate),((period+1.0)/12)))-(Math.pow((1+rate),(1.0/12))))/((Math.pow((1+rate),(1.0/12)))-1) - payment*period;
+                return payment * (rateYearly - monthlyPrincipalInterestRate)
+                        / (monthlyPrincipalInterestRate - 1) - principal;
             default:// 오리
                 return 0;
         }
