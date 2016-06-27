@@ -21,8 +21,6 @@
         </activity>
         <activity android:name=".ui.calculator.CalculatorActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.CalculatorFragmentActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".ui.calculator.saving.SavingFirstActivity"
             android:screenOrientation="portrait"/>
     </application>

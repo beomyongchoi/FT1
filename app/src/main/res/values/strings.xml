@@ -9,7 +9,7 @@
     <string name="debt_title">대출상환</string>
     <!--저축-->
     <string name="saving_monthly_amount">단기 목돈모으기(적금:월적금액)</string>
-    <string name="saving_total_amount">단기 목돈모으기(적금:만기금액)</string>
+    <string name="saving_goal_amount">단기 목돈모으기(적금:만기금액)</string>
     <string name="saving_deposit">단기 목돈굴리기(예금)</string>
     <!--투자-->
     <string name="investment_monthly_amount">중장기 목돈모으기(월적립액)</string>

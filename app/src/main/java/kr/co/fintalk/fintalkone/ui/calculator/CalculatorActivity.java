@@ -8,7 +8,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,9 +15,9 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
-import kr.co.fintalk.fintalkone.common.model.CardDataSet;
-import kr.co.fintalk.fintalkone.ui.CardListViewAdapter;
 import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingFirstActivity;
+import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingSecondActivity;
+import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingThirdActivity;
 
 /**
  * Created by BeomyongChoi on 6/20/16.
@@ -70,11 +69,11 @@ public class CalculatorActivity extends BaseFragmentActivity {
         mAdapter = new CalculatorListViewAdapter(this);
 
         mAdapter.addSection("저축", new SimpleAdapter(this, saving,
-                R.layout.listview_row_calculator, from, to));
+                R.layout.listview_calculator_row, from, to));
         mAdapter.addSection("투자", new SimpleAdapter(this, investment,
-                R.layout.listview_row_calculator, from, to));
+                R.layout.listview_calculator_row, from, to));
         mAdapter.addSection("대출상환", new SimpleAdapter(this, debt,
-                R.layout.listview_row_calculator, from, to));
+                R.layout.listview_calculator_row, from, to));
 
         ListView list = (ListView) findViewById(R.id.calculatorListView);
         list.setAdapter(mAdapter);
@@ -84,10 +83,59 @@ public class CalculatorActivity extends BaseFragmentActivity {
     AdapterView.OnItemClickListener mItemClickListener =
             new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(CalculatorActivity.this, SavingFirstActivity.class);
-                    intent.putExtra("position",position);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(intent);
+                    Intent intent;
+                    switch (position) {
+                        case 1:
+                            intent = new Intent(CalculatorActivity.this, SavingFirstActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            break;
+                        case 2:
+                            intent = new Intent(CalculatorActivity.this, SavingSecondActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            break;
+                        case 3:
+                            intent = new Intent(CalculatorActivity.this, SavingThirdActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            break;
+                        case 5:
+//                            intent = new Intent(CalculatorActivity.this, InvestmentFirstActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            startActivity(intent);
+                            break;
+                        case 6:
+//                            intent = new Intent(CalculatorActivity.this, InvestmentSecondActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            startActivity(intent);
+                            break;
+                        case 7:
+//                            intent = new Intent(CalculatorActivity.this, InvestmentThirdActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            startActivity(intent);
+                            break;
+                        case 9:
+//                            intent = new Intent(CalculatorActivity.this, DebtFirstActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            startActivity(intent);
+                            break;
+                        case 10:
+//                            intent = new Intent(CalculatorActivity.this, DebtSecondActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            startActivity(intent);
+                            break;
+                        case 11:
+//                            intent = new Intent(CalculatorActivity.this, DebtThirdActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            startActivity(intent);
+                            break;
+                        default:
+                            intent = new Intent(CalculatorActivity.this, SavingFirstActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            break;
+                    }
                 }
             };
 }

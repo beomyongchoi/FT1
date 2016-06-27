@@ -72,10 +72,10 @@ public class MainActivity extends BaseFragmentActivity {
         }
         CardListViewAdapter adapter = new CardListViewAdapter(
                 this,
-                R.layout.listview_row_card,
+                R.layout.listview_card_row,
                 dataList);
         ListView cardScheduleListView = (ListView) findViewById(R.id.cardScheduleListView);
-        final View header = getLayoutInflater().inflate(R.layout.listview_header_card, null, false);
+        final View header = getLayoutInflater().inflate(R.layout.listview_card_header, null, false);
         cardScheduleListView.addHeaderView(header) ;
         cardScheduleListView.setAdapter(adapter);
     }

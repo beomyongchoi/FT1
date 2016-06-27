@@ -22,7 +22,7 @@ import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 /**
  * Created by BeomyongChoi on 6/23/16
  */
-public class SavingFirstActivity extends BaseFragmentActivity {
+public class SavingSecondActivity extends BaseFragmentActivity {
     public final static String ITEM_TITLE = "title";
     public final static String ITEM_CONTENTS = "contents";
 

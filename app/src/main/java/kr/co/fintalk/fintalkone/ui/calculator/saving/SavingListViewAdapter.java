@@ -15,13 +15,13 @@ import kr.co.fintalk.fintalkone.R;
 /**
  * Created by BeomyongChoi on 6/24/16
  */
-public class SavingFirstListViewAdapter extends BaseAdapter {
+public class SavingListViewAdapter extends BaseAdapter {
     public final Map<String,Adapter> sections = new LinkedHashMap<String,Adapter>();
     public final ArrayAdapter<String> headers;
     public final static int TYPE_SECTION_HEADER = 0;
 
-    public SavingFirstListViewAdapter(Context context) {
-        headers = new ArrayAdapter<String>(context, R.layout.listview_header_calculator);
+    public SavingListViewAdapter(Context context) {
+        headers = new ArrayAdapter<String>(context, R.layout.listview_saving_header);
     }
 
     public void addSection(String section, Adapter adapter) {

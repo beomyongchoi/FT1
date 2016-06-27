@@ -21,7 +21,7 @@ public class CalculatorListViewAdapter extends BaseAdapter {
     public final static int TYPE_SECTION_HEADER = 0;
 
     public CalculatorListViewAdapter(Context context) {
-        headers = new ArrayAdapter<String>(context, R.layout.listview_header_calculator);
+        headers = new ArrayAdapter<String>(context, R.layout.listview_calculator_header);
     }
 
     public void addSection(String section, Adapter adapter) {
