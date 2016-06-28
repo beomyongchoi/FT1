@@ -63,8 +63,6 @@ public class SavingFirstActivity extends BaseFragmentActivity {
     }
 
     public void calculateSavingOnClick(View view) {
-
-
         String monthlyPaymentString = mMonthlyPaymentEditText.getText().toString();
         String goalPeriodString = mGoalPeriodEditText.getText().toString();
         String interestRateString = mInterestRateEditText.getText().toString();
