@@ -20,7 +20,7 @@ import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 
 /**
- * Created by BeomyongChoi on 6/23/16
+ * Created by BeomyongChoi on 6/27/16
  */
 public class SavingThirdActivity extends BaseFragmentActivity {
     public final static String ITEM_TITLE = "title";
@@ -28,8 +28,8 @@ public class SavingThirdActivity extends BaseFragmentActivity {
 
     OBParse mParse = new OBParse();
 
-    OBEditText mMonthlyPaymentEditText;
-    OBEditText mGoalPeriodEditText;
+    OBEditText mDepositAmountEditText;
+    OBEditText mDepositPeriodEditText;
     OBEditText mInterestRateEditText;
 
     public int mInterestType = 0;
@@ -37,13 +37,13 @@ public class SavingThirdActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saving_first);
+        setContentView(R.layout.activity_saving_third);
 
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
-        titleTextView.setText(R.string.saving_goal_amount);
+        titleTextView.setText(R.string.saving_deposit);
 
-        mMonthlyPaymentEditText = (OBEditText) findViewById(R.id.savingMonthlyPaymentEditText);
-        mGoalPeriodEditText = (OBEditText) findViewById(R.id.savingGoalPeriodEditText);
+        mDepositAmountEditText = (OBEditText) findViewById(R.id.savingDepositAmountEditText);
+        mDepositPeriodEditText = (OBEditText) findViewById(R.id.savingDepositPeriodEditText);
         mInterestRateEditText = (OBEditText) findViewById(R.id.savingInterestRateEditText);
     }
 
@@ -65,29 +65,26 @@ public class SavingThirdActivity extends BaseFragmentActivity {
     public void calculateSavingOnClick(View view) {
 
 
-        String monthlyPaymentString = mMonthlyPaymentEditText.getText().toString();
-        String goalPeriodString = mGoalPeriodEditText.getText().toString();
+        String depositAmountString = mDepositAmountEditText.getText().toString();
+        String depositPeriodString = mDepositPeriodEditText.getText().toString();
         String interestRateString = mInterestRateEditText.getText().toString();
 
-        double monthlyPayment = mParse.toDouble(monthlyPaymentString.replace("원","").replace(",",""));
-        double goalPeriod = mParse.toDouble(goalPeriodString.replace("개월",""));
+        double depositAmount = mParse.toDouble(depositAmountString.replace("원","").replace(",",""));
+        double depositPeriod = mParse.toDouble(depositPeriodString.replace("개월",""));
         double interestRate = mParse.toDouble(interestRateString.replace("%",""));
 
-        double resultPrincipal;
         double resultInterest;
 
-        if(monthlyPaymentString.length() != 0
-                && goalPeriodString.length() != 0
+        if(depositAmountString.length() != 0
+                && depositPeriodString.length() != 0
                 && interestRateString.length() != 0) {
-            resultPrincipal = monthlyPayment*goalPeriod;
-            resultInterest = calculatorInterest(monthlyPayment,goalPeriod,interestRate,mInterestType);
-            setResultHeader(mParse.addComma(resultPrincipal) + "원");
-            setListView(resultPrincipal, resultInterest);
+            resultInterest = calculatorInterest(depositAmount,depositPeriod,interestRate,mInterestType);
+            setResultHeader(mParse.addComma(depositAmount) + "원");
+            setListView(depositAmount, resultInterest);
         }
         else {
             showToast("모든 항목을 입력하세요", 3);
         }
-        showToast(monthlyPaymentString+"",2);
     }
 
     public Map<String,?> createItem(String title, String contents) {
@@ -102,12 +99,12 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         TextView captionTextView = (TextView) findViewById(R.id.resultCaptionTextView);
         TextView amountTextView = (TextView) findViewById(R.id.resultAmountTextView);
 
-        titleTextView.setText(R.string.resultCalculate);
+        titleTextView.setText(R.string.result_calculate);
         captionTextView.setText(R.string.principal);
         amountTextView.setText(principal);
     }
 
-    public void setListView(double resultPrincipal, double taxFreeInterest) {
+    public void setListView(double principal, double taxFreeInterest) {
         double taxGeneralInterest, taxBreaksInterest;
         double taxGeneral, taxBreaks;
 
@@ -118,15 +115,15 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         taxBreaks = taxFreeInterest*.095;
 
         //일반과세
-        String taxGeneralAmountString = mParse.addComma(resultPrincipal+taxGeneralInterest) + "원";
+        String taxGeneralAmountString = mParse.addComma(principal + taxGeneralInterest) + "원";
         String taxGeneralInterestString = mParse.addComma(taxGeneralInterest) + "원";
         String taxGeneralString = mParse.addComma(taxGeneral) + "원";
         //세금우대
-        String taxBreaksAmountString = mParse.addComma(resultPrincipal+taxBreaksInterest) + "원";
+        String taxBreaksAmountString = mParse.addComma(principal + taxBreaksInterest) + "원";
         String taxBreaksInterestString = mParse.addComma(taxBreaksInterest) + "원";
         String taxBreaksString = mParse.addComma(taxBreaks) + "원";
         //비과세
-        String taxFreeAmountString = mParse.addComma(resultPrincipal+taxFreeInterest) + "원";
+        String taxFreeAmountString = mParse.addComma(principal + taxFreeInterest) + "원";
         String taxFreeInterestString = mParse.addComma(taxFreeInterest) + "원";
 
         List<Map<String,?>> taxGeneralList = new LinkedList<>();
@@ -160,21 +157,23 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         ListView list = (ListView) findViewById(R.id.savingResultListView);
         list.setAdapter(adapter);
     }
-//예금
-//    public double savingCalculator(double a, double d, double r) {
-//        return a*(1+d*r/1200);
-//    }
 
-    public double calculatorInterest(double payment, double period, double rate, int type) {
-        rate /= 100;
+    public double calculatorInterest(double principal, double period, double yearlyRate, int type) {
+        yearlyRate /= 100;
+        double monthlyRate = yearlyRate / 12;
+        double yearlyPeriod = period / 12;
+
+        double simpleMultiplier = period * monthlyRate;
+        double monthlyMultiplier = Math.pow(1 + monthlyRate, period) - 1;
+        double yearlyMultiplier = Math.pow(1 + yearlyRate, yearlyPeriod) - 1;
 
         switch (type) {
             case 0: // 단리
-                return payment*period*(period+1)/2*rate/12;
+                return principal * simpleMultiplier;
             case 1: // 월복리
-                return payment*(1+rate/12)*(Math.pow(1+rate/12,period)-1)/(rate/12) - payment*period;
+                return principal * monthlyMultiplier;
             case 2: // 연복리
-                return payment*((Math.pow((1+rate),((period+1.0)/12)))-(Math.pow((1+rate),(1.0/12))))/((Math.pow((1+rate),(1.0/12)))-1) - payment*period;
+                return principal * yearlyMultiplier;
             default:// 오리
                 return 0;
         }

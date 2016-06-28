@@ -25,13 +25,13 @@
             <TextView
                 android:layout_width="@dimen/dp0"
                 android:layout_height="match_parent"
-                android:text="@string/goal_amount"
+                android:text="@string/deposit_amount"
                 android:textColor="@color/defaultContents"
                 android:gravity="left|center_vertical"
                 android:layout_weight="3" />
 
             <com.oooobang.library.OBEditText
-                android:id="@+id/savingGoalAmountEditText"
+                android:id="@+id/savingDepositAmountEditText"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="@dimen/dp36"
                 android:paddingTop="@dimen/dp8"
@@ -60,12 +60,12 @@
             <TextView
                 android:layout_width="@dimen/dp0"
                 android:layout_height="match_parent"
-                android:text="@string/predicted_period"
+                android:text="@string/deposit_period"
                 android:gravity="left|center_vertical"
                 android:layout_weight="3" />
 
             <com.oooobang.library.OBEditText
-                android:id="@+id/savingPredictedPeriodEditText"
+                android:id="@+id/savingDepositPeriodEditText"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="@dimen/dp36"
                 android:paddingTop="@dimen/dp8"

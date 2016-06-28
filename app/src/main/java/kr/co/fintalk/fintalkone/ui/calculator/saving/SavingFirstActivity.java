@@ -40,7 +40,7 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         setContentView(R.layout.activity_saving_first);
 
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
-        titleTextView.setText(R.string.saving_goal_amount);
+        titleTextView.setText(R.string.saving_monthly_payment);
 
         mMonthlyPaymentEditText = (OBEditText) findViewById(R.id.savingMonthlyPaymentEditText);
         mGoalPeriodEditText = (OBEditText) findViewById(R.id.savingGoalPeriodEditText);
@@ -87,7 +87,6 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         else {
             showToast("모든 항목을 입력하세요", 3);
         }
-        showToast(monthlyPaymentString+"",2);
     }
 
     public Map<String,?> createItem(String title, String contents) {
@@ -102,7 +101,7 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         TextView captionTextView = (TextView) findViewById(R.id.resultCaptionTextView);
         TextView amountTextView = (TextView) findViewById(R.id.resultAmountTextView);
 
-        titleTextView.setText(R.string.resultCalculate);
+        titleTextView.setText(R.string.result_calculate);
         captionTextView.setText(R.string.principal);
         amountTextView.setText(principal);
     }
@@ -118,15 +117,15 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         taxBreaks = taxFreeInterest*.095;
 
         //일반과세
-        String taxGeneralAmountString = mParse.addComma(resultPrincipal+taxGeneralInterest) + "원";
+        String taxGeneralAmountString = mParse.addComma(resultPrincipal + taxGeneralInterest) + "원";
         String taxGeneralInterestString = mParse.addComma(taxGeneralInterest) + "원";
         String taxGeneralString = mParse.addComma(taxGeneral) + "원";
         //세금우대
-        String taxBreaksAmountString = mParse.addComma(resultPrincipal+taxBreaksInterest) + "원";
+        String taxBreaksAmountString = mParse.addComma(resultPrincipal + taxBreaksInterest) + "원";
         String taxBreaksInterestString = mParse.addComma(taxBreaksInterest) + "원";
         String taxBreaksString = mParse.addComma(taxBreaks) + "원";
         //비과세
-        String taxFreeAmountString = mParse.addComma(resultPrincipal+taxFreeInterest) + "원";
+        String taxFreeAmountString = mParse.addComma(resultPrincipal + taxFreeInterest) + "원";
         String taxFreeInterestString = mParse.addComma(taxFreeInterest) + "원";
 
         List<Map<String,?>> taxGeneralList = new LinkedList<>();
@@ -160,27 +159,31 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         ListView list = (ListView) findViewById(R.id.savingResultListView);
         list.setAdapter(adapter);
     }
-//예금
-//    public double savingCalculator(double a, double d, double r) {
-//        return a*(1+d*r/1200);
-//    }
 
-    public double calculatorInterest(double payment, double period, double rate, int type) {
-        rate /= 1200;
+    public double calculatorInterest(double payment, double period, double yearlyRate, int type) {
+        yearlyRate /= 100;
+        double monthlyRate = yearlyRate / 12;
+        double yearlyPeriod = (period + 1) / 12;
+        double paymentCountMonthly = period * (period + 1) / 2;
+
+        double monthlyRoot = 1 + monthlyRate;
+        double yearlyRoot = 1 + yearlyRate;
         double principal = payment * period;
-        double rateWithPrincipal = 1 + rate;
-        double rateYearly = Math.pow(rateWithPrincipal,(period + 1.0) / 12);
-        double tempRatio = Math.pow(rateWithPrincipal, period) - 1;
-        double monthlyPrincipalInterestRate = Math.pow(rateWithPrincipal, 1.0 / 12);
+
+        double yearlyConstant = Math.pow(yearlyRoot, 1.0 / 12);
+
+        double simpleMultiplier = paymentCountMonthly * monthlyRate;
+        double monthlyMultiplier = Math.pow(monthlyRoot, period) - 1;
+        double yearlyMultiplier = Math.pow(yearlyRoot, yearlyPeriod) - yearlyConstant;
+
 
         switch (type) {
             case 0: // 단리
-                return principal * (period + 1) / 2 * rate;
+                return payment * simpleMultiplier;
             case 1: // 월복리
-                return payment * rateWithPrincipal * tempRatio / rate - principal;
+                return payment * monthlyRoot * monthlyMultiplier / monthlyRate - principal;
             case 2: // 연복리
-                return payment * (rateYearly - monthlyPrincipalInterestRate)
-                        / (monthlyPrincipalInterestRate - 1) - principal;
+                return payment * yearlyMultiplier / (yearlyConstant - 1) - principal;
             default:// 오리
                 return 0;
         }
