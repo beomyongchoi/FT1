@@ -67,8 +67,6 @@ public class SavingSecondActivity extends BaseFragmentActivity {
     }
 
     public void calculateSavingOnClick(View view) {
-
-
         String goalAmountString = mGoalAmountEditText.getText().toString();
         String predictedPeriodString = mPredictedPeriodEditText.getText().toString();
         String interestRateString = mInterestRateEditText.getText().toString();

@@ -11,35 +11,37 @@
     <string name="saving_monthly_payment">단기 목돈모으기(적금:월적금액)</string>
     <string name="saving_goal_amount">단기 목돈모으기(적금:만기금액)</string>
     <string name="saving_deposit">단기 목돈굴리기(예금)</string>
-    <!--저축1-->
-    <string name="monthly_payment">월 적금액</string>
-    <string name="goal_period">목표기간</string>
-    <!--저축2-->
-    <string name="goal_amount">목표금액</string>
-    <string name="predicted_period">불입기간</string>
-    <!--저축3-->
-    <string name="deposit_amount">예치금액</string>
-    <string name="deposit_period">예치기간</string>
+    <string name="default_interest_type">단리</string>
+    <string name="maturity_value">만기지급액</string>
     <!--투자-->
-    <string name="investment_monthly_amount">중장기 목돈모으기(월적립액)</string>
-    <string name="investment_total_amount">중장기 목돈모으기(목표금액)</string>
+    <string name="investment_monthly_payment">중장기 목돈모으기(월적립액)</string>
+    <string name="investment_goal_amount">중장기 목돈모으기(목표금액)</string>
     <string name="investment_deposit">중장기 목돈투자</string>
     <!--대출상환-->
     <string name="debt_maturity">만기일시상환</string>
     <string name="debt_divide_balance">원금균등상환</string>
     <string name="debt_divide_monthly">원리금균등상환</string>
     <!--공통항목-->
-    <string name="interest_rate">이자율</string>
-    <string name="interest_type">이자계산방법</string>
-    <string name="debt_principal">대출원금</string>
-    <string name="debt_period">대출기간</string>
     <string name="calculate">계산하기</string>
     <string name="won">원</string>
     <string name="months">개월</string>
     <string name="percent">%</string>
     <string name="result_calculate">계산결과</string>
     <string name="principal">원금</string>
-    <string name="default_interest_type">단리</string>
-    <string name="maturity_value">만기지급액</string>
+
+    <!-- 입력 메뉴 제목 -->
+    <string name="monthly_payment">월 적금액</string>
+    <string name="monthly_investment_amount">월 납입액</string>
+    <string name="goal_period">목표기간</string>
+    <string name="investment_period">투자기간</string>
+    <string name="goal_amount">목표금액</string>
+    <string name="predicted_period">불입기간</string>
+    <string name="deposit_amount">예치금액</string>
+    <string name="deposit_period">예치기간</string>
+    <string name="interest_rate">이자율</string>
+    <string name="interest_type">이자계산방법</string>
+    <string name="return_rate">수익률</string>
+    <string name="debt_principal">대출원금</string>
+    <string name="debt_period">대출기간</string>
 
 </resources>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backGround">
+
+    <LinearLayout
+        android:id="@+id/investmentLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp16"
+        android:paddingLeft="@dimen/dp16"
+        android:paddingRight="@dimen/dp16"
+        android:paddingTop="@dimen/dp16"
+        android:background="@color/defaultWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45"
+            >
+
+            <TextView
+                android:layout_width="@dimen/dp0"
+                android:layout_height="match_parent"
+                android:text="@string/monthly_investment_amount"
+                android:textColor="@color/defaultContents"
+                android:gravity="left|center_vertical"
+                android:layout_weight="3" />
+
+            <com.oooobang.library.OBEditText
+                android:id="@+id/investmentMonthlyPaymentEditText"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="@dimen/dp36"
+                android:paddingTop="@dimen/dp8"
+                android:paddingRight="@dimen/dp12"
+                android:gravity="right"
+                android:background="@drawable/box_edittext"
+                android:inputType="number"
+                android:ems="10"
+                android:maxLength="15"
+                android:textSize="@dimen/defaultFontSize"
+                android:textColor="@color/defaultContents"
+                android:hint="@string/won"
+                android:textColorHint="@color/black30"
+                android:layout_weight="7"
+                android:nextFocusDown="@+id/investmentGoalPeriodEditText"
+                app:useComma="true"
+                app:unitCharacter="@string/won"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45">
+
+            <TextView
+                android:layout_width="@dimen/dp0"
+                android:layout_height="match_parent"
+                android:text="@string/investment_period"
+                android:gravity="left|center_vertical"
+                android:layout_weight="3" />
+
+            <com.oooobang.library.OBEditText
+                android:id="@+id/investmentGoalPeriodEditText"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="@dimen/dp36"
+                android:paddingTop="@dimen/dp8"
+                android:paddingRight="@dimen/dp12"
+                android:gravity="right"
+                android:background="@drawable/box_edittext"
+                android:inputType="number"
+                android:ems="10"
+                android:maxLength="6"
+                android:textSize="@dimen/defaultFontSize"
+                android:textColor="@color/defaultContents"
+                android:hint="@string/months"
+                android:textColorHint="@color/black30"
+                android:layout_weight="7"
+                android:nextFocusDown="@+id/investmentReturnRateEditText"
+                app:unitCharacter="@string/months"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp45">
+
+            <TextView
+                android:layout_width="@dimen/dp0"
+                android:layout_height="match_parent"
+                android:text="@string/return_rate"
+                android:gravity="left|center_vertical"
+                android:layout_weight="3" />
+
+            <com.oooobang.library.OBEditText
+                android:id="@+id/investmentReturnRateEditText"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="@dimen/dp36"
+                android:paddingTop="@dimen/dp8"
+                android:paddingRight="@dimen/dp12"
+                android:gravity="right"
+                android:background="@drawable/box_edittext"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:maxLength="10"
+                android:textSize="@dimen/defaultFontSize"
+                android:textColor="@color/defaultContents"
+                android:hint="@string/percent"
+                android:textColorHint="@color/black30"
+                android:layout_weight="7"
+                app:unitCharacter="@string/percent"
+                />
+        </LinearLayout>
+
+        <Button
+            android:onClick="calculateInvestmentOnClick"
+            android:id="@+id/calculatorButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp8"
+            android:text="@string/calculate"
+            android:textColor="@color/defaultWhite"
+            android:gravity="center"
+            android:background="@color/defaultButton"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/investmentResultListView"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/investmentLinearLayout"
+        android:background="@color/defaultWhite"
+        android:headerDividersEnabled="true"
+        android:divider="@color/defaultDivider"
+        android:dividerHeight="@dimen/dp1"/>
+</RelativeLayout>

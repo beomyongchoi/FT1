@@ -63,8 +63,6 @@ public class SavingThirdActivity extends BaseFragmentActivity {
     }
 
     public void calculateSavingOnClick(View view) {
-
-
         String depositAmountString = mDepositAmountEditText.getText().toString();
         String depositPeriodString = mDepositPeriodEditText.getText().toString();
         String interestRateString = mInterestRateEditText.getText().toString();
