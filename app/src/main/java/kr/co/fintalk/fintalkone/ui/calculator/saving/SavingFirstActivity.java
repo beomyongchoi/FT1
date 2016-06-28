@@ -79,8 +79,8 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         if(monthlyPaymentString.length() != 0
                 && goalPeriodString.length() != 0
                 && interestRateString.length() != 0) {
-            resultPrincipal = monthlyPayment*goalPeriod;
-            resultInterest = calculatorInterest(monthlyPayment,goalPeriod,interestRate,mInterestType);
+            resultPrincipal = monthlyPayment * goalPeriod;
+            resultInterest = calculatorInterest(monthlyPayment, goalPeriod, interestRate);
             setResultHeader(mParse.addComma(resultPrincipal) + "원");
             setListView(resultPrincipal, resultInterest);
         }
@@ -160,7 +160,7 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         list.setAdapter(adapter);
     }
 
-    public double calculatorInterest(double payment, double period, double yearlyRate, int type) {
+    public double calculatorInterest(double payment, double period, double yearlyRate) {
         yearlyRate /= 100;
         double monthlyRate = yearlyRate / 12;
         double yearlyPeriod = (period + 1) / 12;
@@ -177,7 +177,7 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         double yearlyMultiplier = Math.pow(yearlyRoot, yearlyPeriod) - yearlyConstant;
 
 
-        switch (type) {
+        switch (mInterestType) {
             case 0: // 단리
                 return payment * simpleMultiplier;
             case 1: // 월복리

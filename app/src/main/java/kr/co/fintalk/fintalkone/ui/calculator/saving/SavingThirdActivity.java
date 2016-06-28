@@ -78,7 +78,7 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         if(depositAmountString.length() != 0
                 && depositPeriodString.length() != 0
                 && interestRateString.length() != 0) {
-            resultInterest = calculatorInterest(depositAmount,depositPeriod,interestRate,mInterestType);
+            resultInterest = calculatorInterest(depositAmount, depositPeriod, interestRate);
             setResultHeader(mParse.addComma(depositAmount) + "원");
             setListView(depositAmount, resultInterest);
         }
@@ -158,22 +158,30 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         list.setAdapter(adapter);
     }
 
-    public double calculatorInterest(double principal, double period, double yearlyRate, int type) {
+    public double calculatorInterest(double payment, double period, double yearlyRate) {
         yearlyRate /= 100;
         double monthlyRate = yearlyRate / 12;
-        double yearlyPeriod = period / 12;
+        double yearlyPeriod = (period + 1) / 12;
+        double paymentCountMonthly = period * (period + 1) / 2;
 
-        double simpleMultiplier = period * monthlyRate;
-        double monthlyMultiplier = Math.pow(1 + monthlyRate, period) - 1;
-        double yearlyMultiplier = Math.pow(1 + yearlyRate, yearlyPeriod) - 1;
+        double monthlyRoot = 1 + monthlyRate;
+        double yearlyRoot = 1 + yearlyRate;
+        double principal = payment * period;
 
-        switch (type) {
+        double yearlyConstant = Math.pow(yearlyRoot, 1.0 / 12);
+
+        double simpleMultiplier = paymentCountMonthly * monthlyRate;
+        double monthlyMultiplier = Math.pow(monthlyRoot, period) - 1;
+        double yearlyMultiplier = Math.pow(yearlyRoot, yearlyPeriod) - yearlyConstant;
+
+
+        switch (mInterestType) {
             case 0: // 단리
-                return principal * simpleMultiplier;
+                return payment * simpleMultiplier;
             case 1: // 월복리
-                return principal * monthlyMultiplier;
+                return payment * monthlyRoot * monthlyMultiplier / monthlyRate - principal;
             case 2: // 연복리
-                return principal * yearlyMultiplier;
+                return payment * yearlyMultiplier / (yearlyConstant - 1) - principal;
             default:// 오리
                 return 0;
         }
