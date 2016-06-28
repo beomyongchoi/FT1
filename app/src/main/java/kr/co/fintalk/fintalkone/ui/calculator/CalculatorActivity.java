@@ -15,6 +15,9 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.ui.calculator.debt.DebtFirstActivity;
+import kr.co.fintalk.fintalkone.ui.calculator.debt.DebtSecondActivity;
+import kr.co.fintalk.fintalkone.ui.calculator.debt.DebtThirdActivity;
 import kr.co.fintalk.fintalkone.ui.calculator.investment.InvestmentFirstActivity;
 import kr.co.fintalk.fintalkone.ui.calculator.investment.InvestmentSecondActivity;
 import kr.co.fintalk.fintalkone.ui.calculator.investment.InvestmentThirdActivity;
@@ -119,19 +122,19 @@ public class CalculatorActivity extends BaseFragmentActivity {
                             startActivity(intent);
                             break;
                         case 9:
-//                            intent = new Intent(CalculatorActivity.this, DebtFirstActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
+                            intent = new Intent(CalculatorActivity.this, DebtFirstActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
                             break;
                         case 10:
-//                            intent = new Intent(CalculatorActivity.this, DebtSecondActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
+                            intent = new Intent(CalculatorActivity.this, DebtSecondActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
                             break;
                         case 11:
-//                            intent = new Intent(CalculatorActivity.this, DebtThirdActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
+                            intent = new Intent(CalculatorActivity.this, DebtThirdActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
                             break;
                         default:
                             intent = new Intent(CalculatorActivity.this, SavingFirstActivity.class);
