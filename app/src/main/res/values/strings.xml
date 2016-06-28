@@ -21,6 +21,7 @@
     <string name="debt_maturity">만기일시상환</string>
     <string name="debt_divide_balance">원금균등상환</string>
     <string name="debt_divide_monthly">원리금균등상환</string>
+    <string name="monthly_schedule">월별 스케쥴 보기</string>
     <!--공통항목-->
     <string name="calculate">계산하기</string>
     <string name="won">원</string>
@@ -42,6 +43,6 @@
     <string name="interest_type">이자계산방법</string>
     <string name="return_rate">수익률</string>
     <string name="debt_principal">대출원금</string>
-    <string name="debt_period">대출기간</string>
+    <string name="repayment_period">대출기간</string>
 
 </resources>
