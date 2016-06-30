@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/defaultWhite">
+
+    <TextView
+        android:id="@+id/indexTextView"
+        android:onClick="indexOnClick"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp40"
+        android:text="@string/first_index"
+        android:textColor="@color/defaultContents"
+        android:textSize="@dimen/defaultFontSize"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp42"
+        android:paddingTop="@dimen/dp8"
+        android:paddingBottom="@dimen/dp8"
+        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+        android:drawablePadding="@dimen/dp16"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:id="@+id/debtDetailListView"
+        android:background="@color/defaultWhite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:headerDividersEnabled="true"
+        android:divider="@color/defaultDivider"
+        android:dividerHeight="@dimen/dp1"
+        android:layout_below="@+id/indexTextView" />
+</RelativeLayout>

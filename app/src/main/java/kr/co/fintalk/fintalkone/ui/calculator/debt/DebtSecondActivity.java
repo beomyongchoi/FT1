@@ -1,5 +1,6 @@
 package kr.co.fintalk.fintalkone.ui.calculator.debt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,14 +19,12 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/28/16
  */
 public class DebtSecondActivity extends BaseFragmentActivity {
-    public final static String ITEM_TITLE = "title";
-    public final static String ITEM_CONTENTS = "contents";
-
     OBParse mParse = new OBParse();
 
     OBEditText mPrincipalEditText;
@@ -33,10 +32,10 @@ public class DebtSecondActivity extends BaseFragmentActivity {
     OBEditText mInterestRateEditText;
     Button mDetailScheduleButton;
 
-    public double mMonthlyRepayment;
+    public int mPeriod;
 
-    List<Double> mRemainingDebt = new ArrayList<>();
-    List<Double> mMonthlyInterest = new ArrayList<>();
+    public double mMonthlyRepayment;
+    ArrayList<Double> mMonthlyInterest = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,26 +59,26 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         String interestRateString = mInterestRateEditText.getText().toString();
 
         double principal = mParse.toDouble(principalString.replace("원","").replace(",",""));
-        double repaymentPeriod = mParse.toDouble(repaymentPeriodString.replace("개월",""));
+        mPeriod = mParse.toInt(repaymentPeriodString.replace("개월",""));
         double interestRate = mParse.toDouble(interestRateString.replace("%",""));
 
         if(principalString.length() != 0
                 && repaymentPeriodString.length() != 0
                 && interestRateString.length() != 0) {
-            mMonthlyRepayment = principal / repaymentPeriod;
-            calculatorInterest(principal, repaymentPeriod, interestRate);
+            mMonthlyRepayment = principal / mPeriod;
+            calculatorInterest(principal, interestRate);
             setListView(principal);
             mDetailScheduleButton.setVisibility(View.VISIBLE);
         }
         else {
-            showToast("모든 항목을 입력하세요", 3);
+            showToast(R.string.toast_text, 2);
         }
     }
 
     public Map<String,?> createItem(String title, String contents) {
         Map<String,String> item = new HashMap<>();
-        item.put(ITEM_TITLE, title);
-        item.put(ITEM_CONTENTS, contents);
+        item.put(FTConstants.ITEM_TITLE, title);
+        item.put(FTConstants.ITEM_CONTENTS, contents);
         return item;
     }
 
@@ -97,7 +96,7 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         // create our list and custom adapter
         DebtListViewAdapter adapter = new DebtListViewAdapter(this);
 
-        String[] from = { ITEM_TITLE, ITEM_CONTENTS };
+        String[] from = { FTConstants.ITEM_TITLE, FTConstants.ITEM_CONTENTS };
         int[] to = new int[] {R.id.debtResultTitle, R.id.debtResultContents};
 
         adapter.addSection("계산결과", new SimpleAdapter(this, resultList,
@@ -107,23 +106,29 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         list.setAdapter(adapter);
     }
 
-    public void calculatorInterest(double principal, double period, double yearlyRate) {
+    public void calculatorInterest(double principal, double yearlyRate) {
         double monthlyRate = yearlyRate / 1200;
 
-        for(int index = 0; index < period; index++) {
-            mRemainingDebt.add(index, principal - mMonthlyRepayment * index);
-            mMonthlyInterest.add(index, mRemainingDebt.get(index) * monthlyRate);
+        for(int index = 0; index < mPeriod; index++) {
+            mMonthlyInterest.add(index, principal * monthlyRate);
+            principal -= mMonthlyRepayment;
         }
     }
 
     public void detailScheduleOnClick(View view) {
-        showToast("아직 안했어",2);
+        Intent intent = new Intent(DebtSecondActivity.this, DebtSecondDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("index", mPeriod);
+        intent.putExtra("monthlyRepayment", mMonthlyRepayment);
+        intent.putExtra("monthlyInterest", mMonthlyInterest);
+        startActivity(intent);
     }
 
     public static double sumOfTotalInterest(List<Double> doubles) {
-        int len = doubles.size();
-        if (len == 0) return 0;
-        if (len == 1) return doubles.get(0);
-        return sumOfTotalInterest(doubles.subList(0, len/2)) + sumOfTotalInterest(doubles.subList(len/2, len));
+        int length = doubles.size();
+        if (length == 0) return 0;
+        if (length == 1) return doubles.get(0);
+        return sumOfTotalInterest(doubles.subList(0, length/2))
+                + sumOfTotalInterest(doubles.subList(length/2, length));
     }
 }

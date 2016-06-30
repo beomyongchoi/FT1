@@ -132,4 +132,9 @@ public class FTConstants {
     public final static String INTENT_DATA3 = "intentData3";
     public final static String INTENT_DATA4 = "intentData4";
     public final static String INTENT_DATA5 = "intentData5";
+
+    public final static String ITEM_TITLE = "title";
+    public final static String ITEM_CONTENTS = "contents";
+
+    public final static int TYPE_SECTION_HEADER = 0;
 }

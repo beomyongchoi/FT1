@@ -22,6 +22,7 @@
     <string name="debt_divide_balance">원금균등상환</string>
     <string name="debt_divide_monthly">원리금균등상환</string>
     <string name="monthly_schedule">월별 스케쥴 보기</string>
+    <string name="index_selection">회차 선택</string>
     <!--공통항목-->
     <string name="calculate">계산하기</string>
     <string name="won">원</string>
@@ -29,6 +30,7 @@
     <string name="percent">%</string>
     <string name="result_calculate">계산결과</string>
     <string name="principal">원금</string>
+    <string name="toast_text">모든 항목을 입력하세요</string>
 
     <!-- 입력 메뉴 제목 -->
     <string name="monthly_payment">월 적금액</string>
@@ -44,5 +46,6 @@
     <string name="return_rate">수익률</string>
     <string name="debt_principal">대출원금</string>
     <string name="repayment_period">대출기간</string>
+    <string name="first_index">1회차</string>
 
 </resources>

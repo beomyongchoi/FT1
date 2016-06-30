@@ -30,25 +30,20 @@
                 android:gravity="left|center_vertical"
                 android:layout_weight="3" />
 
-            <com.oooobang.library.OBEditText
+            <kr.co.fintalk.fintalkone.common.ClearEditText
                 android:id="@+id/savingGoalAmountEditText"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="@dimen/dp36"
-                android:paddingTop="@dimen/dp8"
                 android:paddingRight="@dimen/dp12"
-                android:gravity="right"
+                android:gravity="right|center_vertical"
                 android:background="@drawable/box_edittext"
                 android:inputType="number"
                 android:ems="10"
-                android:maxLength="15"
                 android:textSize="@dimen/defaultFontSize"
                 android:textColor="@color/defaultContents"
                 android:hint="@string/won"
                 android:textColorHint="@color/black30"
                 android:layout_weight="7"
-                android:nextFocusDown="@+id/savingGoalPeriodEditText"
-                app:useComma="true"
-                app:unitCharacter="@string/won"
                 />
         </LinearLayout>
 
@@ -64,24 +59,20 @@
                 android:gravity="left|center_vertical"
                 android:layout_weight="3" />
 
-            <com.oooobang.library.OBEditText
+            <kr.co.fintalk.fintalkone.common.ClearEditText
                 android:id="@+id/savingPredictedPeriodEditText"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="@dimen/dp36"
-                android:paddingTop="@dimen/dp8"
                 android:paddingRight="@dimen/dp12"
-                android:gravity="right"
+                android:gravity="right|center_vertical"
                 android:background="@drawable/box_edittext"
                 android:inputType="number"
                 android:ems="10"
-                android:maxLength="6"
                 android:textSize="@dimen/defaultFontSize"
                 android:textColor="@color/defaultContents"
                 android:hint="@string/months"
                 android:textColorHint="@color/black30"
                 android:layout_weight="7"
-                android:nextFocusDown="@+id/savingInterestRateEditText"
-                app:unitCharacter="@string/months"
                 />
         </LinearLayout>
 
@@ -97,23 +88,20 @@
                 android:gravity="left|center_vertical"
                 android:layout_weight="3" />
 
-            <com.oooobang.library.OBEditText
+            <kr.co.fintalk.fintalkone.common.ClearEditText
                 android:id="@+id/savingInterestRateEditText"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="@dimen/dp36"
-                android:paddingTop="@dimen/dp8"
                 android:paddingRight="@dimen/dp12"
-                android:gravity="right"
+                android:gravity="right|center_vertical"
                 android:background="@drawable/box_edittext"
                 android:inputType="numberDecimal"
                 android:ems="10"
-                android:maxLength="10"
                 android:textSize="@dimen/defaultFontSize"
                 android:textColor="@color/defaultContents"
                 android:hint="@string/percent"
                 android:textColorHint="@color/black30"
                 android:layout_weight="7"
-                app:unitCharacter="@string/percent"
                 />
         </LinearLayout>
 

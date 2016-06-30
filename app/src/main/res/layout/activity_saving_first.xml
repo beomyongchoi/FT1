@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backGround">
@@ -30,7 +29,7 @@
                 android:gravity="left|center_vertical"
                 android:layout_weight="3" />
 
-            <com.oooobang.library.OBEditText
+            <EditText
                 android:id="@+id/savingMonthlyPaymentEditText"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="@dimen/dp36"
@@ -40,15 +39,11 @@
                 android:background="@drawable/box_edittext"
                 android:inputType="number"
                 android:ems="10"
-                android:maxLength="15"
                 android:textSize="@dimen/defaultFontSize"
                 android:textColor="@color/defaultContents"
                 android:hint="@string/won"
                 android:textColorHint="@color/black30"
                 android:layout_weight="7"
-                android:nextFocusDown="@+id/savingGoalPeriodEditText"
-                app:useComma="true"
-                app:unitCharacter="@string/won"
                 />
         </LinearLayout>
 
@@ -64,7 +59,7 @@
                 android:gravity="left|center_vertical"
                 android:layout_weight="3" />
 
-            <com.oooobang.library.OBEditText
+            <EditText
                 android:id="@+id/savingGoalPeriodEditText"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="@dimen/dp36"
@@ -74,14 +69,11 @@
                 android:background="@drawable/box_edittext"
                 android:inputType="number"
                 android:ems="10"
-                android:maxLength="6"
                 android:textSize="@dimen/defaultFontSize"
                 android:textColor="@color/defaultContents"
                 android:hint="@string/months"
                 android:textColorHint="@color/black30"
                 android:layout_weight="7"
-                android:nextFocusDown="@+id/savingInterestRateEditText"
-                app:unitCharacter="@string/months"
                 />
         </LinearLayout>
 
@@ -97,7 +89,7 @@
                 android:gravity="left|center_vertical"
                 android:layout_weight="3" />
 
-            <com.oooobang.library.OBEditText
+            <EditText
                 android:id="@+id/savingInterestRateEditText"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="@dimen/dp36"
@@ -107,13 +99,11 @@
                 android:background="@drawable/box_edittext"
                 android:inputType="numberDecimal"
                 android:ems="10"
-                android:maxLength="10"
                 android:textSize="@dimen/defaultFontSize"
                 android:textColor="@color/defaultContents"
                 android:hint="@string/percent"
                 android:textColorHint="@color/black30"
                 android:layout_weight="7"
-                app:unitCharacter="@string/percent"
                 />
         </LinearLayout>
 

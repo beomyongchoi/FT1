@@ -15,6 +15,7 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.FTConstants;
 import kr.co.fintalk.fintalkone.ui.calculator.debt.DebtFirstActivity;
 import kr.co.fintalk.fintalkone.ui.calculator.debt.DebtSecondActivity;
 import kr.co.fintalk.fintalkone.ui.calculator.debt.DebtThirdActivity;
@@ -30,17 +31,15 @@ import kr.co.fintalk.fintalkone.ui.calculator.saving.SavingThirdActivity;
  */
 
 public class CalculatorActivity extends BaseFragmentActivity {
-    public final static String ITEM_TITLE = "title";
-
     private CalculatorListViewAdapter mAdapter;
     private List<Map<String,?>> saving, investment, debt;
 
-    private String[] from = { ITEM_TITLE };
+    private String[] from = { FTConstants.ITEM_TITLE };
     private int[] to = new int[] {R.id.calculatorListSectionTitle};
 
     public Map<String,?> createItem(String title) {
         Map<String,String> item = new HashMap<>();
-        item.put(ITEM_TITLE, title);
+        item.put(FTConstants.ITEM_TITLE, title);
         return item;
     }
 

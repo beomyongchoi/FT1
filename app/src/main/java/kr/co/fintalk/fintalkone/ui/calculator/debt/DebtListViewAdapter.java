@@ -11,17 +11,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
+import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/28/16
  */
 public class DebtListViewAdapter extends BaseAdapter {
-    public final Map<String,Adapter> sections = new LinkedHashMap<String,Adapter>();
+    public final Map<String,Adapter> sections = new LinkedHashMap<>();
     public final ArrayAdapter<String> headers;
-    public final static int TYPE_SECTION_HEADER = 0;
 
     public DebtListViewAdapter(Context context) {
-        headers = new ArrayAdapter<String>(context, R.layout.listview_debt_header);
+        headers = new ArrayAdapter<>(context, R.layout.listview_debt_header);
     }
 
     public void addSection(String section, Adapter adapter) {
@@ -67,7 +67,7 @@ public class DebtListViewAdapter extends BaseAdapter {
             int size = adapter.getCount() + 1;
 
             // check if position inside this section
-            if(position == 0) return TYPE_SECTION_HEADER;
+            if(position == 0) return FTConstants.TYPE_SECTION_HEADER;
             if(position < size) return type + adapter.getItemViewType(position - 1);
 
             // otherwise jump into next section
@@ -82,7 +82,7 @@ public class DebtListViewAdapter extends BaseAdapter {
     }
 
     public boolean isEnabled(int position) {
-        return (getItemViewType(position) != TYPE_SECTION_HEADER);
+        return (getItemViewType(position) != FTConstants.TYPE_SECTION_HEADER);
     }
 
     @Override

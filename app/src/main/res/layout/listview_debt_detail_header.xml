@@ -1,0 +1,9 @@
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp4"
+    android:paddingBottom="@dimen/dp4"
+    android:paddingLeft="@dimen/dp16"
+    android:background="#f2f2f2"
+    android:textColor="@color/colorPrimary500" />

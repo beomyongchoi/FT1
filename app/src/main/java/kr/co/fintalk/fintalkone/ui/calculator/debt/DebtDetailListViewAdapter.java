@@ -1,4 +1,4 @@
-package kr.co.fintalk.fintalkone.ui.calculator;
+package kr.co.fintalk.fintalkone.ui.calculator.debt;
 
 import android.content.Context;
 import android.view.View;
@@ -14,14 +14,14 @@ import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
- * Created by BeomyongChoi on 6/21/16.
+ * Created by BeomyongChoi on 6/28/16
  */
-public class CalculatorListViewAdapter extends BaseAdapter {
+public class DebtDetailListViewAdapter extends BaseAdapter {
     public final Map<String,Adapter> sections = new LinkedHashMap<>();
     public final ArrayAdapter<String> headers;
 
-    public CalculatorListViewAdapter(Context context) {
-        headers = new ArrayAdapter<>(context, R.layout.listview_calculator_header);
+    public DebtDetailListViewAdapter(Context context) {
+        headers = new ArrayAdapter<>(context, R.layout.listview_debt_detail_header);
     }
 
     public void addSection(String section, Adapter adapter) {

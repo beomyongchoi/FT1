@@ -18,14 +18,12 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/27/16
  */
 public class SavingThirdActivity extends BaseFragmentActivity {
-    public final static String ITEM_TITLE = "title";
-    public final static String ITEM_CONTENTS = "contents";
-
     OBParse mParse = new OBParse();
 
     OBEditText mDepositAmountEditText;
@@ -81,14 +79,14 @@ public class SavingThirdActivity extends BaseFragmentActivity {
             setListView(depositAmount, resultInterest);
         }
         else {
-            showToast("모든 항목을 입력하세요", 3);
+            showToast(R.string.toast_text, 2);
         }
     }
 
     public Map<String,?> createItem(String title, String contents) {
         Map<String,String> item = new HashMap<>();
-        item.put(ITEM_TITLE, title);
-        item.put(ITEM_CONTENTS, contents);
+        item.put(FTConstants.ITEM_TITLE, title);
+        item.put(FTConstants.ITEM_CONTENTS, contents);
         return item;
     }
 
@@ -142,7 +140,7 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         // create our list and custom adapter
         SavingListViewAdapter adapter = new SavingListViewAdapter(this);
 
-        String[] from = { ITEM_TITLE, ITEM_CONTENTS };
+        String[] from = { FTConstants.ITEM_TITLE, FTConstants.ITEM_CONTENTS };
         int[] to = new int[] {R.id.savingResultTitle, R.id.savingResultContents};
 
         adapter.addSection("일반과세", new SimpleAdapter(this, taxGeneralList,

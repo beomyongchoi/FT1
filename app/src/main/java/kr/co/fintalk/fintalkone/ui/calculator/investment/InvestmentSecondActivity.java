@@ -16,14 +16,12 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/28/16
  */
 public class InvestmentSecondActivity extends BaseFragmentActivity {
-    public final static String ITEM_TITLE = "title";
-    public final static String ITEM_CONTENTS = "contents";
-
     OBParse mParse = new OBParse();
 
     OBEditText mMonthlyPaymentEditText;
@@ -65,14 +63,14 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
             setListView(monthlyPayment, resultPrincipal, resultReturn);
         }
         else {
-            showToast("모든 항목을 입력하세요", 3);
+            showToast(R.string.toast_text, 2);
         }
     }
 
     public Map<String,?> createItem(String title, String contents) {
         Map<String,String> item = new HashMap<>();
-        item.put(ITEM_TITLE, title);
-        item.put(ITEM_CONTENTS, contents);
+        item.put(FTConstants.ITEM_TITLE, title);
+        item.put(FTConstants.ITEM_CONTENTS, contents);
         return item;
     }
 
@@ -89,7 +87,7 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
         // create our list and custom adapter
         InvestmentListViewAdapter adapter = new InvestmentListViewAdapter(this);
 
-        String[] from = { ITEM_TITLE, ITEM_CONTENTS };
+        String[] from = { FTConstants.ITEM_TITLE, FTConstants.ITEM_CONTENTS };
         int[] to = new int[] {R.id.investmentResultTitle, R.id.investmentResultContents};
 
         adapter.addSection("계산결과", new SimpleAdapter(this, resultList,

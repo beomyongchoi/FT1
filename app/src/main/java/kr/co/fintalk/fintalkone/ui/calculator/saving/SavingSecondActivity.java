@@ -3,7 +3,11 @@ package kr.co.fintalk.fintalkone.ui.calculator.saving;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -18,19 +22,21 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.ClearEditText;
+import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
+import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/23/16
  */
 public class SavingSecondActivity extends BaseFragmentActivity {
-    public final static String ITEM_TITLE = "title";
-    public final static String ITEM_CONTENTS = "contents";
-
     OBParse mParse = new OBParse();
 
-    OBEditText mGoalAmountEditText;
-    OBEditText mPredictedPeriodEditText;
-    OBEditText mInterestRateEditText;
+    ClearEditText mGoalAmountEditText;
+    ClearEditText mPredictedPeriodEditText;
+    ClearEditText mInterestRateEditText;
+
+    Button mCalculatorButton;
 
     public double mMonthlyPaymentTaxGeneral;
     public double mMonthlyPaymentTaxBreaks;
@@ -46,9 +52,27 @@ public class SavingSecondActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.saving_goal_amount);
 
-        mGoalAmountEditText = (OBEditText) findViewById(R.id.savingGoalAmountEditText);
-        mPredictedPeriodEditText = (OBEditText) findViewById(R.id.savingPredictedPeriodEditText);
-        mInterestRateEditText = (OBEditText) findViewById(R.id.savingInterestRateEditText);
+        mGoalAmountEditText = (ClearEditText) findViewById(R.id.savingGoalAmountEditText);
+        mPredictedPeriodEditText = (ClearEditText) findViewById(R.id.savingPredictedPeriodEditText);
+        mInterestRateEditText = (ClearEditText) findViewById(R.id.savingInterestRateEditText);
+
+        mGoalAmountEditText.setWon(true);
+        mPredictedPeriodEditText.setPeriod(true);
+        mInterestRateEditText.setRate(true);
+
+        mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
+
+        mInterestRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
+        mInterestRateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        mInterestRateEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mCalculatorButton.performClick();
+                }
+                return false;
+            }
+        });
     }
 
     public void interestTypeOnClick(View view) {
@@ -89,14 +113,14 @@ public class SavingSecondActivity extends BaseFragmentActivity {
 
         }
         else {
-            showToast("모든 항목을 입력하세요", 3);
+            showToast(R.string.toast_text, 2);
         }
     }
 
     public Map<String,?> createItem(String title, String contents) {
         Map<String,String> item = new HashMap<>();
-        item.put(ITEM_TITLE, title);
-        item.put(ITEM_CONTENTS, contents);
+        item.put(FTConstants.ITEM_TITLE, title);
+        item.put(FTConstants.ITEM_CONTENTS, contents);
         return item;
     }
 
@@ -154,7 +178,7 @@ public class SavingSecondActivity extends BaseFragmentActivity {
         // create our list and custom adapter
         SavingListViewAdapter adapter = new SavingListViewAdapter(this);
 
-        String[] from = { ITEM_TITLE, ITEM_CONTENTS };
+        String[] from = { FTConstants.ITEM_TITLE, FTConstants.ITEM_CONTENTS };
         int[] to = new int[] {R.id.savingResultTitle, R.id.savingResultContents};
 
         adapter.addSection("일반과세", new SimpleAdapter(this, taxGeneralList,

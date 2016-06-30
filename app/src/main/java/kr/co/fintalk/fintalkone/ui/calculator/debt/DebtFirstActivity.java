@@ -16,14 +16,12 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/28/16
  */
 public class DebtFirstActivity extends BaseFragmentActivity {
-    public final static String ITEM_TITLE = "title";
-    public final static String ITEM_CONTENTS = "contents";
-
     OBParse mParse = new OBParse();
 
     OBEditText mPrincipalEditText;
@@ -53,7 +51,7 @@ public class DebtFirstActivity extends BaseFragmentActivity {
         String interestRateString = mInterestRateEditText.getText().toString();
 
         double principal = mParse.toDouble(principalString.replace("원","").replace(",",""));
-        double repaymentPeriod = mParse.toDouble(repaymentPeriodString.replace("개월",""));
+        int repaymentPeriod = mParse.toInt(repaymentPeriodString.replace("개월",""));
         double interestRate = mParse.toDouble(interestRateString.replace("%",""));
 
         if(principalString.length() != 0
@@ -63,14 +61,14 @@ public class DebtFirstActivity extends BaseFragmentActivity {
             setListView(principal);
         }
         else {
-            showToast("모든 항목을 입력하세요", 3);
+            showToast(R.string.toast_text, 2);
         }
     }
 
     public Map<String,?> createItem(String title, String contents) {
         Map<String,String> item = new HashMap<>();
-        item.put(ITEM_TITLE, title);
-        item.put(ITEM_CONTENTS, contents);
+        item.put(FTConstants.ITEM_TITLE, title);
+        item.put(FTConstants.ITEM_CONTENTS, contents);
         return item;
     }
 
@@ -87,7 +85,7 @@ public class DebtFirstActivity extends BaseFragmentActivity {
         // create our list and custom adapter
         DebtListViewAdapter adapter = new DebtListViewAdapter(this);
 
-        String[] from = { ITEM_TITLE, ITEM_CONTENTS };
+        String[] from = { FTConstants.ITEM_TITLE, FTConstants.ITEM_CONTENTS };
         int[] to = new int[] {R.id.debtResultTitle, R.id.debtResultContents};
 
         adapter.addSection("계산결과", new SimpleAdapter(this, resultList,
@@ -97,7 +95,7 @@ public class DebtFirstActivity extends BaseFragmentActivity {
         list.setAdapter(adapter);
     }
 
-    public void calculatorInterest(double principal, double period, double yearlyRate) {
+    public void calculatorInterest(double principal, int period, double yearlyRate) {
         double monthlyRate = yearlyRate / 1200;
 
         mMonthlyInterest = principal * monthlyRate;
