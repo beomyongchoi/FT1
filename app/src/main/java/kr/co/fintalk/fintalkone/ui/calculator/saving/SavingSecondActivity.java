@@ -1,18 +1,19 @@
 package kr.co.fintalk.fintalkone.ui.calculator.saving;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.oooobang.library.OBEditText;
 import com.oooobang.library.OBParse;
 
 import java.util.HashMap;
@@ -58,19 +59,21 @@ public class SavingSecondActivity extends BaseFragmentActivity {
 
         mGoalAmountEditText.setWon(true);
         mPredictedPeriodEditText.setPeriod(true);
+        mPredictedPeriodEditText.setSaving(true);
         mInterestRateEditText.setRate(true);
 
         mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
 
         mInterestRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
         mInterestRateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
         mInterestRateEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     mCalculatorButton.performClick();
                 }
-                return false;
+                return true;
             }
         });
     }
@@ -101,16 +104,21 @@ public class SavingSecondActivity extends BaseFragmentActivity {
 
         double interestTaxGeneral, interestTaxBreaks, interestTaxFree;
 
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
         if(goalAmountString.length() != 0
                 && predictedPeriodString.length() != 0
                 && interestRateString.length() != 0) {
+            inputMethodManager.hideSoftInputFromWindow(mInterestRateEditText.getWindowToken(), 0);
+            mGoalAmountEditText.clearFocus();
+            mPredictedPeriodEditText.clearFocus();
+            mInterestRateEditText.clearFocus();
             calculatorMonthlyPayment(goalAmount, predictedPeriod, interestRate);
             interestTaxGeneral = calculatorInterest(mMonthlyPaymentTaxGeneral, predictedPeriod, interestRate);
             interestTaxBreaks = calculatorInterest(mMonthlyPaymentTaxBreaks, predictedPeriod, interestRate);
             interestTaxFree = calculatorInterest(mMonthlyPaymentTaxFree, predictedPeriod, interestRate);
-            setListView(interestTaxGeneral, interestTaxBreaks, interestTaxFree, predictedPeriod);
             setResultHeader(mParse.addComma(goalAmount) + "원");
-
+            setListView(interestTaxGeneral, interestTaxBreaks, interestTaxFree, predictedPeriod);
         }
         else {
             showToast(R.string.toast_text, 2);

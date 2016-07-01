@@ -1,12 +1,17 @@
 package kr.co.fintalk.fintalkone.ui.calculator.investment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.oooobang.library.OBEditText;
 import com.oooobang.library.OBParse;
 
 import java.util.HashMap;
@@ -16,6 +21,8 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.ClearEditText;
+import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
 import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
@@ -24,9 +31,11 @@ import kr.co.fintalk.fintalkone.common.FTConstants;
 public class InvestmentThirdActivity extends BaseFragmentActivity {
     OBParse mParse = new OBParse();
 
-    OBEditText mDepositAmountEditText;
-    OBEditText mDepositPeriodEditText;
-    OBEditText mReturnRateEditText;
+    ClearEditText mDepositAmountEditText;
+    ClearEditText mDepositPeriodEditText;
+    ClearEditText mReturnRateEditText;
+
+    Button mCalculatorButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +45,28 @@ public class InvestmentThirdActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.investment_deposit);
 
-        mDepositAmountEditText = (OBEditText) findViewById(R.id.investmentDepositAmountEditText);
-        mDepositPeriodEditText = (OBEditText) findViewById(R.id.investmentDepositPeriodEditText);
-        mReturnRateEditText = (OBEditText) findViewById(R.id.investmentReturnRateEditText);
+        mDepositAmountEditText = (ClearEditText) findViewById(R.id.investmentDepositAmountEditText);
+        mDepositPeriodEditText = (ClearEditText) findViewById(R.id.investmentDepositPeriodEditText);
+        mReturnRateEditText = (ClearEditText) findViewById(R.id.investmentReturnRateEditText);
+
+        mDepositAmountEditText.setWon(true);
+        mDepositPeriodEditText.setPeriod(true);
+        mReturnRateEditText.setRate(true);
+
+        mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
+
+        mReturnRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
+        mReturnRateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        mReturnRateEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mCalculatorButton.performClick();
+                }
+                return true;
+            }
+        });
     }
 
     public void calculateInvestmentOnClick(View view) {
@@ -52,11 +80,22 @@ public class InvestmentThirdActivity extends BaseFragmentActivity {
 
         double resultInterest;
 
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
         if(depositAmountString.length() != 0
                 && depositPeriodString.length() != 0
                 && returnRateString.length() != 0) {
-            resultInterest = calculatorInterest(depositAmount, depositPeriod, returnRate);
-            setListView(depositAmount, resultInterest);
+            if (depositPeriod < 36) {
+                showToast(R.string.period_toast, 2);
+            }
+            else {
+                inputMethodManager.hideSoftInputFromWindow(mReturnRateEditText.getWindowToken(), 0);
+                mDepositAmountEditText.clearFocus();
+                mDepositPeriodEditText.clearFocus();
+                mReturnRateEditText.clearFocus();
+                resultInterest = calculatorInterest(depositAmount, depositPeriod, returnRate);
+                setListView(depositAmount, resultInterest);
+            }
         }
         else {
             showToast(R.string.toast_text, 2);

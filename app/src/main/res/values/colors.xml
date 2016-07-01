@@ -15,7 +15,7 @@
     <color name="colorPrimaryA400">#0be486</color>
     <color name="colorPrimaryA700">#078d53</color>
 
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#0ac775</color>
 
     <color name="backGround">@color/defaultGray100</color>
     <color name="defaultContents">#666666</color>

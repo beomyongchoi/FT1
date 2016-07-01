@@ -1,14 +1,19 @@
 package kr.co.fintalk.fintalkone.ui.calculator.saving;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.oooobang.library.OBEditText;
 import com.oooobang.library.OBParse;
 
 import java.util.HashMap;
@@ -18,6 +23,8 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.ClearEditText;
+import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
 import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
@@ -26,9 +33,11 @@ import kr.co.fintalk.fintalkone.common.FTConstants;
 public class SavingThirdActivity extends BaseFragmentActivity {
     OBParse mParse = new OBParse();
 
-    OBEditText mDepositAmountEditText;
-    OBEditText mDepositPeriodEditText;
-    OBEditText mInterestRateEditText;
+    ClearEditText mDepositAmountEditText;
+    ClearEditText mDepositPeriodEditText;
+    ClearEditText mInterestRateEditText;
+
+    Button mCalculatorButton;
 
     public int mInterestType = 0;
 
@@ -40,9 +49,29 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.saving_deposit);
 
-        mDepositAmountEditText = (OBEditText) findViewById(R.id.savingDepositAmountEditText);
-        mDepositPeriodEditText = (OBEditText) findViewById(R.id.savingDepositPeriodEditText);
-        mInterestRateEditText = (OBEditText) findViewById(R.id.savingInterestRateEditText);
+        mDepositAmountEditText = (ClearEditText) findViewById(R.id.savingDepositAmountEditText);
+        mDepositPeriodEditText = (ClearEditText) findViewById(R.id.savingDepositPeriodEditText);
+        mInterestRateEditText = (ClearEditText) findViewById(R.id.savingInterestRateEditText);
+
+        mDepositAmountEditText.setWon(true);
+        mDepositPeriodEditText.setPeriod(true);
+        mDepositAmountEditText.setSaving(true);
+        mInterestRateEditText.setRate(true);
+
+        mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
+
+        mInterestRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
+        mInterestRateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        mInterestRateEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mCalculatorButton.performClick();
+                }
+                return true;
+            }
+        });
     }
 
     public void interestTypeOnClick(View view) {
@@ -71,9 +100,17 @@ public class SavingThirdActivity extends BaseFragmentActivity {
 
         double resultInterest;
 
+
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
         if(depositAmountString.length() != 0
                 && depositPeriodString.length() != 0
                 && interestRateString.length() != 0) {
+            inputMethodManager.hideSoftInputFromWindow(mInterestRateEditText.getWindowToken(), 0);
+            mDepositAmountEditText.clearFocus();
+            mDepositPeriodEditText.clearFocus();
+            mInterestRateEditText.clearFocus();
             resultInterest = calculatorInterest(depositAmount, depositPeriod, interestRate);
             setResultHeader(mParse.addComma(depositAmount) + "원");
             setListView(depositAmount, resultInterest);

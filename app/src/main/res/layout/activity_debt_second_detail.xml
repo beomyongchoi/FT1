@@ -20,6 +20,20 @@
         android:drawablePadding="@dimen/dp16"
         android:layout_centerHorizontal="true" />
 
+    <View
+        android:id="@+id/horizontalLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/black30"
+        android:layout_below="@+id/indexTextView"/>
+
+    <com.github.mikephil.charting.charts.CombinedChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp200"
+        android:layout_marginBottom="@dimen/dp20"
+        android:layout_below="@+id/horizontalLine" />
+
     <ListView
         android:id="@+id/debtDetailListView"
         android:background="@color/defaultWhite"
@@ -28,5 +42,5 @@
         android:headerDividersEnabled="true"
         android:divider="@color/defaultDivider"
         android:dividerHeight="@dimen/dp1"
-        android:layout_below="@+id/indexTextView" />
+        android:layout_below="@+id/chart" />
 </RelativeLayout>

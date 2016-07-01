@@ -1,4 +1,4 @@
-package kr.co.fintalk.fintalkone.ui.calculator.debt;
+package kr.co.fintalk.fintalkone.ui.calculator.debt.detail;
 
 import android.content.Context;
 import android.view.View;

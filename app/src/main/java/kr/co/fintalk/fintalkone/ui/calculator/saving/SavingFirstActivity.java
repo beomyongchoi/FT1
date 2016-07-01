@@ -1,6 +1,7 @@
 package kr.co.fintalk.fintalkone.ui.calculator.saving;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,6 +31,8 @@ import java.util.regex.Pattern;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.ClearEditText;
+import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
 import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
@@ -37,9 +41,9 @@ import kr.co.fintalk.fintalkone.common.FTConstants;
 public class SavingFirstActivity extends BaseFragmentActivity {
     OBParse mParse = new OBParse();
 
-    EditText mMonthlyPaymentEditText;
-    EditText mGoalPeriodEditText;
-    EditText mInterestRateEditText;
+    ClearEditText mMonthlyPaymentEditText;
+    ClearEditText mGoalPeriodEditText;
+    ClearEditText mInterestRateEditText;
 
     Button mCalculatorButton;
 
@@ -53,124 +57,27 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.saving_monthly_payment);
 
-        mMonthlyPaymentEditText = (EditText) findViewById(R.id.savingMonthlyPaymentEditText);
-        mGoalPeriodEditText = (EditText) findViewById(R.id.savingGoalPeriodEditText);
-        mInterestRateEditText = (EditText) findViewById(R.id.savingInterestRateEditText);
+        mMonthlyPaymentEditText = (ClearEditText) findViewById(R.id.savingMonthlyPaymentEditText);
+        mGoalPeriodEditText = (ClearEditText) findViewById(R.id.savingGoalPeriodEditText);
+        mInterestRateEditText = (ClearEditText) findViewById(R.id.savingInterestRateEditText);
+
+        mMonthlyPaymentEditText.setWon(true);
+        mGoalPeriodEditText.setPeriod(true);
+        mGoalPeriodEditText.setSaving(true);
+        mInterestRateEditText.setRate(true);
 
         mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
 
-        mInterestRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
+        mInterestRateEditText.setFilters(new InputFilter[]{new kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter(3, 3)});
         mInterestRateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
         mInterestRateEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE)
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     mCalculatorButton.performClick();
-                return false;
-            }
-        });
-
-        mGoalPeriodEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                String string = mGoalPeriodEditText.getText().toString().replace("개월", "");
-                if (string.length() > 0)
-                    if (!hasFocus)
-                        string = string + "개월";
-                mGoalPeriodEditText.setText(string);
-            }
-        });
-
-        mInterestRateEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                String string = mInterestRateEditText.getText().toString().replace("%", "");
-                if (string.length() > 0)
-                    if (!hasFocus)
-                        string = string + "%";
-                mInterestRateEditText.setText(string);
-            }
-        });
-
-        mMonthlyPaymentEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                /***
-                 * No need to continue the function if there is nothing to
-                 * format
-                 ***/
-                if (s.length() == 0) {
-                    return;
                 }
-
-                /*** Now the number of digits in price is limited to 12 ***/
-                String value = s.toString().replaceAll(",", "").replace("원","");
-                if (value.length() > 12) {
-                    value = value.substring(0, 12);
-                }
-                String formattedPrice = getFormattedCurrency(value);
-                if (!(formattedPrice.equalsIgnoreCase(s.toString()))) {
-                    /***
-                     * The below given line will call the function recursively
-                     * and will ends at this if block condition
-                     ***/
-                    mMonthlyPaymentEditText.setText(formattedPrice);
-                    mMonthlyPaymentEditText.setSelection(mMonthlyPaymentEditText.length());
-                }
-            }
-        });
-
-        mGoalPeriodEditText.addTextChangedListener(new TextWatcher() {
-            String text;
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().length() > 0) {
-                    if (mParse.toInt(s.toString().replace("개월","")) > 36) {
-                        mGoalPeriodEditText.setText(text);
-                        mGoalPeriodEditText.setSelection(text.length() - 1);
-                    }
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                text = s.toString();
-            }
-        });
-
-        mInterestRateEditText.addTextChangedListener(new TextWatcher() {
-            String text;
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().length() > 0) {
-                    if (mParse.toDouble(s.toString().replace("%","")) > 100.0) {
-                        mInterestRateEditText.setText(text);
-                        mInterestRateEditText.setSelection(text.length() - 1);
-                    }
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                text = s.toString();
+                return true;
             }
         });
     }
@@ -202,9 +109,15 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         double resultPrincipal;
         double resultInterest;
 
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
         if(monthlyPaymentString.length() != 0
                 && goalPeriodString.length() != 0
                 && interestRateString.length() != 0) {
+            inputMethodManager.hideSoftInputFromWindow(mInterestRateEditText.getWindowToken(), 0);
+            mMonthlyPaymentEditText.clearFocus();
+            mGoalPeriodEditText.clearFocus();
+            mInterestRateEditText.clearFocus();
             resultPrincipal = monthlyPayment * goalPeriod;
             resultInterest = calculatorInterest(monthlyPayment, goalPeriod, interestRate);
             setResultHeader(mParse.addComma(resultPrincipal) + "원");
@@ -313,39 +226,5 @@ public class SavingFirstActivity extends BaseFragmentActivity {
             default:// 오리
                 return 0;
         }
-    }
-
-    public class DecimalDigitsInputFilter implements InputFilter {
-
-        Pattern mPattern;
-
-        public DecimalDigitsInputFilter(int digitsBeforeZero,int digitsAfterZero) {
-            mPattern= Pattern.compile("[0-9]{0," + (digitsBeforeZero-1) + "}+((\\.[0-9]{0," + (digitsAfterZero-1) + "})?)||(\\.)?");
-        }
-
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-
-            Matcher matcher=mPattern.matcher(dest);
-            if(!matcher.matches())
-                return "";
-            return null;
-        }
-
-    }
-
-    /**
-     *
-     * @param value not formatted amount
-     * @return Formatted string of amount (#,###).
-     */
-    public static String getFormattedCurrency(String value) {
-        try {
-            NumberFormat formatter = new DecimalFormat("#,###");
-            return formatter.format(Double.parseDouble(value));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 }

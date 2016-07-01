@@ -1,12 +1,17 @@
 package kr.co.fintalk.fintalkone.ui.calculator.investment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.oooobang.library.OBEditText;
 import com.oooobang.library.OBParse;
 
 import java.util.HashMap;
@@ -16,6 +21,8 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.ClearEditText;
+import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
 import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
@@ -24,9 +31,11 @@ import kr.co.fintalk.fintalkone.common.FTConstants;
 public class InvestmentSecondActivity extends BaseFragmentActivity {
     OBParse mParse = new OBParse();
 
-    OBEditText mMonthlyPaymentEditText;
-    OBEditText mGoalPeriodEditText;
-    OBEditText mReturnRateEditText;
+    ClearEditText mGoalAmountEditText;
+    ClearEditText mGoalPeriodEditText;
+    ClearEditText mReturnRateEditText;
+
+    Button mCalculatorButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +45,32 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.investment_goal_amount);
 
-        mMonthlyPaymentEditText = (OBEditText) findViewById(R.id.investmentGoalAmountEditText);
-        mGoalPeriodEditText = (OBEditText) findViewById(R.id.investmentGoalPeriodEditText);
-        mReturnRateEditText = (OBEditText) findViewById(R.id.investmentReturnRateEditText);
+        mGoalAmountEditText = (ClearEditText) findViewById(R.id.investmentGoalAmountEditText);
+        mGoalPeriodEditText = (ClearEditText) findViewById(R.id.investmentGoalPeriodEditText);
+        mReturnRateEditText = (ClearEditText) findViewById(R.id.investmentReturnRateEditText);
+        
+        mGoalAmountEditText.setWon(true);
+        mGoalPeriodEditText.setPeriod(true);
+        mReturnRateEditText.setRate(true);
+
+        mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
+
+        mReturnRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
+        mReturnRateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        mReturnRateEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mCalculatorButton.performClick();
+                }
+                return true;
+            }
+        });
     }
 
     public void calculateInvestmentOnClick(View view) {
-        String goalAmountString = mMonthlyPaymentEditText.getText().toString();
+        String goalAmountString = mGoalAmountEditText.getText().toString();
         String predictedPeriodString = mGoalPeriodEditText.getText().toString();
         String returnRateString = mReturnRateEditText.getText().toString();
 
@@ -54,13 +82,24 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
         double resultPrincipal;
         double resultReturn;
 
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
         if(goalAmountString.length() != 0
                 && predictedPeriodString.length() != 0
                 && returnRateString.length() != 0) {
-            monthlyPayment = calculatorMonthlyPayment(goalAmount, predictedPeriod, returnRate);
-            resultReturn = calculatorInterest(monthlyPayment, predictedPeriod, returnRate);
-            resultPrincipal = monthlyPayment * predictedPeriod;
-            setListView(monthlyPayment, resultPrincipal, resultReturn);
+            if (predictedPeriod < 36) {
+                showToast(R.string.period_toast, 2);
+            }
+            else {
+                inputMethodManager.hideSoftInputFromWindow(mReturnRateEditText.getWindowToken(), 0);
+                mGoalAmountEditText.clearFocus();
+                mGoalPeriodEditText.clearFocus();
+                mReturnRateEditText.clearFocus();
+                monthlyPayment = calculatorMonthlyPayment(goalAmount, predictedPeriod, returnRate);
+                resultReturn = calculatorInterest(monthlyPayment, predictedPeriod, returnRate);
+                resultPrincipal = monthlyPayment * predictedPeriod;
+                setListView(monthlyPayment, resultPrincipal, resultReturn);
+            }
         }
         else {
             showToast(R.string.toast_text, 2);

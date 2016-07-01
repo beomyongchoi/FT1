@@ -47,5 +47,6 @@
     <string name="debt_principal">대출원금</string>
     <string name="repayment_period">대출기간</string>
     <string name="first_index">1회차</string>
+    <string name="period_toast">기간을 36개월 이상으로 입력해주세요.</string>
 
 </resources>

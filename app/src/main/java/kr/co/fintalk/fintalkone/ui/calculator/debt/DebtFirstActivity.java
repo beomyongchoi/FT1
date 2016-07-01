@@ -1,12 +1,17 @@
 package kr.co.fintalk.fintalkone.ui.calculator.debt;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.oooobang.library.OBEditText;
 import com.oooobang.library.OBParse;
 
 import java.util.HashMap;
@@ -16,6 +21,8 @@ import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
+import kr.co.fintalk.fintalkone.common.ClearEditText;
+import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
 import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
@@ -24,13 +31,14 @@ import kr.co.fintalk.fintalkone.common.FTConstants;
 public class DebtFirstActivity extends BaseFragmentActivity {
     OBParse mParse = new OBParse();
 
-    OBEditText mPrincipalEditText;
-    OBEditText mRepaymentPeriodEditText;
-    OBEditText mInterestRateEditText;
+    ClearEditText mPrincipalEditText;
+    ClearEditText mRepaymentPeriodEditText;
+    ClearEditText mInterestRateEditText;
 
     public double mMonthlyInterest;
     public double mTotalInterest;
 
+    Button mCalculatorButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +48,28 @@ public class DebtFirstActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.debt_maturity);
 
-        mPrincipalEditText = (OBEditText) findViewById(R.id.debtPrincipalEditText);
-        mRepaymentPeriodEditText = (OBEditText) findViewById(R.id.debtRepaymentPeriodEditText);
-        mInterestRateEditText = (OBEditText) findViewById(R.id.debtInterestRateEditText);
+        mPrincipalEditText = (ClearEditText) findViewById(R.id.debtPrincipalEditText);
+        mRepaymentPeriodEditText = (ClearEditText) findViewById(R.id.debtRepaymentPeriodEditText);
+        mInterestRateEditText = (ClearEditText) findViewById(R.id.debtInterestRateEditText);
+
+        mPrincipalEditText.setWon(true);
+        mRepaymentPeriodEditText.setPeriod(true);
+        mInterestRateEditText.setRate(true);
+
+        mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
+
+        mInterestRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
+        mInterestRateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        mInterestRateEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mCalculatorButton.performClick();
+                }
+                return true;
+            }
+        });
     }
 
     public void calculateDebtOnClick(View view) {
@@ -54,11 +81,21 @@ public class DebtFirstActivity extends BaseFragmentActivity {
         int repaymentPeriod = mParse.toInt(repaymentPeriodString.replace("개월",""));
         double interestRate = mParse.toDouble(interestRateString.replace("%",""));
 
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
         if(principalString.length() != 0
                 && repaymentPeriodString.length() != 0
                 && interestRateString.length() != 0) {
-            calculatorInterest(principal, repaymentPeriod, interestRate);
-            setListView(principal);
+            if (repaymentPeriod < 36) {
+                showToast(R.string.period_toast, 2);
+            } else {
+                inputMethodManager.hideSoftInputFromWindow(mInterestRateEditText.getWindowToken(), 0);
+                mPrincipalEditText.clearFocus();
+                mRepaymentPeriodEditText.clearFocus();
+                mInterestRateEditText.clearFocus();
+                calculatorInterest(principal, repaymentPeriod, interestRate);
+                setListView(principal);
+            }
         }
         else {
             showToast(R.string.toast_text, 2);

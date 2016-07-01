@@ -10,7 +10,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -30,10 +30,11 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
     private boolean isWon = false;
     private boolean isPeriod = false;
     private boolean isRate = false;
+    private boolean isSaving = false;
 
     private OnFocusChangeListener onFocusChangeListener;
-    private OnTouchListener onTouchListener;
 
+    private OnTouchListener onTouchListener;
     private String mReplaceText = "";
 
     public void setWon(boolean won) {
@@ -46,6 +47,10 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
 
     public void setRate(boolean rate) {
         isRate = rate;
+    }
+
+    public void setSaving(boolean saving) {
+        isSaving = saving;
     }
 
     public ClearEditText(final Context context) {
@@ -75,25 +80,24 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
 
 
     private void init() {
-
         Drawable tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_cancel_24dp);
         clearDrawable = DrawableCompat.wrap(tempDrawable);
         clearDrawable.setBounds(15, 0, clearDrawable.getIntrinsicWidth() + 15, clearDrawable.getIntrinsicHeight());
 
-        tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_fingerprint_black_24dp);
+        tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.icon_won);
         wonDrawable = DrawableCompat.wrap(tempDrawable);
         DrawableCompat.setTintList(wonDrawable, getHintTextColors());
-        wonDrawable.setBounds(15, 0, wonDrawable.getIntrinsicWidth() + 15, wonDrawable.getIntrinsicHeight());
+        wonDrawable.setBounds(0, 0, wonDrawable.getIntrinsicWidth(), wonDrawable.getIntrinsicHeight());
 
-        tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_keyboard_arrow_right_black_24dp);
+        tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.icon_month);
         periodDrawable = DrawableCompat.wrap(tempDrawable);
         DrawableCompat.setTintList(periodDrawable, getHintTextColors());
-        periodDrawable.setBounds(15, 0, periodDrawable.getIntrinsicWidth() + 15, periodDrawable.getIntrinsicHeight());
+        periodDrawable.setBounds(0, 0, periodDrawable.getIntrinsicWidth(), periodDrawable.getIntrinsicHeight());
 
-        tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_keyboard_arrow_right_black_24dp);
+        tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.icon_percent);
         percentDrawable = DrawableCompat.wrap(tempDrawable);
         DrawableCompat.setTintList(percentDrawable, getHintTextColors());
-        percentDrawable.setBounds(15, 0, percentDrawable.getIntrinsicWidth() + 15, percentDrawable.getIntrinsicHeight());
+        percentDrawable.setBounds(0, 0, percentDrawable.getIntrinsicWidth(), percentDrawable.getIntrinsicHeight());
 
         setClearIconVisible(false);
         setWonIconVisible(false);
@@ -104,7 +108,6 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
         super.setOnFocusChangeListener(this);
         addTextChangedListener(this);
     }
-
 
     @Override
     public void onFocusChange(final View view, final boolean hasFocus) {
@@ -178,8 +181,14 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
                 setSelection(this.length());
             }
         } else if (isPeriod) {
-            if (s.toString().length() > 0) {
+            if (s.toString().length() > 0 && isSaving) {
                 if (Integer.parseInt(s.toString()) > 36) {
+                    setText(mReplaceText);
+                    setSelection(mReplaceText.length() - 1);
+                }
+            }
+            else if (s.toString().length() > 0 && !isSaving) {
+                if (Integer.parseInt(s.toString()) > 360) {
                     setText(mReplaceText);
                     setSelection(mReplaceText.length() - 1);
                 }
