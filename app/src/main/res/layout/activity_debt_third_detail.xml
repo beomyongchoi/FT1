@@ -24,10 +24,10 @@
         android:id="@+id/horizontalLine"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp1"
-        android:background="@color/black30"
+        android:background="@color/defaultDivider"
         android:layout_below="@+id/indexTextView"/>
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.github.mikephil.charting.charts.CombinedChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp200"

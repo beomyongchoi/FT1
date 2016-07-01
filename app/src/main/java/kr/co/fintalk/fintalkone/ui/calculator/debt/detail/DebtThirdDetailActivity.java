@@ -14,6 +14,10 @@ import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -46,8 +50,8 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
     ArrayList<Double> mRemainingDebt;
     ArrayList<Double> mMonthlyInterest;
 
-//    private CombinedChart mChart;
-    LineChart mChart;
+    private CombinedChart mChart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +69,13 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
 
         mIndexTextView = (TextView) findViewById(R.id.indexTextView);
 
-//        mChart = (CombinedChart) findViewById(R.id.chart);
-        mChart = (LineChart) findViewById(R.id.chart);
-//        mChart.setDrawGridBackground(false);
-//        mChart.setDrawBarShadow(false);
+        mChart = (CombinedChart) findViewById(R.id.chart);
+        mChart.setDescription("");
+        mChart.setDrawGridBackground(false);
+        mChart.setDrawBarShadow(false);
         mChart.setTouchEnabled(true);
         mChart.setOnChartValueSelectedListener(this);
+
         setListView(0);
         setChart();
     }
@@ -135,56 +140,67 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         return sum;
     }
 
-
     public void setChart() {
-        ArrayList<Entry> interestEntries = new ArrayList<>();
-        ArrayList<Entry> principalEntries = new ArrayList<>();
+        ArrayList<BarEntry> interestEntries = new ArrayList<>();
+        ArrayList<BarEntry> principalEntries = new ArrayList<>();
+        ArrayList<Entry> remainingDebtEntries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
         for (int index = 0; index < mIndex; index++) {
-            interestEntries.add(new Entry(mMonthlyInterest.get(index).floatValue(), index));
-            principalEntries.add(new Entry((float) (mMonthlyRepayment - mMonthlyInterest.get(index)),index));
+            interestEntries.add(new BarEntry(mMonthlyInterest.get(index).floatValue(), index));
+            principalEntries.add(new BarEntry((float) (mMonthlyRepayment - mMonthlyInterest.get(index)),index));
+            remainingDebtEntries.add(new Entry(mRemainingDebt.get(index).floatValue(), index));
             labels.add(index + 1 + "");
         }
 
-        LineDataSet interestDataSet = new LineDataSet(interestEntries, "이자");
-        interestDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        LineDataSet principalDataSet = new LineDataSet(principalEntries, "원금");
-        principalDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        YAxis rightAxis = mChart.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+        rightAxis.setValueFormatter(new DebtYAxisValueFormatter());
 
-        interestDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[2]);
-        interestDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[2]);
-        interestDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[2]);
-        interestDataSet.setDrawFilled(true); //선아래로 색상표시
-        interestDataSet.setDrawValues(false); //숫자표시
-        interestDataSet.setDrawCircles(false); //항목에 원
-        principalDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        principalDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        principalDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        principalDataSet.setDrawFilled(true);
-        principalDataSet.setDrawValues(false);
-        principalDataSet.setDrawCircles(false);
+        YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.setAxisMaxValue((float) ((mMonthlyRepayment > mMonthlyInterest.get(0)
+                ? mMonthlyRepayment : mMonthlyInterest.get(0)) * 1.5));
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+        leftAxis.setValueFormatter(new DebtYAxisValueFormatter());
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawAxisLine(true);
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawLabels(true);
 
-        YAxis left = mChart.getAxisLeft();
-        left.setDrawLabels(true); // no axis labels
-        left.setDrawAxisLine(false); // no axis line
-        left.setDrawGridLines(false); // no grid lines
-        left.setDrawZeroLine(true); // draw a zero line
-        mChart.getAxisRight().setEnabled(false); // no right axis
+        BarDataSet interestDataSet = new BarDataSet(interestEntries, "이자");
+        interestDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        BarDataSet principalDataSet = new BarDataSet(principalEntries, "원금");
+        principalDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        LineDataSet remainingDebtDataSet = new LineDataSet(remainingDebtEntries, "잔금");
+        remainingDebtDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
 
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(interestDataSet);
-        dataSets.add(principalDataSet);
+        interestDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[2]);
+        interestDataSet.setDrawValues(false); //숫자표시
 
-        LineData data = new LineData(labels, dataSets);
+        principalDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+        principalDataSet.setDrawValues(false);
+
+        remainingDebtDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        remainingDebtDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        remainingDebtDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        remainingDebtDataSet.setDrawFilled(true);
+        remainingDebtDataSet.setDrawValues(false);
+
+        mChart.setDrawOrder(new CombinedChart.DrawOrder[] {
+                CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.BAR });
+
+        BarData barData = new BarData();
+
+        barData.addDataSet(interestDataSet);
+        //barData.addDataSet(principalDataSet);
+
+        LineData lineData = new LineData();
+
+        lineData.addDataSet(remainingDebtDataSet);
+
+        CombinedData data = new CombinedData(labels);
 
         mChart.setData(data); // set the data and list of labels into chart
-        mChart.setDescription("");
 
         DebtChartMarkerView mv = new DebtChartMarkerView (this, R.layout.custom_marker_view_layout);
         mChart.setMarkerView(mv);

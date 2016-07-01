@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.oooobang.library.OBParse;
 
 import kr.co.fintalk.fintalkone.R;
 
@@ -13,6 +14,8 @@ import kr.co.fintalk.fintalkone.R;
  * Created by BeomyongChoi on 6/30/16
  */
 public class DebtChartMarkerView extends MarkerView {
+
+    OBParse mParse;
 
     private TextView tvContent;
 
@@ -26,7 +29,7 @@ public class DebtChartMarkerView extends MarkerView {
     // content (user-interface)
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        tvContent.setText((int) e.getVal() + "원"); // set the entry-value as the display text
+        tvContent.setText(mParse.addComma(e.getVal()) + "원"); // set the entry-value as the display text
     }
 
     @Override

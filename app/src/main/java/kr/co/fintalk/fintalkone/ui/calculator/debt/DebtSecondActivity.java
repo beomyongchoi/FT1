@@ -95,7 +95,7 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         if(principalString.length() != 0
                 && repaymentPeriodString.length() != 0
                 && interestRateString.length() != 0) {
-            if (mPeriod < 36) {
+            if (mPeriod < 12) {
                 showToast(R.string.period_toast, 2);
             } else {
                 inputMethodManager.hideSoftInputFromWindow(mInterestRateEditText.getWindowToken(), 0);
@@ -146,7 +146,7 @@ public class DebtSecondActivity extends BaseFragmentActivity {
 
     public void calculatorInterest(double principal, double yearlyRate) {
         double monthlyRate = yearlyRate / 1200;
-
+        mMonthlyInterest.clear();
         for(int index = 0; index < mPeriod; index++) {
             mMonthlyInterest.add(index, principal * monthlyRate);
             principal -= mMonthlyRepayment;

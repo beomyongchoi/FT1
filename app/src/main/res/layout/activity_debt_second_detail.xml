@@ -24,15 +24,38 @@
         android:id="@+id/horizontalLine"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp1"
-        android:background="@color/black30"
+        android:background="@color/defaultDivider"
         android:layout_below="@+id/indexTextView"/>
 
     <com.github.mikephil.charting.charts.CombinedChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp200"
-        android:layout_marginBottom="@dimen/dp20"
-        android:layout_below="@+id/horizontalLine" />
+        android:layout_below="@+id/horizontalLine"/>
+
+    <TextView
+        android:id="@+id/leftYAxisTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이자"
+        android:textColor="@color/defaultBlack"
+        android:textSize="@dimen/dp12"
+        android:gravity="center"
+        android:layout_above="@+id/debtDetailListView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/rightYAxisTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="잔금"
+        android:textColor="@color/defaultBlack"
+        android:textSize="@dimen/dp12"
+        android:gravity="center"
+        android:layout_above="@+id/debtDetailListView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ListView
         android:id="@+id/debtDetailListView"
@@ -43,4 +66,5 @@
         android:divider="@color/defaultDivider"
         android:dividerHeight="@dimen/dp1"
         android:layout_below="@+id/chart" />
+
 </RelativeLayout>

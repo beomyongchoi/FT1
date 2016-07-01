@@ -128,16 +128,15 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         list.setAdapter(adapter);
     }
 
-
     public void setChart() {
-        ArrayList<Entry> interestEntries = new ArrayList<>();
-        ArrayList<Entry> principalEntries = new ArrayList<>();
-        ArrayList<BarEntry> remainingDebtEntries = new ArrayList<>();
+        ArrayList<BarEntry> interestEntries = new ArrayList<>();
+        ArrayList<BarEntry> principalEntries = new ArrayList<>();
+        ArrayList<Entry> remainingDebtEntries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
         for (int index = 0; index < mIndex; index++) {
-            interestEntries.add(new Entry(mMonthlyInterest.get(index).floatValue(), index));
-            principalEntries.add(new Entry((float) (mMonthlyRepayment),index));
-            remainingDebtEntries.add(new BarEntry((float) (mMonthlyRepayment * (mIndex - index - 1)),index));
+            interestEntries.add(new BarEntry(mMonthlyInterest.get(index).floatValue(), index));
+            principalEntries.add(new BarEntry((float) (mMonthlyRepayment),index));
+            remainingDebtEntries.add(new Entry((float) (mMonthlyRepayment * (mIndex - index - 1)),index));
             labels.add(index + 1 + "");
         }
 
@@ -154,58 +153,68 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         leftAxis.setValueFormatter(new DebtYAxisValueFormatter());
 
         XAxis xAxis = mChart.getXAxis();
+        xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-        LineDataSet interestDataSet = new LineDataSet(interestEntries, "이자");
+        BarDataSet interestDataSet = new BarDataSet(interestEntries, "이자");
         interestDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        LineDataSet principalDataSet = new LineDataSet(principalEntries, "원금");
+        BarDataSet principalDataSet = new BarDataSet(principalEntries, "원금");
         principalDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        BarDataSet remainingDebtDataSet = new BarDataSet(remainingDebtEntries, "잔액");
+        LineDataSet remainingDebtDataSet = new LineDataSet(remainingDebtEntries, "잔금");
         remainingDebtDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
 
         interestDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        interestDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        interestDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        interestDataSet.setDrawFilled(true); //선아래로 색상표시
         interestDataSet.setDrawValues(false); //숫자표시
-        interestDataSet.setDrawCircles(false); //항목에 원
 
         principalDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[3]);
-        principalDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[3]);
-        principalDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[3]);
-        principalDataSet.setDrawFilled(true);
         principalDataSet.setDrawValues(false);
-        principalDataSet.setDrawCircles(false);
+
 
         remainingDebtDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        remainingDebtDataSet.setValueTextSize(10f);
+        remainingDebtDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        remainingDebtDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        remainingDebtDataSet.setDrawFilled(true);
+        remainingDebtDataSet.setDrawCircles(false);
         remainingDebtDataSet.setDrawValues(false);
 
-//        XAxis xAxis = mChart.getXAxis();
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setDrawAxisLine(true);
-//        xAxis.setDrawGridLines(false);
-//        xAxis.setDrawLabels(true);
+//        LineDataSet interestDataSet = new LineDataSet(interestEntries, "이자");
+//        interestDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+//        LineDataSet principalDataSet = new LineDataSet(principalEntries, "원금");
+//        principalDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+//        BarDataSet remainingDebtDataSet = new BarDataSet(remainingDebtEntries, "잔금");
+//        remainingDebtDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
 //
-//        YAxis left = mChart.getAxisLeft();
-//        left.setDrawLabels(true); // no axis labels
-//        left.setDrawAxisLine(false); // no axis line
-//        left.setDrawGridLines(false); // no grid lines
-//        left.setDrawZeroLine(true); // draw a zero line
-//        mChart.getAxisRight().setEnabled(false); // no right axis
+//        interestDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+//        interestDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+//        interestDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+//        interestDataSet.setDrawFilled(true); //선아래로 색상표시
+//        interestDataSet.setDrawValues(false); //숫자표시
+//        interestDataSet.setDrawCircles(false); //항목에 원
+//
+//        principalDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[3]);
+//        principalDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[3]);
+//        principalDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[3]);
+//        principalDataSet.setDrawFilled(true);
+//        principalDataSet.setDrawValues(false);
+//        principalDataSet.setDrawCircles(false);
+//
+//        remainingDebtDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+//        remainingDebtDataSet.setDrawValues(false);
 
         mChart.setDrawOrder(new CombinedChart.DrawOrder[] {
-                CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.BUBBLE, CombinedChart.DrawOrder.CANDLE, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.SCATTER
-        });
+                CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.BAR });
 
         LineData lineData = new LineData();
 
-        lineData.addDataSet(interestDataSet);
-        lineData.addDataSet(principalDataSet);
+//        lineData.addDataSet(interestDataSet);
+//        lineData.addDataSet(principalDataSet);
+        lineData.addDataSet(remainingDebtDataSet);
 
         BarData barData = new BarData();
 
-        barData.addDataSet(remainingDebtDataSet);
+        barData.addDataSet(interestDataSet);
+        barData.addDataSet(principalDataSet);
+//        barData.addDataSet(remainingDebtDataSet);
 
         CombinedData data = new CombinedData(labels);
 
@@ -224,7 +233,6 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
     }
     @Override
     public void onValueSelected(Entry e, int dataSetIndex, Highlight h){
-        Log.i("I clicked on", String.valueOf(e.getXIndex()) );
         int id = (int) e.getXIndex();
         mIndexTextView.setText(id + 1 + "회차");
         setListView(id);

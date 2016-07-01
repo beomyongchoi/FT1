@@ -86,7 +86,7 @@ public class DebtFirstActivity extends BaseFragmentActivity {
         if(principalString.length() != 0
                 && repaymentPeriodString.length() != 0
                 && interestRateString.length() != 0) {
-            if (repaymentPeriod < 36) {
+            if (repaymentPeriod < 12) {
                 showToast(R.string.period_toast, 2);
             } else {
                 inputMethodManager.hideSoftInputFromWindow(mInterestRateEditText.getWindowToken(), 0);
