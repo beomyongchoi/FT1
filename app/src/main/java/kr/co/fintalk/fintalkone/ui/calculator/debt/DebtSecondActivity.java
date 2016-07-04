@@ -62,6 +62,10 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         mRepaymentPeriodEditText.setPeriod(true);
         mInterestRateEditText.setRate(true);
 
+        mPrincipalEditText.init();
+        mRepaymentPeriodEditText.init();
+        mInterestRateEditText.init();
+
         mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
 
         mInterestRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
@@ -79,6 +83,8 @@ public class DebtSecondActivity extends BaseFragmentActivity {
 
         mDetailScheduleButton = (Button) findViewById(R.id.detailScheduleButton);
         mDetailScheduleButton.setVisibility(View.INVISIBLE);
+
+        setListView(0);
     }
 
     public void calculateDebtOnClick(View view) {

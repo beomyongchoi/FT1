@@ -53,6 +53,10 @@ public class InvestmentFirstActivity extends BaseFragmentActivity {
         mGoalPeriodEditText.setPeriod(true);
         mReturnRateEditText.setRate(true);
 
+        mMonthlyPaymentEditText.init();
+        mGoalPeriodEditText.init();
+        mReturnRateEditText.init();
+
         mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
 
         mReturnRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
@@ -67,6 +71,8 @@ public class InvestmentFirstActivity extends BaseFragmentActivity {
                 return true;
             }
         });
+
+        setListView(0, 0);
     }
 
     public void calculateInvestmentOnClick(View view) {

@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -55,17 +54,14 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
 
     public ClearEditText(final Context context) {
         super(context);
-        init();
     }
 
     public ClearEditText(final Context context, final AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public ClearEditText(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
     }
 
     @Override
@@ -79,7 +75,7 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
     }
 
 
-    private void init() {
+    public void init() {
         Drawable tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_cancel_24dp);
         clearDrawable = DrawableCompat.wrap(tempDrawable);
         clearDrawable.setBounds(15, 0, clearDrawable.getIntrinsicWidth() + 15, clearDrawable.getIntrinsicHeight());
@@ -87,22 +83,24 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
         tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.icon_won);
         wonDrawable = DrawableCompat.wrap(tempDrawable);
         DrawableCompat.setTintList(wonDrawable, getHintTextColors());
-        wonDrawable.setBounds(0, 0, wonDrawable.getIntrinsicWidth(), wonDrawable.getIntrinsicHeight());
+        wonDrawable.setBounds(15, 0, wonDrawable.getIntrinsicWidth() + 15, wonDrawable.getIntrinsicHeight());
 
         tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.icon_month);
         periodDrawable = DrawableCompat.wrap(tempDrawable);
         DrawableCompat.setTintList(periodDrawable, getHintTextColors());
-        periodDrawable.setBounds(0, 0, periodDrawable.getIntrinsicWidth(), periodDrawable.getIntrinsicHeight());
+        periodDrawable.setBounds(-5, 0, periodDrawable.getIntrinsicWidth() - 5, periodDrawable.getIntrinsicHeight());
 
         tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.icon_percent);
         percentDrawable = DrawableCompat.wrap(tempDrawable);
         DrawableCompat.setTintList(percentDrawable, getHintTextColors());
-        percentDrawable.setBounds(0, 0, percentDrawable.getIntrinsicWidth(), percentDrawable.getIntrinsicHeight());
+        percentDrawable.setBounds(15, 0, percentDrawable.getIntrinsicWidth() + 15, percentDrawable.getIntrinsicHeight());
 
-        setClearIconVisible(false);
-        setWonIconVisible(false);
-        setPeriodIconVisible(false);
-        setPercentIconVisible(false);
+        if(isWon)
+            setWonIconVisible(true);
+        else if (isPeriod)
+            setPeriodIconVisible(true);
+        else if (isRate)
+            setPercentIconVisible(true);
 
         super.setOnTouchListener(this);
         super.setOnFocusChangeListener(this);
@@ -113,11 +111,11 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
     public void onFocusChange(final View view, final boolean hasFocus) {
         if (hasFocus) {
             setClearIconVisible(getText().length() > 0);
-            setWonIconVisible(false);
-            setPeriodIconVisible(false);
-            setPercentIconVisible(false);
+//            setWonIconVisible(false);
+//            setPeriodIconVisible(false);
+//            setPercentIconVisible(false);
         } else {
-            setClearIconVisible(false);
+//            setClearIconVisible(false);
             if (isWon) {
                 setWonIconVisible(true);
             } else if (isPeriod) {

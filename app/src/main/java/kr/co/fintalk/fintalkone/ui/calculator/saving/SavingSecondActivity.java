@@ -62,6 +62,10 @@ public class SavingSecondActivity extends BaseFragmentActivity {
         mPredictedPeriodEditText.setSaving(true);
         mInterestRateEditText.setRate(true);
 
+        mGoalAmountEditText.init();
+        mPredictedPeriodEditText.init();
+        mInterestRateEditText.init();
+
         mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
 
         mInterestRateEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3, 3)});
@@ -76,6 +80,9 @@ public class SavingSecondActivity extends BaseFragmentActivity {
                 return true;
             }
         });
+
+        setResultHeader("원");
+        setListView(0, 0, 0 , 0);
     }
 
     public void interestTypeOnClick(View view) {

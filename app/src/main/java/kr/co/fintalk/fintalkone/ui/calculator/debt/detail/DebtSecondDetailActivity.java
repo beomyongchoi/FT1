@@ -169,7 +169,6 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         principalDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[3]);
         principalDataSet.setDrawValues(false);
 
-
         remainingDebtDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         remainingDebtDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         remainingDebtDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);

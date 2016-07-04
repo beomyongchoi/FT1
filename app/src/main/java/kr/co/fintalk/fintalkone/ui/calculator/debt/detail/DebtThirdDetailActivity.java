@@ -3,6 +3,7 @@ package kr.co.fintalk.fintalkone.ui.calculator.debt.detail;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -141,13 +142,13 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
     }
 
     public void setChart() {
-        ArrayList<BarEntry> interestEntries = new ArrayList<>();
-        ArrayList<BarEntry> principalEntries = new ArrayList<>();
+        ArrayList<Entry> interestEntries = new ArrayList<>();
+        ArrayList<Entry> principalEntries = new ArrayList<>();
         ArrayList<Entry> remainingDebtEntries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
         for (int index = 0; index < mIndex; index++) {
-            interestEntries.add(new BarEntry(mMonthlyInterest.get(index).floatValue(), index));
-            principalEntries.add(new BarEntry((float) (mMonthlyRepayment - mMonthlyInterest.get(index)),index));
+            interestEntries.add(new Entry(mMonthlyInterest.get(index).floatValue(), index));
+            principalEntries.add(new Entry((float) (mMonthlyRepayment - mMonthlyInterest.get(index)),index));
             remainingDebtEntries.add(new Entry(mRemainingDebt.get(index).floatValue(), index));
             labels.add(index + 1 + "");
         }
@@ -165,40 +166,53 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         leftAxis.setValueFormatter(new DebtYAxisValueFormatter());
 
         XAxis xAxis = mChart.getXAxis();
+        xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-        BarDataSet interestDataSet = new BarDataSet(interestEntries, "이자");
+        LineDataSet interestDataSet = new LineDataSet(interestEntries, "이자");
         interestDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        BarDataSet principalDataSet = new BarDataSet(principalEntries, "원금");
+        LineDataSet principalDataSet = new LineDataSet(principalEntries, "원금");
         principalDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         LineDataSet remainingDebtDataSet = new LineDataSet(remainingDebtEntries, "잔금");
         remainingDebtDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
 
-        interestDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[2]);
-        interestDataSet.setDrawValues(false); //숫자표시
+        interestDataSet.setColor(R.color.chartInterest);
+        interestDataSet.setDrawFilled(false);
+        interestDataSet.setDrawCircles(false);
+        interestDataSet.setDrawValues(false);
 
-        principalDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+        principalDataSet.setColor(Color.GREEN);
+        principalDataSet.setDrawFilled(false);
+        principalDataSet.setDrawCircles(false);
         principalDataSet.setDrawValues(false);
 
-        remainingDebtDataSet.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        remainingDebtDataSet.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        remainingDebtDataSet.setFillColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        remainingDebtDataSet.setColor(R.color.chartBalance);
+        remainingDebtDataSet.setFillColor(R.color.chartBalance);
         remainingDebtDataSet.setDrawFilled(true);
+        remainingDebtDataSet.setDrawCircles(false);
         remainingDebtDataSet.setDrawValues(false);
 
         mChart.setDrawOrder(new CombinedChart.DrawOrder[] {
                 CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.BAR });
 
-        BarData barData = new BarData();
-
-        barData.addDataSet(interestDataSet);
-        //barData.addDataSet(principalDataSet);
-
         LineData lineData = new LineData();
 
+//        lineData.addDataSet(interestDataSet);
+//        lineData.addDataSet(principalDataSet);
         lineData.addDataSet(remainingDebtDataSet);
+        lineData.addDataSet(interestDataSet);
+        lineData.addDataSet(principalDataSet);
+
+//        BarData barData = new BarData();
+`
+//        barData.addDataSet(interestDataSet);
+//        barData.addDataSet(principalDataSet);
+//        barData.addDataSet(remainingDebtDataSet);
 
         CombinedData data = new CombinedData(labels);
+
+        data.setData(lineData);
+//        data.setData(barData);
 
         mChart.setData(data); // set the data and list of labels into chart
 

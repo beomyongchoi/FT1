@@ -66,6 +66,10 @@ public class SavingFirstActivity extends BaseFragmentActivity {
         mGoalPeriodEditText.setSaving(true);
         mInterestRateEditText.setRate(true);
 
+        mMonthlyPaymentEditText.init();
+        mGoalPeriodEditText.init();
+        mInterestRateEditText.init();
+
         mCalculatorButton = (Button) findViewById(R.id.calculatorButton);
 
         mInterestRateEditText.setFilters(new InputFilter[]{new kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter(3, 3)});
@@ -80,6 +84,9 @@ public class SavingFirstActivity extends BaseFragmentActivity {
                 return true;
             }
         });
+
+        setResultHeader("원");
+        setListView(0, 0);
     }
 
     public void interestTypeOnClick(View view) {
