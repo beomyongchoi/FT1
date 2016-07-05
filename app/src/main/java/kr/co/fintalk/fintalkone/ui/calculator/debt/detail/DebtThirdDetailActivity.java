@@ -51,7 +51,7 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
     ArrayList<Double> mRemainingDebt;
     ArrayList<Double> mMonthlyInterest;
 
-    private CombinedChart mChart;
+    private LineChart mChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +70,9 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
 
         mIndexTextView = (TextView) findViewById(R.id.indexTextView);
 
-        mChart = (CombinedChart) findViewById(R.id.chart);
+        mChart = (LineChart) findViewById(R.id.chart);
         mChart.setDescription("");
         mChart.setDrawGridBackground(false);
-        mChart.setDrawBarShadow(false);
         mChart.setTouchEnabled(true);
         mChart.setOnChartValueSelectedListener(this);
 
@@ -157,6 +156,8 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         rightAxis.setDrawGridLines(false);
         rightAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
         rightAxis.setValueFormatter(new DebtYAxisValueFormatter());
+        rightAxis.setShowOnlyMinMax(true);
+        rightAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setAxisMaxValue((float) ((mMonthlyRepayment > mMonthlyInterest.get(0)
@@ -164,10 +165,14 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         leftAxis.setDrawGridLines(false);
         leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
         leftAxis.setValueFormatter(new DebtYAxisValueFormatter());
+        leftAxis.setShowOnlyMinMax(true);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setSpaceBetweenLabels(13);
+        xAxis.setAvoidFirstLastClipping(true);
 
         LineDataSet interestDataSet = new LineDataSet(interestEntries, "이자");
         interestDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -176,45 +181,34 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         LineDataSet remainingDebtDataSet = new LineDataSet(remainingDebtEntries, "잔금");
         remainingDebtDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
 
-        interestDataSet.setColor(R.color.chartInterest);
-        interestDataSet.setDrawFilled(false);
+        interestDataSet.setColor(ColorTemplate.rgb("D108F4"));
         interestDataSet.setDrawCircles(false);
         interestDataSet.setDrawValues(false);
 
-        principalDataSet.setColor(Color.GREEN);
-        principalDataSet.setDrawFilled(false);
+        principalDataSet.setColor(ColorTemplate.rgb("47CEE6"));
         principalDataSet.setDrawCircles(false);
         principalDataSet.setDrawValues(false);
 
-        remainingDebtDataSet.setColor(R.color.chartBalance);
-        remainingDebtDataSet.setFillColor(R.color.chartBalance);
+        remainingDebtDataSet.setColor(ColorTemplate.rgb("FF9700"));
+        remainingDebtDataSet.setFillColor(ColorTemplate.rgb("FF9700"));
         remainingDebtDataSet.setDrawFilled(true);
         remainingDebtDataSet.setDrawCircles(false);
         remainingDebtDataSet.setDrawValues(false);
 
-        mChart.setDrawOrder(new CombinedChart.DrawOrder[] {
-                CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.BAR });
-
         LineData lineData = new LineData();
 
-//        lineData.addDataSet(interestDataSet);
-//        lineData.addDataSet(principalDataSet);
         lineData.addDataSet(remainingDebtDataSet);
         lineData.addDataSet(interestDataSet);
         lineData.addDataSet(principalDataSet);
 
-//        BarData barData = new BarData();
-`
-//        barData.addDataSet(interestDataSet);
-//        barData.addDataSet(principalDataSet);
-//        barData.addDataSet(remainingDebtDataSet);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        dataSets.add(remainingDebtDataSet);
+        dataSets.add(principalDataSet);
+        dataSets.add(interestDataSet);
 
-        CombinedData data = new CombinedData(labels);
-
-        data.setData(lineData);
-//        data.setData(barData);
-
+        LineData data = new LineData(labels, dataSets);
         mChart.setData(data); // set the data and list of labels into chart
+        mChart.invalidate();
 
         DebtChartMarkerView mv = new DebtChartMarkerView (this, R.layout.custom_marker_view_layout);
         mChart.setMarkerView(mv);

@@ -111,11 +111,8 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
     public void onFocusChange(final View view, final boolean hasFocus) {
         if (hasFocus) {
             setClearIconVisible(getText().length() > 0);
-//            setWonIconVisible(false);
-//            setPeriodIconVisible(false);
-//            setPercentIconVisible(false);
+
         } else {
-//            setClearIconVisible(false);
             if (isWon) {
                 setWonIconVisible(true);
             } else if (isPeriod) {
@@ -193,7 +190,11 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
             }
         } else if (isRate) {
             if (s.toString().length() > 0) {
-                if (Double.parseDouble(s.toString()) >= 100) {
+                if (s.toString().equals(".")) {
+                    setText("0.");
+                    setSelection(2);
+                }
+                else if (Double.parseDouble(s.toString()) >= 100) {
                     setText(mReplaceText);
                     setSelection(mReplaceText.length() - 1);
                 }
