@@ -123,7 +123,7 @@ public class SavingThirdActivity extends BaseFragmentActivity {
             setListView(depositAmount, resultInterest);
         }
         else {
-            showToast(R.string.toast_text, 2);
+            showToast(R.string.all_fields_required_toast, 2);
         }
     }
 

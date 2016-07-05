@@ -128,7 +128,7 @@ public class SavingSecondActivity extends BaseFragmentActivity {
             setListView(interestTaxGeneral, interestTaxBreaks, interestTaxFree, predictedPeriod);
         }
         else {
-            showToast(R.string.toast_text, 2);
+            showToast(R.string.all_fields_required_toast, 2);
         }
     }
 

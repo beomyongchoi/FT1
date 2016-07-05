@@ -103,7 +103,7 @@ public class DebtThirdActivity extends BaseFragmentActivity {
                 && repaymentPeriodString.length() != 0
                 && interestRateString.length() != 0) {
             if (mPeriod < 12) {
-                showToast(R.string.period_toast, 2);
+                showToast(R.string.period_debt_toast, 2);
             } else {
                 inputMethodManager.hideSoftInputFromWindow(mInterestRateEditText.getWindowToken(), 0);
                 mPrincipalEditText.clearFocus();
@@ -116,7 +116,7 @@ public class DebtThirdActivity extends BaseFragmentActivity {
             }
         }
         else {
-            showToast(R.string.toast_text, 2);
+            showToast(R.string.all_fields_required_toast, 2);
         }
     }
 

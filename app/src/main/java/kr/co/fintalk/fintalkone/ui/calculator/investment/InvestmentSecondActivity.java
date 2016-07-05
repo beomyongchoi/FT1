@@ -94,7 +94,7 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
                 && predictedPeriodString.length() != 0
                 && returnRateString.length() != 0) {
             if (predictedPeriod < 36) {
-                showToast(R.string.period_toast, 2);
+                showToast(R.string.period_investment_toast, 2);
             }
             else {
                 inputMethodManager.hideSoftInputFromWindow(mReturnRateEditText.getWindowToken(), 0);
@@ -108,7 +108,7 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
             }
         }
         else {
-            showToast(R.string.toast_text, 2);
+            showToast(R.string.all_fields_required_toast, 2);
         }
     }
 
