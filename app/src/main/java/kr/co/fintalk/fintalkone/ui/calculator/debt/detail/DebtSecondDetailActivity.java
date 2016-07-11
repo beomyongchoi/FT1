@@ -5,28 +5,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.oooobang.library.OBParse;
 
 import java.util.ArrayList;
@@ -173,21 +166,28 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         LineDataSet remainingDebtDataSet = new LineDataSet(remainingDebtEntries, "잔금");
         remainingDebtDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
 
-        interestDataSet.setColor(ColorTemplate.rgb("D108F4"));
-        interestDataSet.setDrawValues(false); //숫자표시
-        interestDataSet.setDrawCircles(false); //항목에 원
+        int colorInterest = ContextCompat.getColor(this, R.color.chartInterest);
+        interestDataSet.setColor(colorInterest);
+        interestDataSet.setDrawCircles(false);
+        interestDataSet.setDrawValues(false);
+        interestDataSet.setHighLightColor(Color.RED);
+        interestDataSet.setDrawHorizontalHighlightIndicator(false);
 
-        principalDataSet.setColor(ColorTemplate.rgb("47CEE6"));
-        principalDataSet.setDrawValues(false);
+        int colorPrincipal = ContextCompat.getColor(this, R.color.chartPrincipal);
+        principalDataSet.setColor(colorPrincipal);
         principalDataSet.setDrawCircles(false);
+        principalDataSet.setDrawValues(false);
+        principalDataSet.setHighLightColor(Color.RED);
+        principalDataSet.setDrawHorizontalHighlightIndicator(false);
 
-        remainingDebtDataSet.setColor(ColorTemplate.rgb("FF9700"));
-        remainingDebtDataSet.setFillColor(ColorTemplate.rgb("FF9700"));
-        remainingDebtDataSet.setDrawFilled(true);
+        int colorBalance = ContextCompat.getColor(this, R.color.chartBalance);
+        remainingDebtDataSet.setColor(colorBalance);
         remainingDebtDataSet.setDrawCircles(false);
         remainingDebtDataSet.setDrawValues(false);
+        remainingDebtDataSet.setHighLightColor(Color.RED);
+        remainingDebtDataSet.setDrawHorizontalHighlightIndicator(false);
 
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(remainingDebtDataSet);
         dataSets.add(principalDataSet);
         dataSets.add(interestDataSet);
@@ -196,7 +196,7 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         mChart.setData(data); // set the data and list of labels into chart
         mChart.invalidate();
 
-        DebtChartMarkerView mv = new DebtChartMarkerView (this, R.layout.custom_marker_view_layout);
+        DebtChartMarkerView mv = new DebtChartMarkerView (this, R.layout.text_marker_view_layout);
         mChart.setMarkerView(mv);
     }
 

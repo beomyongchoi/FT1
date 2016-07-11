@@ -183,7 +183,7 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
                 }
             }
             else if (s.toString().length() > 0 && !isSaving) {
-                if (Integer.parseInt(s.toString()) > 3600) {
+                if (Integer.parseInt(s.toString()) > 360) {
                     setText(mReplaceText);
                     setSelection(mReplaceText.length() - 1);
                 }

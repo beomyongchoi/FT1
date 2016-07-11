@@ -1,6 +1,11 @@
 package kr.co.fintalk.fintalkone.ui.calculator.debt.detail;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
@@ -18,11 +23,14 @@ public class DebtChartMarkerView extends MarkerView {
     OBParse mParse;
 
     private TextView tvContent;
+    private ImageView tvLeftDot;
+    private ImageView tvRightDot;
 
     public DebtChartMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
-        // this markerview only displays a textview
         tvContent = (TextView) findViewById(R.id.tvContent);
+        tvLeftDot = (ImageView) findViewById(R.id.tvLeftDot);
+        tvRightDot = (ImageView) findViewById(R.id.tvRightDot);
     }
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the
@@ -33,16 +41,26 @@ public class DebtChartMarkerView extends MarkerView {
     }
 
     @Override
-    public int getXOffset(float xpos) {
+    public int getXOffset(float xPosition) {
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
         // this will center the marker-view horizontally
-        return -(getWidth() / 2);
+        if (xPosition > metrics.widthPixels / 2) {
+            tvLeftDot.setVisibility(INVISIBLE);
+            tvRightDot.setVisibility(VISIBLE);
+            return - getWidth() + (tvLeftDot.getWidth() / 2);
+        }
+        else {
+            tvLeftDot.setVisibility(VISIBLE);
+            tvRightDot.setVisibility(INVISIBLE);
+            return - tvLeftDot.getWidth() / 2;
+        }
     }
 
     @Override
-    public int getYOffset(float ypos) {
+    public int getYOffset(float yPosition) {
         // this will cause the marker-view to be above the selected value
-        return -getHeight();
+        return - getHeight() + tvLeftDot.getWidth() / 2;
     }
 }
-
-

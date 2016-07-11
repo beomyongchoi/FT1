@@ -1,8 +1,11 @@
 package kr.co.fintalk.fintalkone.ui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,16 +31,11 @@ public class MainActivity extends BaseFragmentActivity {
         TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
         titleTextView.setText(R.string.main_title);
 
+        //네비게이션 드로어 아이콘
         ImageView appbarButtonImageView = (ImageView) findViewById(R.id.appbarButton);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            //단말기 OS버전이 롤리팝 아래일 때
-            appbarButtonImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_white_24dp));
-        }
-        else{
-            //롤리팝 이상
-            appbarButtonImageView.setImageDrawable(getDrawable(R.drawable.ic_menu_white_24dp));
-        }
 
+        Drawable tempDrawable = ContextCompat.getDrawable(this, R.drawable.ic_menu_white_24dp);
+        appbarButtonImageView.setImageDrawable(DrawableCompat.wrap(tempDrawable));
 
         updateListView();
     }

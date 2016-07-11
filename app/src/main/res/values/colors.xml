@@ -52,8 +52,8 @@
     <color name="defaultDarkBrown">#2B241E</color>
 
     <!-- 차트 -->
-    <color name="chartBalance">#FF9700</color>
+    <color name="chartBalance">#47CEE6</color>
     <color name="chartInterest">#D108F4</color>
-    <color name="chartPrincipal">#47CEE6</color>
+    <color name="chartPrincipal">#473AE6</color>
 
 </resources>

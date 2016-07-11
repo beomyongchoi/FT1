@@ -62,19 +62,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dp40"
-        android:paddingRight="@dimen/dp16"
-        android:gravity="center"
-        android:text="(회차)"
-        android:textColor="@color/defaultBlack"
-        android:textSize="@dimen/dp10"
-        android:layout_above="@+id/debtDetailListView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <ListView
         android:id="@+id/debtDetailListView"
         android:background="@color/defaultWhite"
