@@ -33,14 +33,12 @@
         android:layout_height="@dimen/dp200"
         android:layout_below="@+id/horizontalLine"/>
 
-
     <TextView
         android:id="@+id/leftYAxisTextView"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp180"
-        android:paddingBottom="@dimen/dp40"
+        android:paddingBottom="@dimen/dp36"
         android:gravity="center_vertical"
-        android:text="원금 + 이자"
         android:textColor="@color/defaultBlack"
         android:rotation="270"
         android:textSize="@dimen/dp12"
@@ -54,7 +52,6 @@
         android:layout_height="@dimen/dp180"
         android:paddingBottom="@dimen/dp7"
         android:gravity="center"
-        android:text="잔금"
         android:textColor="@color/defaultBlack"
         android:rotation="90"
         android:textSize="@dimen/dp12"
@@ -71,5 +68,20 @@
         android:divider="@color/defaultDivider"
         android:dividerHeight="@dimen/dp1"
         android:layout_below="@+id/chart" />
+
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/horizontalLine"
+        android:layout_alignBottom="@+id/chart"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:padding="@dimen/dp15"
+        android:progressDrawable="@drawable/progress_chart_principal"
+         />
 
 </RelativeLayout>

@@ -4,10 +4,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -46,6 +51,11 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
     ArrayList<Double> mMonthlyInterest;
 
     private LineChart mChart;
+    private ProgressBar mProgressBar;
+
+    public int mColorInterest;
+    public int mColorPrincipal;
+    public int mColorBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +74,19 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
 
         mIndexTextView = (TextView) findViewById(R.id.indexTextView);
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setMax(mIndex - 1);
+
         mChart = (LineChart) findViewById(R.id.chart);
         mChart.setDescription("");
         mChart.setDrawGridBackground(false);
         mChart.setTouchEnabled(true);
         mChart.setScaleEnabled(false);
         mChart.setOnChartValueSelectedListener(this);
+
+        mColorInterest = ContextCompat.getColor(this, R.color.chartInterest);
+        mColorPrincipal = ContextCompat.getColor(this, R.color.chartPrincipal);
+        mColorBalance = ContextCompat.getColor(this, R.color.chartBalance);
 
         setListView(0);
         setChart();
@@ -152,6 +169,8 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         rightAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
         rightAxis.setValueFormatter(new DebtYAxisValueFormatter());
         rightAxis.setShowOnlyMinMax(true);
+        rightAxis.setYOffset(5f);
+        rightAxis.setTextColor(Color.GRAY);
         rightAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
 
         YAxis leftAxis = mChart.getAxisLeft();
@@ -161,6 +180,8 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
         leftAxis.setValueFormatter(new DebtYAxisValueFormatter());
         leftAxis.setShowOnlyMinMax(true);
+        leftAxis.setYOffset(5f);
+        leftAxis.setTextColor(Color.GRAY);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
 
         XAxis xAxis = mChart.getXAxis();
@@ -176,25 +197,22 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         LineDataSet remainingDebtDataSet = new LineDataSet(remainingDebtEntries, "잔금");
         remainingDebtDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
 
-        int colorInterest = ContextCompat.getColor(this, R.color.chartInterest);
-        interestDataSet.setColor(colorInterest);
+        interestDataSet.setColor(mColorInterest);
         interestDataSet.setDrawCircles(false);
         interestDataSet.setDrawValues(false);
-        interestDataSet.setHighLightColor(Color.RED);
+        interestDataSet.setHighLightColor(mColorInterest);
         interestDataSet.setDrawHorizontalHighlightIndicator(false);
 
-        int colorPrincipal = ContextCompat.getColor(this, R.color.chartPrincipal);
-        principalDataSet.setColor(colorPrincipal);
+        principalDataSet.setColor(mColorPrincipal);
         principalDataSet.setDrawCircles(false);
         principalDataSet.setDrawValues(false);
-        principalDataSet.setHighLightColor(Color.RED);
+        principalDataSet.setHighLightColor(mColorPrincipal);
         principalDataSet.setDrawHorizontalHighlightIndicator(false);
 
-        int colorBalance = ContextCompat.getColor(this, R.color.chartBalance);
-        remainingDebtDataSet.setColor(colorBalance);
+        remainingDebtDataSet.setColor(mColorBalance);
         remainingDebtDataSet.setDrawCircles(false);
         remainingDebtDataSet.setDrawValues(false);
-        remainingDebtDataSet.setHighLightColor(Color.RED);
+        remainingDebtDataSet.setHighLightColor(mColorBalance);
         remainingDebtDataSet.setDrawHorizontalHighlightIndicator(false);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
@@ -203,7 +221,24 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         dataSets.add(interestDataSet);
 
         LineData data = new LineData(labels, dataSets);
+
+        TextView leftYAxisLabelTextView = (TextView) findViewById(R.id.leftYAxisTextView);
+        TextView rightYAxisLabelTextView = (TextView) findViewById(R.id.rightYAxisTextView);
+
+        String leftYAxisLabel = "원금+이자";
+        String rightYAxisLabel = "잔금";
+        SpannableStringBuilder leftBuilder = new SpannableStringBuilder(leftYAxisLabel);
+        leftBuilder.setSpan(new ForegroundColorSpan(mColorPrincipal), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        leftBuilder.setSpan(new ForegroundColorSpan(mColorInterest), 3, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        SpannableStringBuilder rightBuilder = new SpannableStringBuilder(rightYAxisLabel);
+        rightBuilder.setSpan(new ForegroundColorSpan(mColorBalance), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        leftYAxisLabelTextView.append(leftBuilder);
+        rightYAxisLabelTextView.append(rightBuilder);
+
         mChart.setData(data); // set the data and list of labels into chart
+        mChart.getLegend().setEnabled(false);
         mChart.invalidate();
 
         DebtChartMarkerView mv = new DebtChartMarkerView (this, R.layout.text_marker_view_layout);
@@ -216,8 +251,25 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
     }
     @Override
     public void onValueSelected(Entry e, int dataSetIndex, Highlight h){
+        Drawable tempDrawable;
         int id = (int) e.getXIndex();
         mIndexTextView.setText(id + 1 + "회차");
         setListView(id);
+        switch (dataSetIndex) {
+            case 0:
+                tempDrawable = ContextCompat.getDrawable(DebtThirdDetailActivity.this, R.drawable.progress_chart_balance);
+                break;
+            case 1:
+                tempDrawable = ContextCompat.getDrawable(DebtThirdDetailActivity.this, R.drawable.progress_chart_principal);
+                break;
+            case 2:
+                tempDrawable = ContextCompat.getDrawable(DebtThirdDetailActivity.this, R.drawable.progress_chart_interest);
+                break;
+            default:
+                tempDrawable = ContextCompat.getDrawable(DebtThirdDetailActivity.this, R.drawable.progress_chart_principal);
+                break;
+        }
+        mProgressBar.setProgressDrawable(tempDrawable);
+        mProgressBar.setProgress(id);
     }
 }
