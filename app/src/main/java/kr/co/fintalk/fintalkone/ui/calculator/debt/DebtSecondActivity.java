@@ -43,6 +43,7 @@ public class DebtSecondActivity extends BaseFragmentActivity {
 
     public int mPeriod;
 
+    public double mPrincipal;
     public double mMonthlyRepayment;
     ArrayList<Double> mMonthlyInterest = new ArrayList<>();
 
@@ -92,7 +93,7 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         String repaymentPeriodString = mRepaymentPeriodEditText.getText().toString().replace("개월","");
         String interestRateString = mInterestRateEditText.getText().toString().replace("%","");
 
-        double principal = mParse.toDouble(principalString);
+        mPrincipal = mParse.toDouble(principalString);
         mPeriod = mParse.toInt(repaymentPeriodString);
         double interestRate = mParse.toDouble(interestRateString);
 
@@ -108,9 +109,9 @@ public class DebtSecondActivity extends BaseFragmentActivity {
                 mPrincipalEditText.clearFocus();
                 mRepaymentPeriodEditText.clearFocus();
                 mInterestRateEditText.clearFocus();
-                mMonthlyRepayment = principal / mPeriod;
-                calculatorInterest(principal, interestRate);
-                setListView(principal);
+                mMonthlyRepayment = mPrincipal / mPeriod;
+                calculatorInterest(mPrincipal, interestRate);
+                setListView(mPrincipal);
                 mDetailScheduleButton.setVisibility(View.VISIBLE);
             }
         }
@@ -163,6 +164,7 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         Intent intent = new Intent(DebtSecondActivity.this, DebtSecondDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("index", mPeriod);
+        intent.putExtra("principal", mPrincipal);
         intent.putExtra("monthlyRepayment", mMonthlyRepayment);
         intent.putExtra("monthlyInterest", mMonthlyInterest);
         startActivity(intent);

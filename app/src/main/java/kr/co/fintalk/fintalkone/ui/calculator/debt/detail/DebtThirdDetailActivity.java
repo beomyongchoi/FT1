@@ -122,7 +122,7 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
         String principalPayment = mParse.addComma(mMonthlyRepayment - mMonthlyInterest.get(index)) + "원";
         String interest = mParse.addComma(mMonthlyInterest.get(index)) + "원";
         String principalSum = mParse.addComma(mMonthlyRepayment * id - sumOfInterest(mMonthlyInterest, id)) + "원";
-        String remainingDebt = mParse.addComma(mRemainingDebt.get(index)) + "원";
+        String remainingDebt = mParse.addComma(mRemainingDebt.get(index)).replace("-", "") + "원";
 
         List<Map<String,?>> resultList = new LinkedList<>();
         resultList.add(createItem("상환금", payment));

@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -46,7 +47,8 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
     TextView mIndexTextView;
 
     public int mIndex;
-    public double mMonthlyRepayment;
+    public int mPrincipal;
+    public int mMonthlyRepayment;
     ArrayList<Double> mMonthlyInterest;
 
     private LineChart mChart;
@@ -67,7 +69,8 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         Intent intent = getIntent();
 
         mIndex = intent.getExtras().getInt("index");
-        mMonthlyRepayment = intent.getExtras().getDouble("monthlyRepayment");
+        mPrincipal = mParse.toInt(intent.getExtras().getDouble("principal"));
+        mMonthlyRepayment = mParse.toInt(intent.getExtras().getDouble("monthlyRepayment"));
         mMonthlyInterest = (ArrayList<Double>) intent.getSerializableExtra("monthlyInterest");
 
         mIndexTextView = (TextView) findViewById(R.id.indexTextView);
@@ -117,9 +120,18 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
     public void setListView(int index) {
         int id = index + 1;
         String payment = mParse.addComma(mMonthlyRepayment + mMonthlyInterest.get(index)) + "원";
-        String principalPayment = mParse.addComma(mMonthlyRepayment) + "원";
+        String principalPayment;
+        String principalSum;
+        if (index == mIndex - 1) {
+            principalPayment = mParse.addComma(mPrincipal - mMonthlyRepayment * index) + "원";
+            principalSum = mParse.addComma(mPrincipal) + "원";
+        }
+        else {
+            principalPayment = mParse.addComma(mMonthlyRepayment) + "원";
+            principalSum = mParse.addComma(mMonthlyRepayment * id) + "원";
+        }
         String interest = mParse.addComma(mMonthlyInterest.get(index)) + "원";
-        String principalSum = mParse.addComma(mMonthlyRepayment * id) + "원";
+
         String remainingDebt = mParse.addComma(mMonthlyRepayment * (mIndex - id)) + "원";
 
         List<Map<String, ?>> resultList = new LinkedList<>();
@@ -149,7 +161,10 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         ArrayList<String> labels = new ArrayList<>();
         for (int index = 0; index < mIndex; index++) {
             interestEntries.add(new Entry(mMonthlyInterest.get(index).floatValue(), index));
-            principalEntries.add(new Entry((float) (mMonthlyRepayment),index));
+            if(index == mIndex - 1)
+                principalEntries.add(new Entry((float) (mPrincipal - mMonthlyRepayment * index),index));
+            else
+                principalEntries.add(new Entry((float) (mMonthlyRepayment),index));
             remainingDebtEntries.add(new Entry((float) (mMonthlyRepayment * (mIndex - index - 1)),index));
             labels.add(index + 1 + "");
         }
