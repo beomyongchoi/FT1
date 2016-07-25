@@ -13,7 +13,6 @@
 
         <ImageView
             android:id="@+id/toolbarBackButton"
-            android:onClick="toolbarBackButtonOnClick"
             android:layout_width="@dimen/dp28"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp8"
@@ -21,13 +20,12 @@
             android:scaleType="fitCenter"
             android:src="@drawable/icon_arrow_left" />
 
-        <TextView
+        <TextViewfi
             android:id="@+id/toolbarTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="title"
             android:textColor="@color/defaultWhite"
             android:textSize="@dimen/sp18" />
     </RelativeLayout>
