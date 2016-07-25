@@ -4,11 +4,16 @@
     android:layout_height="wrap_content"
     android:background="@color/defaultWhite">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
     <TextView
         android:id="@+id/indexTextView"
         android:onClick="indexOnClick"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp40"
+        android:layout_below="@id/toolbar"
         android:text="@string/first_index"
         android:textColor="@color/defaultContents"
         android:textSize="@dimen/defaultFontSize"
@@ -16,7 +21,7 @@
         android:paddingLeft="@dimen/dp42"
         android:paddingTop="@dimen/dp8"
         android:paddingBottom="@dimen/dp8"
-        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+        android:drawableRight="@drawable/icon_arrow_down"
         android:drawablePadding="@dimen/dp16"
         android:layout_centerHorizontal="true" />
 
@@ -25,13 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp1"
         android:background="@color/defaultDivider"
-        android:layout_below="@+id/indexTextView"/>
+        android:layout_below="@id/indexTextView"/>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp200"
-        android:layout_below="@+id/horizontalLine"/>
+        android:layout_below="@id/horizontalLine"/>
 
     <TextView
         android:id="@+id/leftYAxisTextView"
@@ -42,7 +47,7 @@
         android:textColor="@color/defaultBlack"
         android:rotation="270"
         android:textSize="@dimen/dp12"
-        android:layout_below="@+id/horizontalLine"
+        android:layout_below="@id/horizontalLine"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -55,7 +60,7 @@
         android:textColor="@color/defaultBlack"
         android:rotation="90"
         android:textSize="@dimen/dp12"
-        android:layout_below="@+id/horizontalLine"
+        android:layout_below="@id/horizontalLine"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -67,15 +72,15 @@
         android:headerDividersEnabled="true"
         android:divider="@color/defaultDivider"
         android:dividerHeight="@dimen/dp1"
-        android:layout_below="@+id/chart" />
+        android:layout_below="@id/chart" />
 
     <ProgressBar
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/horizontalLine"
-        android:layout_alignBottom="@+id/chart"
+        android:layout_alignTop="@id/horizontalLine"
+        android:layout_alignBottom="@id/chart"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"

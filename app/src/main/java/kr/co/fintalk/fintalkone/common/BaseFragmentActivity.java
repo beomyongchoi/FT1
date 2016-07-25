@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -55,12 +56,21 @@ public class BaseFragmentActivity extends OBFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
-
-        TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
-        titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/GodoM.otf"));
+//        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+//
+//
+////        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+////        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+////        getSupportActionBar().getCustomView().setElevation(0);
+//
+//        // Find the toolbar view inside the activity layout
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        // Sets the Toolbar to act as the ActionBar for this Activity window.
+//        // Make sure the toolbar exists in the activity and is not null
+//        setSupportActionBar(toolbar);
+//
+//        TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
+//        titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/GodoM.otf"));
 
         //Finish BroadcastReceiver 등록.
         registerFinishedReceiver();
@@ -489,10 +499,4 @@ public class BaseFragmentActivity extends OBFragmentActivity {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
-    public void appbarButtonOnClick(View view) {
-        if (!MainActivity.class.isInstance(this)) {
-            finish();
-        }
-        else showToast("네비게이션 드로어",3);
-    }
 }

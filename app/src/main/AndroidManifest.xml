@@ -19,29 +19,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.calculator.CalculatorActivity"
+        <activity android:name=".ui.saving.SavingFirstActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.saving.SavingFirstActivity"
+        <activity android:name=".ui.saving.SavingSecondActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.saving.SavingSecondActivity"
+        <activity android:name=".ui.saving.SavingThirdActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.saving.SavingThirdActivity"
+        <activity android:name=".ui.investment.InvestmentFirstActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.investment.InvestmentFirstActivity"
+        <activity android:name=".ui.investment.InvestmentSecondActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.investment.InvestmentSecondActivity"
+        <activity android:name=".ui.investment.InvestmentThirdActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.investment.InvestmentThirdActivity"
+        <activity android:name=".ui.debt.DebtFirstActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.debt.DebtFirstActivity"
+        <activity android:name=".ui.debt.DebtSecondActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.debt.DebtSecondActivity"
+        <activity android:name=".ui.debt.DebtThirdActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.debt.DebtThirdActivity"
+        <activity android:name=".ui.debt.detail.DebtSecondDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.debt.detail.DebtSecondDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.calculator.debt.detail.DebtThirdDetailActivity"
+        <activity android:name=".ui.debt.detail.DebtThirdDetailActivity"
             android:screenOrientation="portrait"/>
     </application>
 

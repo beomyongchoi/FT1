@@ -1,165 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/dp8"
-    android:paddingLeft="@dimen/dp8"
-    android:paddingRight="@dimen/dp8"
-    android:paddingTop="@dimen/dp8"
-    android:orientation="vertical"
-    android:background="@color/backGround"
-    tools:context="kr.co.fintalk.minifinancialplan.MainActivity">
+    android:background="@color/colorPrimary500">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp0"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp0"
-                android:text="자산"
-                android:textColor="@color/defaultWhite"
-                android:background="#999999"
-                android:gravity="center"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp0"
-                android:text="2,000,000 원"
-                android:textColor="@color/defaultWhite"
-                android:background="#FDAA4C"
-                android:gravity="center"
-                android:layout_weight="2"
-                android:id="@+id/assetSummaryTextView" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp0"
-                android:text="부채"
-                android:textColor="@color/defaultWhite"
-                android:background="#999999"
-                android:gravity="center"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp0"
-                android:text="2,500,000 원"
-                android:textColor="@color/defaultWhite"
-                android:background="#D85B6B"
-                android:gravity="center"
-                android:layout_weight="2"
-                android:id="@+id/debtSummaryTextView" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp0"
-                android:text="순자산"
-                android:textColor="@color/defaultWhite"
-                android:background="#999999"
-                android:gravity="center"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp0"
-                android:text="-500,000 원"
-                android:textColor="@color/defaultWhite"
-                android:background="#4FCEE4"
-                android:gravity="center"
-                android:layout_weight="2"
-                android:id="@+id/summaryTextView" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/cardScheduleListView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp0"
-        android:layout_marginTop="@dimen/dp8"
-        android:paddingBottom="@dimen/dp8"
-        android:paddingLeft="@dimen/dp8"
-        android:paddingRight="@dimen/dp8"
-        android:paddingTop="@dimen/dp8"
-        android:background="@color/defaultWhite"
-        android:divider="@color/defaultWhite"
-        android:layout_weight="2"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp0"
-        android:paddingTop="@dimen/dp8"
-        android:layout_weight="1">
-
-        <TextView
-            android:onClick="militaryServiceOnClick"
-            android:id="@+id/militaryTitle"
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/dp8"
-            android:paddingLeft="@dimen/dp8"
-            android:paddingRight="@dimen/dp8"
-            android:paddingTop="@dimen/dp8"
-            android:background="@color/defaultWhite"
-            android:text="군인공제회\n(현재자산, 미래자산)"
-            android:textColor="@color/defaultBlack"
-            android:textSize="@dimen/dp16"
-            android:layout_marginRight="@dimen/dp4"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:onClick="calculatorOnClick"
-            android:id="@+id/calculatorTitle"
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/dp8"
-            android:paddingLeft="@dimen/dp8"
-            android:paddingRight="@dimen/dp8"
-            android:paddingTop="@dimen/dp8"
-            android:background="@color/defaultWhite"
-            android:text="미니 재무 설계\n(저축, 투자, 대출상환)"
-            android:textColor="@color/defaultBlack"
-            android:textSize="@dimen/sp16"
-            android:layout_marginLeft="@dimen/dp4"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp0"
-        android:layout_marginTop="@dimen/dp8"
-        android:paddingBottom="@dimen/dp8"
-        android:paddingLeft="@dimen/dp8"
-        android:paddingRight="@dimen/dp8"
-        android:paddingTop="@dimen/dp8"
-        android:background="@color/defaultWhite"
-        android:divider="@color/defaultWhite"
-        android:layout_weight="2"/>
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView"
+        />
 
 </LinearLayout>

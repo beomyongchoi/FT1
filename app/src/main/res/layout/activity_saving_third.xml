@@ -4,10 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@color/backGround">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
     <LinearLayout
         android:id="@+id/savingLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
         android:padding="@dimen/dp16"
         android:paddingLeft="@dimen/dp16"
         android:paddingRight="@dimen/dp16"
@@ -118,7 +123,7 @@
                 android:layout_height="@dimen/dp36"
                 android:background="@drawable/box_edittext"
                 android:id="@+id/savingInterestTypeTextView"
-                android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                android:drawableRight="@drawable/icon_arrow_down"
                 android:text="@string/default_interest_type"
                 android:textColor="@color/defaultContents"
                 android:textSize="@dimen/defaultFontSize"
@@ -143,7 +148,7 @@
         android:id="@+id/resultLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/savingLinearLayout"
+        android:layout_below="@id/savingLinearLayout"
         android:layout_marginTop="@dimen/dp8"
         android:paddingBottom="@dimen/dp12"
         android:paddingLeft="@dimen/dp16"
@@ -181,12 +186,13 @@
             android:textColor="@color/defaultContents"
             android:layout_weight="2"/>
     </LinearLayout>
+
     <ListView
-        android:layout_below="@+id/resultLinearLayout"
         android:id="@+id/savingResultListView"
-        android:background="@color/defaultWhite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/resultLinearLayout"
+        android:background="@color/defaultWhite"
         android:headerDividersEnabled="true"
         android:divider="@color/defaultDivider"
         android:dividerHeight="@dimen/dp1"/>

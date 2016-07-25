@@ -12,8 +12,6 @@
     <string name="saving_monthly_payment">단기 목돈모으기(적금:월적금액)</string>
     <string name="saving_goal_amount">단기 목돈모으기(적금:만기금액)</string>
     <string name="saving_deposit">단기 목돈굴리기(예금)</string>
-    <string name="default_interest_type">단리</string>
-    <string name="maturity_value">만기지급액</string>
 
     <!--투자-->
     <string name="investment_monthly_payment">중장기 목돈모으기(월적립액)</string>
@@ -24,6 +22,10 @@
     <string name="debt_maturity">만기일시상환</string>
     <string name="debt_divide_balance">원금균등상환</string>
     <string name="debt_divide_monthly">원리금균등상환</string>
+
+    <!--글쎄-->
+    <string name="default_interest_type">단리</string>
+    <string name="maturity_value">만기지급액</string>
     <string name="monthly_schedule">월별 스케쥴 보기</string>
     <string name="index_selection">회차 선택</string>
 

@@ -4,10 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@color/backGround">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
     <LinearLayout
         android:id="@+id/investmentLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
         android:padding="@dimen/dp16"
         android:paddingLeft="@dimen/dp16"
         android:paddingRight="@dimen/dp16"

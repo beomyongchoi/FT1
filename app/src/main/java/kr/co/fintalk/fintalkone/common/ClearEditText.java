@@ -76,7 +76,7 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
 
 
     public void init() {
-        Drawable tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_cancel_24dp);
+        Drawable tempDrawable = ContextCompat.getDrawable(getContext(), R.drawable.icon_cancel);
         clearDrawable = DrawableCompat.wrap(tempDrawable);
         clearDrawable.setBounds(15, 0, clearDrawable.getIntrinsicWidth() + 15, clearDrawable.getIntrinsicHeight());
 

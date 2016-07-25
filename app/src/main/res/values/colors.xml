@@ -19,7 +19,7 @@
 
     <color name="backGround">@color/defaultGray100</color>
     <color name="defaultContents">#666666</color>
-    <color name="defaultDivider">#cccccc</color>
+    <color name="defaultDivider">@color/defaultGray200</color>
     <color name="defaultButton">#47CEE6</color>
 
     <color name="defaultWhite">#ffffff</color>
