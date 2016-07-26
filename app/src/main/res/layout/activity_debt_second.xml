@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/backGround">
+    android:background="@color/backGround"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <include
         android:id="@+id/toolbar"
@@ -119,18 +121,90 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp8"
         android:layout_below="@id/debtLinearLayout"
-        android:background="@color/defaultWhite">
+        android:background="@color/backGround">
 
-        <ListView
-            android:id="@+id/debtResultListView"
+        <android.support.v7.widget.CardView
+            android:id="@+id/debtResultCardView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp200"
-            android:background="@color/defaultWhite"
-            android:headerDividersEnabled="true"
-            android:divider="@color/defaultDivider"
-            android:dividerHeight="@dimen/dp1"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp16">
+
+            <LinearLayout
+                style="@style/Widget.CardContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/result_calculate"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp16">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:text="@string/monthly_repayment"
+                        android:textSize="@dimen/sp16"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/monthlyRepaymentTextView"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp16"
+                        android:gravity="right"
+                        android:layout_weight="2"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp16">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_interest"
+                        android:textSize="@dimen/sp16"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/totalInterestTextView"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp16"
+                        android:gravity="right"
+                        android:layout_weight="2"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dp16">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_repayment"
+                        android:textSize="@dimen/sp16"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/totalRepaymentTextView"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp16"
+                        android:gravity="right"
+                        android:layout_weight="2"/>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <Button
             android:onClick="detailScheduleOnClick"
@@ -140,7 +214,7 @@
             android:layout_marginTop="@dimen/dp4"
             android:layout_marginLeft="@dimen/dp16"
             android:layout_marginRight="@dimen/dp16"
-            android:layout_below="@+id/debtResultListView"
+            android:layout_below="@id/debtResultCardView"
             android:text="@string/monthly_schedule"
             android:textColor="@color/defaultButton"
             android:gravity="center"

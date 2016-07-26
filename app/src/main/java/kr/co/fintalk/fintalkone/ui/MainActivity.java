@@ -33,12 +33,6 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        TextView titleTextView = (TextView) findViewById(R.id.appbarTitle);
-//        titleTextView.setText(R.string.calculator_title);
-//
-//        ImageView appbarButtonImageView = (ImageView) findViewById(R.id.appbarButton);
-//        appbarButtonImageView.setVisibility(View.INVISIBLE);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -65,66 +59,6 @@ public class MainActivity extends BaseFragmentActivity {
         mAdapter = new MainRecyclerViewAdapter(mainLists);
         mRecyclerView.setAdapter(mAdapter);
     }
-//
-//
-//    AdapterView.OnItemClickListener mItemClickListener =
-//            new AdapterView.OnItemClickListener() {
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    Intent intent;
-//                    switch (position) {
-//                        case 1:
-//                            intent = new Intent(MainActivity.this, SavingFirstActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        case 2:
-//                            intent = new Intent(MainActivity.this, SavingSecondActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        case 3:
-//                            intent = new Intent(MainActivity.this, SavingThirdActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        case 5:
-//                            intent = new Intent(MainActivity.this, InvestmentFirstActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        case 6:
-//                            intent = new Intent(MainActivity.this, InvestmentSecondActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        case 7:
-//                            intent = new Intent(MainActivity.this, InvestmentThirdActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        case 9:
-//                            intent = new Intent(MainActivity.this, DebtFirstActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        case 10:
-//                            intent = new Intent(MainActivity.this, DebtSecondActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        case 11:
-//                            intent = new Intent(MainActivity.this, DebtThirdActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                        default:
-//                            intent = new Intent(MainActivity.this, SavingFirstActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                            startActivity(intent);
-//                            break;
-//                    }
-//                }
-//            };
 
     private void initializeData(){
         mainLists = new ArrayList<>();

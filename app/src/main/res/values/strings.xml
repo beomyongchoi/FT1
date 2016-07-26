@@ -26,8 +26,21 @@
     <!--글쎄-->
     <string name="default_interest_type">단리</string>
     <string name="maturity_value">만기지급액</string>
+    <string name="after_tax_interest">세후이자</string>
+    <string name="interest">세금</string>
     <string name="monthly_schedule">월별 스케쥴 보기</string>
     <string name="index_selection">회차 선택</string>
+    <string name="required_monthly_payment">매월적금액</string>
+
+    <!--투자 계산-->
+    <string name="result_amount">최종금액</string>
+    <string name="result_return">총수익액</string>
+
+    <!--대출 계산-->
+    <string name="monthly_interest">월 납입이자</string>
+    <string name="monthly_repayment">월 상환금</string>
+    <string name="total_interest">총 이자</string>
+    <string name="total_repayment">총 상환금액</string>
 
     <!--공통항목-->
     <string name="calculate">계산하기</string>
@@ -36,6 +49,11 @@
     <string name="percent">%</string>
     <string name="result_calculate">계산결과</string>
     <string name="principal">원금</string>
+
+    <!--세금-->
+    <string name="tax_general">일반과세</string>
+    <string name="tax_breaks">세금우대</string>
+    <string name="tax_free">비과세</string>
 
     <!-- 입력 메뉴 제목 -->
     <string name="monthly_payment">월 적금액</string>
@@ -57,4 +75,5 @@
     <string name="all_fields_required_toast">모든 항목을 입력하세요</string>
     <string name="period_investment_toast">기간을 36개월 이상으로 입력해주세요</string>
     <string name="period_debt_toast">기간을 12개월 이상으로 입력해주세요</string>
+
 </resources>

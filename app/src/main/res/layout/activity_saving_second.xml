@@ -1,198 +1,557 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/backGround">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.saving.SavingSecondActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
-
-    <LinearLayout
-        android:id="@+id/savingLinearLayout"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:padding="@dimen/dp16"
-        android:paddingLeft="@dimen/dp16"
-        android:paddingRight="@dimen/dp16"
-        android:paddingTop="@dimen/dp16"
-        android:background="@color/defaultWhite"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary">
+
+            <LinearLayout
+                android:id="@+id/savingLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp50"
+                android:padding="@dimen/dp16"
+                android:background="@color/defaultWhite"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="match_parent"
+                        android:text="@string/goal_amount"
+                        android:textColor="@color/defaultContents"
+                        android:gravity="left|center_vertical"
+                        android:layout_weight="3" />
+
+                    <kr.co.fintalk.fintalkone.common.ClearEditText
+                        android:id="@+id/savingGoalAmountEditText"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="@dimen/dp36"
+                        android:paddingRight="@dimen/dp12"
+                        android:gravity="right|center_vertical"
+                        android:background="@drawable/box_edittext"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:textSize="@dimen/defaultFontSize"
+                        android:textColor="@color/defaultContents"
+                        android:layout_weight="7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="match_parent"
+                        android:text="@string/predicted_period"
+                        android:textColor="@color/defaultContents"
+                        android:gravity="left|center_vertical"
+                        android:layout_weight="3" />
+
+                    <kr.co.fintalk.fintalkone.common.ClearEditText
+                        android:id="@+id/savingGoalPeriodEditText"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="@dimen/dp36"
+                        android:paddingRight="@dimen/dp12"
+                        android:drawablePadding="@dimen/dp4"
+                        android:gravity="right|center_vertical"
+                        android:background="@drawable/box_edittext"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:textSize="@dimen/defaultFontSize"
+                        android:textColor="@color/defaultContents"
+                        android:layout_weight="7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="match_parent"
+                        android:text="@string/interest_rate"
+                        android:textColor="@color/defaultContents"
+                        android:gravity="left|center_vertical"
+                        android:layout_weight="3" />
+
+                    <kr.co.fintalk.fintalkone.common.ClearEditText
+                        android:id="@+id/savingInterestRateEditText"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="@dimen/dp36"
+                        android:paddingRight="@dimen/dp12"
+                        android:gravity="right|center_vertical"
+                        android:background="@drawable/box_edittext"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:textSize="@dimen/defaultFontSize"
+                        android:textColor="@color/defaultContents"
+                        android:layout_weight="7" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45">
+
+                    <TextView
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="match_parent"
+                        android:text="@string/interest_type"
+                        android:textColor="@color/defaultContents"
+                        android:gravity="left|center_vertical"
+                        android:layout_weight="3" />
+
+                    <TextView
+                        android:onClick="interestTypeOnClick"
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="@dimen/dp36"
+                        android:background="@drawable/box_edittext"
+                        android:id="@+id/savingInterestTypeTextView"
+                        android:drawableRight="@drawable/icon_arrow_down"
+                        android:text="@string/default_interest_type"
+                        android:textColor="@color/defaultContents"
+                        android:textSize="@dimen/defaultFontSize"
+                        android:gravity="right"
+                        android:layout_weight="7"
+                        android:padding="@dimen/dp8" />
+                </LinearLayout>
+
+                <Button
+                    android:onClick="calculateSavingOnClick"
+                    android:id="@+id/calculatorButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:text="@string/calculate"
+                    android:textColor="@color/defaultWhite"
+                    android:gravity="center"
+                    android:background="@color/defaultButton"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary500"
+                app:layout_collapseMode="pin"
+                app:contentInsetStart="@dimen/dp0">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/toolbarBackButton"
+                        android:layout_width="@dimen/dp52"
+                        android:layout_height="?attr/actionBarSize"
+                        android:padding="@dimen/dp8"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_arrow_left" />
+
+                    <TextView
+                        android:id="@+id/toolbarTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/defaultWhite"
+                        android:textSize="@dimen/sp18" />
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/resultLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp45"
-            >
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp16"
+            android:background="@color/defaultWhite"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/resultTitleTextView"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="match_parent"
-                android:text="@string/goal_amount"
-                android:textColor="@color/defaultContents"
-                android:gravity="left|center_vertical"
-                android:layout_weight="3" />
-
-            <kr.co.fintalk.fintalkone.common.ClearEditText
-                android:id="@+id/savingGoalAmountEditText"
-                android:layout_width="@dimen/dp0"
-                android:layout_height="@dimen/dp36"
-                android:paddingRight="@dimen/dp12"
-                android:gravity="right|center_vertical"
-                android:background="@drawable/box_edittext"
-                android:inputType="number"
-                android:ems="10"
-                android:textSize="@dimen/defaultFontSize"
-                android:textColor="@color/defaultContents"
-                android:layout_weight="7"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp45">
+                android:textStyle="bold"
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/defaultBlack"
+                android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/resultCaptionTextView"
                 android:layout_width="@dimen/dp0"
                 android:layout_height="match_parent"
-                android:text="@string/predicted_period"
-                android:gravity="left|center_vertical"
-                android:layout_weight="3" />
-
-            <kr.co.fintalk.fintalkone.common.ClearEditText
-                android:id="@+id/savingPredictedPeriodEditText"
-                android:layout_width="@dimen/dp0"
-                android:layout_height="@dimen/dp36"
-                android:paddingRight="@dimen/dp12"
-                android:drawablePadding="@dimen/dp4"
-                android:gravity="right|center_vertical"
-                android:background="@drawable/box_edittext"
-                android:inputType="number"
-                android:ems="10"
-                android:textSize="@dimen/defaultFontSize"
-                android:textColor="@color/defaultContents"
-                android:layout_weight="7"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp45">
-
-            <TextView
-                android:layout_width="@dimen/dp0"
-                android:layout_height="match_parent"
-                android:text="@string/interest_rate"
-                android:gravity="left|center_vertical"
-                android:layout_weight="3" />
-
-            <kr.co.fintalk.fintalkone.common.ClearEditText
-                android:id="@+id/savingInterestRateEditText"
-                android:layout_width="@dimen/dp0"
-                android:layout_height="@dimen/dp36"
-                android:paddingRight="@dimen/dp12"
-                android:gravity="right|center_vertical"
-                android:background="@drawable/box_edittext"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:textSize="@dimen/defaultFontSize"
-                android:textColor="@color/defaultContents"
-                android:layout_weight="7"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp45">
-
-            <TextView
-                android:layout_width="@dimen/dp0"
-                android:layout_height="match_parent"
-                android:text="@string/interest_type"
-                android:gravity="left|center_vertical"
-                android:layout_weight="3" />
-
-            <TextView
-                android:onClick="interestTypeOnClick"
-                android:layout_width="@dimen/dp0"
-                android:layout_height="@dimen/dp36"
-                android:background="@drawable/box_edittext"
-                android:id="@+id/savingInterestTypeTextView"
-                android:drawableRight="@drawable/icon_arrow_down"
-                android:text="@string/default_interest_type"
-                android:textColor="@color/defaultContents"
-                android:textSize="@dimen/defaultFontSize"
                 android:gravity="right"
-                android:layout_weight="7"
-                android:padding="@dimen/dp8" />
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/defaultContents"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/resultAmountTextView"
+                android:layout_width="@dimen/dp0"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/defaultContents"
+                android:layout_weight="2"/>
         </LinearLayout>
 
-        <Button
-            android:onClick="calculateSavingOnClick"
-            android:id="@+id/calculatorButton"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp8"
-            android:text="@string/calculate"
-            android:textColor="@color/defaultWhite"
-            android:gravity="center"
-            android:background="@color/defaultButton"/>
-    </LinearLayout>
+            android:layout_height="@dimen/dp1"
+            android:background="@color/defaultDivider"/>
 
-    <LinearLayout
-        android:id="@+id/resultLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/savingLinearLayout"
-        android:layout_marginTop="@dimen/dp8"
-        android:paddingBottom="@dimen/dp12"
-        android:paddingLeft="@dimen/dp16"
-        android:paddingRight="@dimen/dp16"
-        android:paddingTop="@dimen/dp12"
-        android:background="@color/defaultWhite"
-        android:orientation="horizontal">
+    </android.support.design.widget.AppBarLayout>
 
-        <TextView
-            android:id="@+id/resultTitleTextView"
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textSize="@dimen/sp16"
-            android:textColor="@color/defaultBlack"
-            android:layout_weight="1"/>
-
-
-        <TextView
-            android:id="@+id/resultCaptionTextView"
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:textSize="@dimen/sp16"
-            android:textColor="@color/defaultContents"
-            android:layout_weight="1"/>
-
-
-        <TextView
-            android:id="@+id/resultAmountTextView"
-            android:layout_width="@dimen/dp0"
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:textSize="@dimen/sp16"
-            android:textColor="@color/defaultContents"
-            android:layout_weight="2"/>
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/savingResultListView"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/resultLinearLayout"
-        android:background="@color/defaultWhite"
-        android:headerDividersEnabled="true"
-        android:divider="@color/defaultDivider"
-        android:dividerHeight="@dimen/dp1"/>
-</RelativeLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/backGround">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp16">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tax_general"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/required_monthly_payment"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxGeneralMonthlyPayment"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/principal"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxGeneralAmount"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/after_tax_interest"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxGeneralInterest"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/interest"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxGeneral"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp16"
+                    android:layout_marginRight="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tax_breaks"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/required_monthly_payment"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxBreaksMonthlyPayment"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/principal"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxBreaksAmount"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/after_tax_interest"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxBreaksInterest"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/interest"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxBreaks"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp16"
+                    android:layout_marginRight="@dimen/dp16"
+                    android:layout_marginBottom="@dimen/dp16">
+
+                    <LinearLayout
+                        style="@style/Widget.CardContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tax_free"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/required_monthly_payment"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxFreeMonthlyPayment"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/principal"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxFreeAmount"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/after_tax_interest"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxFreeInterest"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/dp16">
+
+                            <TextView
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:text="@string/interest"
+                                android:textSize="@dimen/sp16"
+                                android:layout_weight="1"/>
+
+                            <TextView
+                                android:id="@+id/taxFree"
+                                android:layout_width="@dimen/dp0"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp16"
+                                android:gravity="right"
+                                android:layout_weight="2"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

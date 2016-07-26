@@ -10,22 +10,14 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.oooobang.library.OBParse;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 import kr.co.fintalk.fintalkone.common.ClearEditText;
 import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
-import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/28/16
@@ -87,7 +79,7 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
             }
         });
 
-        setListView(0, 0, 0);
+        setCardView(0, 0, 0);
     }
 
     public void calculateInvestmentOnClick(View view) {
@@ -119,7 +111,7 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
                 monthlyPayment = calculatorMonthlyPayment(goalAmount, predictedPeriod, returnRate);
                 resultReturn = calculatorInterest(monthlyPayment, predictedPeriod, returnRate);
                 resultPrincipal = monthlyPayment * predictedPeriod;
-                setListView(monthlyPayment, resultPrincipal, resultReturn);
+                setCardView(monthlyPayment, resultPrincipal, resultReturn);
             }
         }
         else {
@@ -127,34 +119,18 @@ public class InvestmentSecondActivity extends BaseFragmentActivity {
         }
     }
 
-    public Map<String,?> createItem(String title, String contents) {
-        Map<String,String> item = new HashMap<>();
-        item.put(FTConstants.ITEM_TITLE, title);
-        item.put(FTConstants.ITEM_CONTENTS, contents);
-        return item;
-    }
+    public void setCardView(double monthlyPayment, double principal, double resultReturn) {
+        TextView monthlyPaymentTextView = (TextView) findViewById(R.id.monthlyPaymentTextView);
+        TextView principalTextView = (TextView) findViewById(R.id.principalTextView);
+        TextView resultReturnTextView = (TextView) findViewById(R.id.resultReturnTextView);
 
-    public void setListView(double monthlyPayment, double principal, double resultReturn) {
         String monthlyPaymentString = mParse.addComma(monthlyPayment) + "원";
         String principalString = mParse.addComma(principal) + "원";
         String resultReturnString = mParse.addComma(resultReturn) + "원";
 
-        List<Map<String,?>> resultList = new LinkedList<>();
-        resultList.add(createItem("월 납입액", monthlyPaymentString));
-        resultList.add(createItem("총 납입액", principalString));
-        resultList.add(createItem("총 수익액", resultReturnString));
-
-        // create our list and custom adapter
-        InvestmentListViewAdapter adapter = new InvestmentListViewAdapter(this);
-
-        String[] from = { FTConstants.ITEM_TITLE, FTConstants.ITEM_CONTENTS };
-        int[] to = new int[] {R.id.investmentResultTitle, R.id.investmentResultContents};
-
-        adapter.addSection("계산결과", new SimpleAdapter(this, resultList,
-                R.layout.listview_investment_row, from, to));
-
-        ListView list = (ListView) findViewById(R.id.investmentResultListView);
-        list.setAdapter(adapter);
+        monthlyPaymentTextView.setText(monthlyPaymentString);
+        principalTextView.setText(principalString);
+        resultReturnTextView.setText(resultReturnString);
     }
 
     public double calculatorMonthlyPayment(double goalAmount, double period, double yearlyRate) {

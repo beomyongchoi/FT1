@@ -11,23 +11,17 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.oooobang.library.OBParse;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 import kr.co.fintalk.fintalkone.common.ClearEditText;
 import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
-import kr.co.fintalk.fintalkone.common.FTConstants;
 import kr.co.fintalk.fintalkone.ui.debt.detail.DebtThirdDetailActivity;
 
 /**
@@ -99,7 +93,7 @@ public class DebtThirdActivity extends BaseFragmentActivity {
         mDetailScheduleButton = (Button) findViewById(R.id.detailScheduleButton);
         mDetailScheduleButton.setVisibility(View.INVISIBLE);
 
-        setListView(0);
+        setCardView(0);
     }
 
     public void calculateDebtOnClick(View view) {
@@ -125,7 +119,7 @@ public class DebtThirdActivity extends BaseFragmentActivity {
                 mInterestRateEditText.clearFocus();
                 mMonthlyRepayment = calculatorMonthlyPayment(principal, interestRate);
                 calculatorInterest(principal, interestRate);
-                setListView(principal);
+                setCardView(principal);
                 mDetailScheduleButton.setVisibility(View.VISIBLE);
             }
         }
@@ -134,35 +128,20 @@ public class DebtThirdActivity extends BaseFragmentActivity {
         }
     }
 
-    public Map<String,?> createItem(String title, String contents) {
-        Map<String,String> item = new HashMap<>();
-        item.put(FTConstants.ITEM_TITLE, title);
-        item.put(FTConstants.ITEM_CONTENTS, contents);
-        return item;
-    }
+    public void setCardView(double principal) {
+        TextView monthlyRepaymentTextView = (TextView) findViewById(R.id.monthlyRepaymentTextView);
+        TextView totalInterestTextView = (TextView) findViewById(R.id.totalInterestTextView);
+        TextView totalRepaymentTextView = (TextView) findViewById(R.id.totalRepaymentTextView);
 
-    public void setListView(double principal) {
         double totalInterest = sumOfTotalInterest(mMonthlyInterest);
+
         String monthlyRepaymentString = mParse.addComma(mMonthlyRepayment) + "원";
         String totalInterestString = mParse.addComma(totalInterest) + "원";
-        String totalAmountString = mParse.addComma(principal + totalInterest) + "원";
+        String totalRepaymentString = mParse.addComma(principal + totalInterest) + "원";
 
-        List<Map<String,?>> resultList = new LinkedList<>();
-        resultList.add(createItem("월 상환금", monthlyRepaymentString));
-        resultList.add(createItem("총 이자", totalInterestString));
-        resultList.add(createItem("총 상환금액", totalAmountString));
-
-        // create our list and custom adapter
-        DebtListViewAdapter adapter = new DebtListViewAdapter(this);
-
-        String[] from = { FTConstants.ITEM_TITLE, FTConstants.ITEM_CONTENTS };
-        int[] to = new int[] {R.id.debtResultTitle, R.id.debtResultContents};
-
-        adapter.addSection("계산결과", new SimpleAdapter(this, resultList,
-                R.layout.listview_debt_row, from, to));
-
-        ListView list = (ListView) findViewById(R.id.debtResultListView);
-        list.setAdapter(adapter);
+        monthlyRepaymentTextView.setText(monthlyRepaymentString);
+        totalInterestTextView.setText(totalInterestString);
+        totalRepaymentTextView.setText(totalRepaymentString);
     }
     
     public double calculatorMonthlyPayment(double principal, double rate){

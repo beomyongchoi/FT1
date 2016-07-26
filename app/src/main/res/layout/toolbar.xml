@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
     android:background="@color/colorPrimary500"
     app:contentInsetStart="@dimen/dp0">
 
@@ -13,17 +12,16 @@
 
         <ImageView
             android:id="@+id/toolbarBackButton"
-            android:layout_width="@dimen/dp28"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp8"
-            android:layout_marginStart="@dimen/dp8"
+            android:layout_width="@dimen/dp52"
+            android:layout_height="?attr/actionBarSize"
+            android:padding="@dimen/dp8"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_arrow_left" />
 
         <TextView
             android:id="@+id/toolbarTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/defaultWhite"

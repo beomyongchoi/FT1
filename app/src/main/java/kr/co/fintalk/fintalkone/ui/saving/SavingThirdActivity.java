@@ -12,22 +12,15 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.oooobang.library.OBParse;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 import kr.co.fintalk.fintalkone.common.ClearEditText;
 import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
-import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/27/16
@@ -57,7 +50,9 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         titleTextView.setText(R.string.saving_deposit);
         titleTextView.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/GodoM.otf"));
 
-        toolbar.findViewById(R.id.toolbarBackButton).setOnClickListener(new View.OnClickListener() {
+        ImageView toolbarBackButton = (ImageView) findViewById(R.id.toolbarBackButton);
+
+        toolbarBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -70,7 +65,7 @@ public class SavingThirdActivity extends BaseFragmentActivity {
 
         mDepositAmountEditText.setWon(true);
         mDepositPeriodEditText.setPeriod(true);
-        mDepositAmountEditText.setSaving(true);
+        mDepositPeriodEditText.setSaving(true);
         mInterestRateEditText.setRate(true);
 
         mDepositAmountEditText.init();
@@ -93,7 +88,7 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         });
 
         setResultHeader("원");
-        setListView(0, 0);
+        setCardView(0, 0);
     }
 
     public void interestTypeOnClick(View view) {
@@ -135,18 +130,11 @@ public class SavingThirdActivity extends BaseFragmentActivity {
             mInterestRateEditText.clearFocus();
             resultInterest = calculatorInterest(depositAmount, depositPeriod, interestRate);
             setResultHeader(mParse.addComma(depositAmount) + "원");
-            setListView(depositAmount, resultInterest);
+            setCardView(depositAmount, resultInterest);
         }
         else {
             showToast(R.string.all_fields_required_toast, 2);
         }
-    }
-
-    public Map<String,?> createItem(String title, String contents) {
-        Map<String,String> item = new HashMap<>();
-        item.put(FTConstants.ITEM_TITLE, title);
-        item.put(FTConstants.ITEM_CONTENTS, contents);
-        return item;
     }
 
     public void setResultHeader(String principal) {
@@ -159,7 +147,19 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         amountTextView.setText(principal);
     }
 
-    public void setListView(double principal, double taxFreeInterest) {
+    public void setCardView(double principal, double taxFreeInterest) {
+        TextView taxGeneralAmountTextView = (TextView) findViewById(R.id.taxGeneralAmount);
+        TextView taxGeneralInterestTextView = (TextView) findViewById(R.id.taxGeneralInterest);
+        TextView taxGeneralTextView = (TextView) findViewById(R.id.taxGeneral);
+
+        TextView taxBreaksAmountTextView = (TextView) findViewById(R.id.taxBreaksAmount);
+        TextView taxBreaksInterestTextView = (TextView) findViewById(R.id.taxBreaksInterest);
+        TextView taxBreaksTextView = (TextView) findViewById(R.id.taxBreaks);
+
+        TextView taxFreeAmountTextView = (TextView) findViewById(R.id.taxFreeAmount);
+        TextView taxFreeInterestTextView = (TextView) findViewById(R.id.taxFreeInterest);
+        TextView taxFreeTextView = (TextView) findViewById(R.id.taxFree);
+
         double taxGeneralInterest, taxBreaksInterest;
         double taxGeneral, taxBreaks;
 
@@ -170,47 +170,29 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         taxBreaks = taxFreeInterest*.095;
 
         //일반과세
-        String taxGeneralAmountString = mParse.addComma(principal + taxGeneralInterest) + "원";
-        String taxGeneralInterestString = mParse.addComma(taxGeneralInterest) + "원";
-        String taxGeneralString = mParse.addComma(taxGeneral) + "원";
+        String taxGeneralAmountString = mParse.addComma(principal + taxGeneralInterest) + " 원";
+        String taxGeneralInterestString = mParse.addComma(taxGeneralInterest) + " 원";
+        String taxGeneralString = mParse.addComma(taxGeneral) + " 원";
         //세금우대
-        String taxBreaksAmountString = mParse.addComma(principal + taxBreaksInterest) + "원";
-        String taxBreaksInterestString = mParse.addComma(taxBreaksInterest) + "원";
-        String taxBreaksString = mParse.addComma(taxBreaks) + "원";
+        String taxBreaksAmountString = mParse.addComma(principal + taxBreaksInterest) + " 원";
+        String taxBreaksInterestString = mParse.addComma(taxBreaksInterest) + " 원";
+        String taxBreaksString = mParse.addComma(taxBreaks) + " 원";
         //비과세
-        String taxFreeAmountString = mParse.addComma(principal + taxFreeInterest) + "원";
-        String taxFreeInterestString = mParse.addComma(taxFreeInterest) + "원";
+        String taxFreeAmountString = mParse.addComma(principal + taxFreeInterest) + " 원";
+        String taxFreeInterestString = mParse.addComma(taxFreeInterest) + " 원";
+        String taxFreeString = "0 원";
 
-        List<Map<String,?>> taxGeneralList = new LinkedList<>();
-        taxGeneralList.add(createItem("만기지급액", taxGeneralAmountString));
-        taxGeneralList.add(createItem("세후이자", taxGeneralInterestString));
-        taxGeneralList.add(createItem("세금", taxGeneralString));
+        taxGeneralAmountTextView.setText(taxGeneralAmountString);
+        taxGeneralInterestTextView.setText(taxGeneralInterestString);
+        taxGeneralTextView.setText(taxGeneralString);
 
-        List<Map<String,?>> taxBreaksList = new LinkedList<>();
-        taxBreaksList.add(createItem("만기지급액", taxBreaksAmountString));
-        taxBreaksList.add(createItem("세후이자", taxBreaksInterestString));
-        taxBreaksList.add(createItem("세금", taxBreaksString));
+        taxBreaksAmountTextView.setText(taxBreaksAmountString);
+        taxBreaksInterestTextView.setText(taxBreaksInterestString);
+        taxBreaksTextView.setText(taxBreaksString);
 
-        List<Map<String,?>> taxFreeList = new LinkedList<>();
-        taxFreeList.add(createItem("만기지급액", taxFreeAmountString));
-        taxFreeList.add(createItem("세후이자", taxFreeInterestString));
-        taxFreeList.add(createItem("세금", "0원"));
-
-        // create our list and custom adapter
-        SavingListViewAdapter adapter = new SavingListViewAdapter(this);
-
-        String[] from = { FTConstants.ITEM_TITLE, FTConstants.ITEM_CONTENTS };
-        int[] to = new int[] {R.id.savingResultTitle, R.id.savingResultContents};
-
-        adapter.addSection("일반과세", new SimpleAdapter(this, taxGeneralList,
-                R.layout.listview_saving_row, from, to));
-        adapter.addSection("세금우대", new SimpleAdapter(this, taxBreaksList,
-                R.layout.listview_saving_row, from, to));
-        adapter.addSection("비과세", new SimpleAdapter(this, taxFreeList,
-                R.layout.listview_saving_row, from, to));
-
-        ListView list = (ListView) findViewById(R.id.savingResultListView);
-        list.setAdapter(adapter);
+        taxFreeAmountTextView.setText(taxFreeAmountString);
+        taxFreeInterestTextView.setText(taxFreeInterestString);
+        taxFreeTextView.setText(taxFreeString);
     }
 
     public double calculatorInterest(double payment, double period, double yearlyRate) {
