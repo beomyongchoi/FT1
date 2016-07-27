@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.tsengvn/Typekit/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="bbf90181fea46399a9e3d0f4326883a505f71952">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.tsengvn-Typekit-1.0.0_29b2a428f6bfa3957ef14a8c36c48274ebbf1b41.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.4.0_0a7fcfcf60b6a13763511df340d743bc6b287866.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/internal_impl-23.4.0_579cc1a45f98224c7233c78fdac416138c253ae9.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_3d87b625e243e636d0f71fbb3f1f98a8787ef239.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.wang.avi/library/1.0.5/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="5035aaf60d244038bb143ffad4fbb7cba92ecdc7">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.wang.avi-library-1.0.5_25944b54be57b7e4383c5c483c76f726faa806d5.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.4.0_94ac66f054909d2f5da401eebd4d9c962794e33f.jar" />
+    </item>
+    <item
+        jar="/Users/by/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/library-2.4.0_f3de71f481290f02031d2779745a886a13945823.jar" />
+    </item>
+    <item
+        jar="/Users/by/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_a8c2a7f9c378d4d3b9d8d172fbecaf2a615b69ae.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.4.0_57c463729c5cdebe9afbfa5dad8ba0deb4138b63.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.android.support-multidex-1.0.1_4529695c2f21aec995b0c91836adf66e6a2fdd16.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/FintalkOne/oooobangLibrary/unspecified/oooobangLibraryDebug/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="eb3966e47e38c9181f2295bcc116ad43058cce6f">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/oooobangLibrary-unspecified-oooobangLibraryDebug_6904fbc4f9a5c66bf3b9c4e48b03a1c0b1083a96.jar" />
+    </item>
+    <item
+        jar="/Users/by/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v2.2.5/e135072797f494a3b6cb10640dd8c6495261b9ac/MPAndroidChart-v2.2.5.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="e135072797f494a3b6cb10640dd8c6495261b9ac">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/MPAndroidChart-v2.2.5_df9805afb07d37a9b05c4a32c86e451e2e8caa85.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.4.0_6bed144416ac67117eb8f1ac553acd9d2bc11473.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.4.0_ed5fd3b408e84dcc6dde79fc96d716fba01d88b2.jar" />
+    </item>
+    <item
+        jar="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/exploded-aar/com.android.support/design/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="/Users/by/AndroidStudioProjects/FintalkOne/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.4.0_ae0e24dff72b37b8668111932a07f5cdcadf5ac5.jar" />
+    </item>
+
+</items>
