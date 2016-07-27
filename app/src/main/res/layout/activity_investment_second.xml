@@ -143,7 +143,7 @@
                 <TextView
                     android:layout_width="@dimen/dp0"
                     android:layout_height="wrap_content"
-                    android:text="@string/result_amount"
+                    android:text="@string/monthly_investment_amount"
                     android:textSize="@dimen/sp16"
                     android:layout_weight="1"/>
 
@@ -164,7 +164,7 @@
                 <TextView
                     android:layout_width="@dimen/dp0"
                     android:layout_height="wrap_content"
-                    android:text="@string/principal"
+                    android:text="@string/total_investment"
                     android:textSize="@dimen/sp16"
                     android:layout_weight="1"/>
 
