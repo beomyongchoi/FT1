@@ -110,12 +110,12 @@
             android:onClick="calculateDebtOnClick"
             android:id="@+id/calculatorButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp50"
             android:layout_marginTop="@dimen/dp8"
             android:text="@string/calculate"
             android:textColor="@color/defaultWhite"
             android:gravity="center"
-            android:background="@color/defaultButton"/>
+            android:theme="@style/DefaultButton"/>
     </LinearLayout>
 
     <android.support.v7.widget.CardView

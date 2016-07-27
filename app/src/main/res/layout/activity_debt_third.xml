@@ -110,12 +110,12 @@
             android:onClick="calculateDebtOnClick"
             android:id="@+id/calculatorButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/dp50"
             android:layout_marginTop="@dimen/dp8"
             android:text="@string/calculate"
             android:textColor="@color/defaultWhite"
             android:gravity="center"
-            android:background="@color/defaultButton"/>
+            android:theme="@style/DefaultButton"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -210,7 +210,7 @@
             android:onClick="detailScheduleOnClick"
             android:id="@+id/detailScheduleButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp50"
+            android:layout_height="@dimen/dp45"
             android:layout_marginTop="@dimen/dp4"
             android:layout_marginLeft="@dimen/dp16"
             android:layout_marginRight="@dimen/dp16"
@@ -219,7 +219,7 @@
             android:textColor="@color/defaultButton"
             android:gravity="center"
             android:background="@drawable/rounded_button"
-            style="@style/Widget.AppCompat.Button.Borderless"/>
+            android:theme="@style/ScheduleButton"/>
     </RelativeLayout>
 
 </RelativeLayout>

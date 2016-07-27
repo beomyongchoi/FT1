@@ -44,6 +44,8 @@ public class DebtSecondActivity extends BaseFragmentActivity {
     public double mPrincipal;
     public double mMonthlyRepayment;
     ArrayList<Double> mMonthlyInterest = new ArrayList<>();
+    ArrayList<Double> mPrincipalSum = new ArrayList<>();
+    ArrayList<Double> mRemainingDebt = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,14 +114,14 @@ public class DebtSecondActivity extends BaseFragmentActivity {
                 && repaymentPeriodString.length() != 0
                 && interestRateString.length() != 0) {
             if (mPeriod < 12) {
-                showToast(R.string.period_debt_toast, 2);
+                showToast(R.string.minimum_debt_period_toast, 2);
             } else {
                 inputMethodManager.hideSoftInputFromWindow(mInterestRateEditText.getWindowToken(), 0);
                 mPrincipalEditText.clearFocus();
                 mRepaymentPeriodEditText.clearFocus();
                 mInterestRateEditText.clearFocus();
                 mMonthlyRepayment = mPrincipal / mPeriod;
-                calculatorInterest(mPrincipal, interestRate);
+                calculateInterest(mPrincipal, interestRate);
                 setCardView(mPrincipal);
                 mDetailScheduleButton.setVisibility(View.VISIBLE);
             }
@@ -145,12 +147,20 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         totalRepaymentTextView.setText(totalRepaymentString);
     }
 
-    public void calculatorInterest(double principal, double yearlyRate) {
+    public void calculateInterest(double principal, double yearlyRate) {
         double monthlyRate = yearlyRate / 1200;
         mMonthlyInterest.clear();
-        for(int index = 0; index < mPeriod; index++) {
-            mMonthlyInterest.add(index, principal * monthlyRate);
-            principal -= mMonthlyRepayment;
+        mPrincipalSum.clear();
+        mRemainingDebt.clear();
+
+        mMonthlyInterest.add(0, principal * monthlyRate);
+        mPrincipalSum.add(0, mMonthlyRepayment);
+        mRemainingDebt.add(0, principal - mMonthlyRepayment);
+
+        for(int index = 1; index < mPeriod; index++) {
+            mMonthlyInterest.add(index, mRemainingDebt.get(index - 1) * monthlyRate);
+            mPrincipalSum.add(index, mPrincipalSum.get(index - 1) + mMonthlyRepayment);
+            mRemainingDebt.add(index, mRemainingDebt.get(index - 1) - mMonthlyRepayment);
         }
     }
 
@@ -161,6 +171,8 @@ public class DebtSecondActivity extends BaseFragmentActivity {
         intent.putExtra("principal", mPrincipal);
         intent.putExtra("monthlyRepayment", mMonthlyRepayment);
         intent.putExtra("monthlyInterest", mMonthlyInterest);
+        intent.putExtra("principalSum", mPrincipalSum);
+        intent.putExtra("remainingDebt", mRemainingDebt);
         startActivity(intent);
     }
 

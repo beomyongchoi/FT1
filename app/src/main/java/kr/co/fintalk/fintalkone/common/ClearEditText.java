@@ -8,8 +8,10 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -20,6 +22,7 @@ import kr.co.fintalk.fintalkone.R;
  * Created by BeomyongChoi on 6/29/16
  */
 public class ClearEditText extends AppCompatEditText implements TextWatcher, View.OnTouchListener, View.OnFocusChangeListener {
+    public Toast mToast;
 
     private Drawable clearDrawable;
     private Drawable wonDrawable;
@@ -162,9 +165,10 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
             }
 
             /*** Now the number of digits in price is limited to 12 ***/
-            String value = s.toString().replaceAll(",", "").replace("원", "");
+            String value = s.toString().replaceAll(",", "");
             if (value.length() > 12) {
                 value = value.substring(0, 12);
+                showToast(R.string.maximum_value_toast, 1);
             }
             String formattedPrice = getFormattedCurrency(value);
             if (!(formattedPrice.equalsIgnoreCase(s.toString()))) {
@@ -177,19 +181,25 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
             }
         } else if (isPeriod) {
             if (s.toString().length() > 0 && isSaving) {
-                if (Integer.parseInt(s.toString()) > 36) {
-                    setText(mReplaceText);
-                    setSelection(mReplaceText.length() - 1);
-                }
-            }
-            else if (s.toString().length() > 0 && !isSaving) {
                 if (Integer.parseInt(s.toString()) > 360) {
                     setText(mReplaceText);
                     setSelection(mReplaceText.length() - 1);
+                    showToast(R.string.maximum_saving_period_toast, 1);
+                }
+            }
+            else if (s.toString().length() > 0 && !isSaving) {
+                if (Integer.parseInt(s.toString()) > 600) {
+                    setText(mReplaceText);
+                    setSelection(mReplaceText.length() - 1);
+                    showToast(R.string.maximum_not_saving_period_toast, 1);
                 }
             }
         } else if (isRate) {
             if (s.toString().length() > 0) {
+                DecimalFormat decimalFormat = new DecimalFormat("0.###");
+                double fraction;
+                fraction = Double.parseDouble(s.toString()) % 1;
+                String fractionString = decimalFormat.format(fraction);
                 if (s.toString().equals(".")) {
                     setText("0.");
                     setSelection(2);
@@ -197,6 +207,12 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
                 else if (Double.parseDouble(s.toString()) >= 100) {
                     setText(mReplaceText);
                     setSelection(mReplaceText.length() - 1);
+                    showToast(R.string.maximum_interest_toast, 1);
+                }
+                else if (fractionString.length() > 4) {
+                    setText(mReplaceText);
+                    setSelection(mReplaceText.length() - 1);
+                    showToast(R.string.maximum_fraction_length_toast, 1);
                 }
             }
         }
@@ -241,5 +257,15 @@ public class ClearEditText extends AppCompatEditText implements TextWatcher, Vie
             e.printStackTrace();
         }
         return "";
+    }
+
+    public void showToast(int resourceId, int duration) {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+        mToast = Toast.makeText(getRootView().getContext(),
+                resourceId,
+                duration);
+        mToast.show();
     }
 }

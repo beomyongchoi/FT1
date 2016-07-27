@@ -52,7 +52,10 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
     public int mIndex;
     public int mPrincipal;
     public int mMonthlyRepayment;
+
     ArrayList<Double> mMonthlyInterest;
+    ArrayList<Double> mPrincipalSum = new ArrayList<>();
+    ArrayList<Double> mRemainingDebt = new ArrayList<>();
 
     private LineChart mChart;
     private ProgressBar mProgressBar;
@@ -86,6 +89,8 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         mPrincipal = mParse.toInt(intent.getExtras().getDouble("principal"));
         mMonthlyRepayment = mParse.toInt(intent.getExtras().getDouble("monthlyRepayment"));
         mMonthlyInterest = (ArrayList<Double>) intent.getSerializableExtra("monthlyInterest");
+        mPrincipalSum = (ArrayList<Double>) intent.getSerializableExtra("principalSum");
+        mRemainingDebt = (ArrayList<Double>) intent.getSerializableExtra("remainingDebt");
 
         mIndexTextView = (TextView) findViewById(R.id.indexTextView);
 
@@ -135,18 +140,17 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
         int id = index + 1;
         String payment = mParse.addComma(mMonthlyRepayment + mMonthlyInterest.get(index)) + "원";
         String principalPayment;
-        String principalSum;
         if (index == mIndex - 1) {
             principalPayment = mParse.addComma(mPrincipal - mMonthlyRepayment * index) + "원";
-            principalSum = mParse.addComma(mPrincipal) + "원";
         }
         else {
             principalPayment = mParse.addComma(mMonthlyRepayment) + "원";
-            principalSum = mParse.addComma(mMonthlyRepayment * id) + "원";
+
         }
+        String principalSum = mParse.addComma(mPrincipalSum.get(index)) + "원";
         String interest = mParse.addComma(mMonthlyInterest.get(index)) + "원";
 
-        String remainingDebt = mParse.addComma(mMonthlyRepayment * (mIndex - id)) + "원";
+        String remainingDebt = mParse.addComma(mRemainingDebt.get(index)) + "원";
 
         List<Map<String, ?>> resultList = new LinkedList<>();
         resultList.add(createItem("상환금", payment));
@@ -179,7 +183,7 @@ public class DebtSecondDetailActivity extends BaseFragmentActivity implements On
                 principalEntries.add(new Entry((float) (mPrincipal - mMonthlyRepayment * index),index));
             else
                 principalEntries.add(new Entry((float) (mMonthlyRepayment),index));
-            remainingDebtEntries.add(new Entry((float) (mMonthlyRepayment * (mIndex - index - 1)),index));
+            remainingDebtEntries.add(new Entry((mRemainingDebt.get(index).floatValue()),index));
             labels.add(index + 1 + "");
         }
 

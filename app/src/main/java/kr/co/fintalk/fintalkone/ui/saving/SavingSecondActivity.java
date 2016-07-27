@@ -17,14 +17,10 @@ import android.widget.TextView;
 
 import com.oooobang.library.OBParse;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import kr.co.fintalk.fintalkone.R;
 import kr.co.fintalk.fintalkone.common.BaseFragmentActivity;
 import kr.co.fintalk.fintalkone.common.ClearEditText;
 import kr.co.fintalk.fintalkone.common.DecimalDigitsInputFilter;
-import kr.co.fintalk.fintalkone.common.FTConstants;
 
 /**
  * Created by BeomyongChoi on 6/23/16
@@ -146,13 +142,6 @@ public class SavingSecondActivity extends BaseFragmentActivity {
         }
     }
 
-    public Map<String,?> createItem(String title, String contents) {
-        Map<String,String> item = new HashMap<>();
-        item.put(FTConstants.ITEM_TITLE, title);
-        item.put(FTConstants.ITEM_CONTENTS, contents);
-        return item;
-    }
-
     public void setResultHeader(String goalAmount) {
         TextView titleTextView = (TextView) findViewById(R.id.resultTitleTextView);
         TextView captionTextView = (TextView) findViewById(R.id.resultCaptionTextView);
@@ -236,9 +225,9 @@ public class SavingSecondActivity extends BaseFragmentActivity {
         double monthlyMultiplier = Math.pow(monthlyRoot, period) - 1;
         double yearlyMultiplier = Math.pow(yearlyRoot, yearlyPeriod) - yearlyConstant;
 
+        double simpleDivisorTaxFree = paymentCountMonthly * monthlyRate + period;
         double simpleDivisorTaxGeneral = paymentCountMonthly * monthlyRate * taxGeneralRate + period;
         double simpleDivisorTaxBreaks = paymentCountMonthly * monthlyRate * taxBreaksRate + period;
-        double simpleDivisorTaxFree = paymentCountMonthly * monthlyRate + period;
 
         double monthlyDivisorTaxFree = monthlyRoot * monthlyMultiplier / monthlyRate;
         double monthlyDivisorTaxGeneral = (monthlyDivisorTaxFree - period) * taxGeneralRate + period;
@@ -250,13 +239,13 @@ public class SavingSecondActivity extends BaseFragmentActivity {
 
         switch (mInterestType) {
             case 0: // 단리
-                mMonthlyPaymentTaxGeneral = goalAmount/ simpleDivisorTaxGeneral;
+                mMonthlyPaymentTaxGeneral = goalAmount / simpleDivisorTaxGeneral;
                 mMonthlyPaymentTaxBreaks = goalAmount / simpleDivisorTaxBreaks;
                 mMonthlyPaymentTaxFree = goalAmount / simpleDivisorTaxFree;
                 break;
             case 1: // 월복리
-                mMonthlyPaymentTaxGeneral = goalAmount /monthlyDivisorTaxGeneral;
-                mMonthlyPaymentTaxBreaks = goalAmount /monthlyDivisorTaxBreaks;
+                mMonthlyPaymentTaxGeneral = goalAmount / monthlyDivisorTaxGeneral;
+                mMonthlyPaymentTaxBreaks = goalAmount / monthlyDivisorTaxBreaks;
                 mMonthlyPaymentTaxFree = goalAmount / monthlyDivisorTaxFree;
                 break;
             case 2: // 연복리

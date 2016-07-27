@@ -99,7 +99,7 @@ public class InvestmentThirdActivity extends BaseFragmentActivity {
                 && depositPeriodString.length() != 0
                 && returnRateString.length() != 0) {
             if (depositPeriod < 36) {
-                showToast(R.string.period_investment_toast, 2);
+                showToast(R.string.minimum_investment_period_toast, 2);
             }
             else {
                 inputMethodManager.hideSoftInputFromWindow(mReturnRateEditText.getWindowToken(), 0);

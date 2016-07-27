@@ -20,4 +20,12 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="DefaultButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/clickedButton</item>
+        <item name="colorButtonNormal">@color/defaultButton</item>
+    </style>
+
+    <style name="ScheduleButton" parent="Theme.AppCompat.Light">
+    </style>
+
 </resources>

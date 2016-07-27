@@ -21,6 +21,7 @@
     <color name="defaultContents">#666666</color>
     <color name="defaultDivider">@color/defaultGray200</color>
     <color name="defaultButton">#47CEE6</color>
+    <color name="clickedButton">#3FB9CF</color>
 
     <color name="defaultWhite">#ffffff</color>
     <color name="defaultBlack">#000000</color>
@@ -46,6 +47,7 @@
 
     <color name="defaultYellow">#F4BA05</color>
     <color name="defaultLightYellow">#F5EED2</color>
+    <color name="fintalkYellow">#FECD2F</color>
 
     <color name="defaultLightGreen">#CCD970</color>
 

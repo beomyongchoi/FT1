@@ -15,10 +15,10 @@
     <!-- 클릭했을 때 -->
     <item android:state_focused="false" android:state_pressed="true">
         <shape>
-            <solid android:color="@color/defaultWhite" />
+            <solid android:color="@color/defaultGray100" />
             <stroke
                 android:width="@dimen/dp1"
-                android:color="@color/defaultButton" />
+                android:color="@color/clickedButton" />
             <corners android:radius="@dimen/dp10" />
         </shape>
     </item>

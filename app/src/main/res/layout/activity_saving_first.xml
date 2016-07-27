@@ -26,10 +26,13 @@
                 android:id="@+id/savingLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp50"
                 android:padding="@dimen/dp16"
                 android:background="@color/defaultWhite"
                 android:orientation="vertical">
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -147,12 +150,13 @@
                     android:onClick="calculateSavingOnClick"
                     android:id="@+id/calculatorButton"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/dp50"
                     android:layout_marginTop="@dimen/dp8"
+                    android:layout_marginBottom="@dimen/dp8"
                     android:text="@string/calculate"
                     android:textColor="@color/defaultWhite"
                     android:gravity="center"
-                    android:background="@color/defaultButton"/>
+                    android:theme="@style/DefaultButton"/>
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar

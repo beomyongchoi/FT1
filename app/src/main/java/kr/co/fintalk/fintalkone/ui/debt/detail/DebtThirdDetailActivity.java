@@ -201,9 +201,8 @@ public class DebtThirdDetailActivity extends BaseFragmentActivity implements OnC
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setDrawGridLines(false);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setSpaceBetweenLabels(13);
-        xAxis.setAvoidFirstLastClipping(true);
+        xAxis.setDrawLabels(false);
+        xAxis.setDrawAxisLine(false);
 
         LineDataSet interestDataSet = new LineDataSet(interestEntries, "이자");
         interestDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);

@@ -73,7 +73,15 @@
 
     <!-- 토스트 -->
     <string name="all_fields_required_toast">모든 항목을 입력하세요</string>
-    <string name="period_investment_toast">기간을 36개월 이상으로 입력해주세요</string>
-    <string name="period_debt_toast">기간을 12개월 이상으로 입력해주세요</string>
+
+    <string name="minimum_investment_period_toast">기간을 36개월 이상으로 입력해주세요</string>
+    <string name="minimum_debt_period_toast">기간을 12개월 이상으로 입력해주세요</string>
+
+    <string name="maximum_saving_period_toast">최대기간은 360개월 입니다</string>
+    <string name="maximum_not_saving_period_toast">최대기간은 600개월 입니다</string>
+
+    <string name="maximum_value_toast">더 이상 입력하실 수 없습니다</string>
+    <string name="maximum_interest_toast">최대 이자율은 99.99%입니다</string>
+    <string name="maximum_fraction_length_toast">소수점 두자리까지 가능합니다</string>
 
 </resources>
