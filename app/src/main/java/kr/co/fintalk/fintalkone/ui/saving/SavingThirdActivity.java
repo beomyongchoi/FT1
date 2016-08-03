@@ -195,30 +195,24 @@ public class SavingThirdActivity extends BaseFragmentActivity {
         taxFreeTextView.setText(taxFreeString);
     }
 
-    public double calculatorInterest(double payment, double period, double yearlyRate) {
+    public double calculatorInterest(double depositAmount, double period, double yearlyRate) {
         yearlyRate /= 100;
         double monthlyRate = yearlyRate / 12;
-        double yearlyPeriod = (period + 1) / 12;
-        double paymentCountMonthly = period * (period + 1) / 2;
+        double yearlyPeriod = period / 12;
 
         double monthlyRoot = 1 + monthlyRate;
         double yearlyRoot = 1 + yearlyRate;
-        double principal = payment * period;
 
-        double yearlyConstant = Math.pow(yearlyRoot, 1.0 / 12);
-
-        double simpleMultiplier = paymentCountMonthly * monthlyRate;
-        double monthlyMultiplier = Math.pow(monthlyRoot, period) - 1;
-        double yearlyMultiplier = Math.pow(yearlyRoot, yearlyPeriod) - yearlyConstant;
-
+        double monthlyMultiplier = Math.pow(monthlyRoot, period);
+        double yearlyMultiplier = Math.pow(yearlyRoot, yearlyPeriod);
 
         switch (mInterestType) {
             case 0: // 단리
-                return payment * simpleMultiplier;
+                return depositAmount * period * monthlyRate;
             case 1: // 월복리
-                return payment * monthlyRoot * monthlyMultiplier / monthlyRate - principal;
+                return depositAmount * monthlyMultiplier - depositAmount;
             case 2: // 연복리
-                return payment * yearlyMultiplier / (yearlyConstant - 1) - principal;
+                return depositAmount * yearlyMultiplier - depositAmount;
             default:// 오리
                 return 0;
         }
